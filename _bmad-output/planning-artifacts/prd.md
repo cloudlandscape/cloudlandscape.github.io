@@ -316,6 +316,49 @@ Ces journeys révèlent les capabilities clés nécessaires pour cloudlandscape:
 ## Web Application Specific Requirements
 
 ### Project-Type Overview
+
+cloudlandscape is a static Multi-Page Application (MPA) generated via Static Site Generation (SSG). All filtering and comparison operations run client-side. No server-side rendering or real-time data required — data is regenerated via CI and published via CD.
+
+### Browser Support Matrix
+
+| Browser | Desktop | Mobile |
+|---------|---------|--------|
+| Chrome | Last 2 versions | Last 2 versions |
+| Edge | Last 2 versions | Last 2 versions |
+| Safari | Last 2 versions | iOS Safari last 2 |
+| Firefox | Last 2 versions | Last 2 versions |
+
+Progressive enhancement: core content accessible on older browsers, advanced filtering degrades gracefully.
+
+### Responsive Design Targets
+
+- **Mobile first:** 320px minimum viewport width
+- **Breakpoints:** Mobile (<768px), Tablet (768px–1023px), Desktop (≥1024px)
+- **Touch targets:** Minimum 44×44px for interactive elements on mobile
+- **Navigation:** Collapsible/hamburger menu on mobile, full navigation on desktop
+
+### Performance Targets
+
+- **Page load:** <1.5s on 3G (Lighthouse measurement)
+- **Time to Interactive:** <3s on 3G
+- **First Contentful Paint:** <1s
+- **Client-side filtering:** <2s for datasets up to 100 providers
+- **Total page weight:** <500KB excluding images
+- **Lighthouse scores:** Performance >90, Accessibility >95, Best Practices >90, SEO >95
+- **GreenIT:** DOM <1500 nodes, no unnecessary animations, JS bundle <100KB gzipped
+
+### SEO Strategy
+
+- **Target keywords:** "cloud providers", "souveraineté cloud", "hyperscalers", "cloud providers listing", "liste cloud providers", "comparaison cloud providers", "cloud providers comparison", "european clouds", "french clouds", "clouds européens", "clouds français", "alternative AWS", "alternative GCP", "alternative Azure"
+- **Technical SEO:** XML sitemap, canonical URLs, structured data (Schema.org), hreflang tags (FR/EN)
+- **Content SEO:** Keyword-rich provider descriptions, certification explainer pages, comparison pages with dynamic URLs
+- **Indexable pages:** Homepage, provider listings, individual provider pages, comparison pages, certification pages
+
+### Accessibility Level
+
+- **Standard:** RGAA 4 Niveau AA (aligned with WCAG 2.1 AA)
+- **Testing:** Automated (axe-core, WAVE) integrated in CI + manual audit
+- **Requirements:** Keyboard navigation, screen reader support, color contrast ≥4.5:1, focus indicators, skip navigation, ARIA landmarks, alternative text for images
 ## Project Scoping & Phased Development
 
 ### MVP Strategy & Philosophy
@@ -533,7 +576,7 @@ cloudlandscape follows a lean, problem-solving MVP approach focused on deliverin
 
 ### Provider Information Display
 
-- **FR9:** Users can view detailed information for each cloud provider
+- **FR9:** Users can view detailed information for each cloud provider (name, description, country, headquarters, services, certifications, datacenter locations, official website)
 - **FR10:** Users can view a provider's available services mapped to the unified taxonomy
 - **FR11:** Users can view a provider's certifications with attestation status
 - **FR12:** Users can view a provider's datacenter locations
@@ -555,7 +598,7 @@ cloudlandscape follows a lean, problem-solving MVP approach focused on deliverin
 - **FR22:** Users can switch between French and English language versions
 - **FR23:** All provider listings are available in both French and English
 - **FR24:** All UI elements and navigation are translated in both languages
-- **FR25:** Users' language preference persists across browsing sessions
+- **FR25:** Users' language preference persists across browsing sessions via client-side storage
 
 ### Contribution Workflow
 
@@ -600,7 +643,7 @@ cloudlandscape follows a lean, problem-solving MVP approach focused on deliverin
 - **FR52:** Screen reader users can access all content and functionality
 - **FR53:** Users can view content with sufficient color contrast (WCAG 2.1 AA)
 - **FR54:** Users can access skip navigation links
-- **FR55:** Users can read content structure without CSS styling
+- **FR55:** Users can read content structure via semantic HTML elements without reliance on CSS styling
 - **FR56:** Users receive clear focus indicators on interactive elements
 
 ### Responsive Design
@@ -608,7 +651,7 @@ cloudlandscape follows a lean, problem-solving MVP approach focused on deliverin
 - **FR57:** Users can access full functionality on mobile devices (320px+)
 - **FR58:** Users can access full functionality on tablet devices (768px+)
 - **FR59:** Users can access full functionality on desktop devices (1024px+)
-- **FR60:** Users experience consistent functionality across all device sizes
+- **FR60:** Users can access the same features and content across all supported device sizes (mobile, tablet, desktop)
 - **FR61:** Users see optimized layouts appropriate for their screen size
 
 ### Performance & Optimization
