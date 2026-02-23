@@ -28,7 +28,7 @@ workflow_status:
   product-brief: _bmad-output/planning-artifacts/product-brief-cloudlandscape-20260121.md
   
   # Phase 2 - Planning (Required)
-  prd: required
+  prd: _bmad-output/planning-artifacts/prd.md
   create-ux-design: conditional
   
   # Phase 3 - Solutioning (Required)
