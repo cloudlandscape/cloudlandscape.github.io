@@ -32,7 +32,7 @@ workflow_status:
   create-ux-design: conditional
   
   # Phase 3 - Solutioning (Required)
-  create-architecture: required
+  create-architecture: _bmad-output/planning-artifacts/architecture.md
   create-epics-and-stories: required
   test-design: optional
   implementation-readiness: required
