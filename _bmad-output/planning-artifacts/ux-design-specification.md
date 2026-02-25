@@ -1,5 +1,5 @@
 ---
-stepsCompleted: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+stepsCompleted: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
 inputDocuments:
   - '_bmad-output/planning-artifacts/product-brief-cloudlandscape-20260121.md'
   - '_bmad-output/planning-artifacts/prd.md'
@@ -728,3 +728,183 @@ Six design directions were created and evaluated through an interactive HTML sho
 - `.compare-table` — Direction E table, reused identically on all breakpoints with responsive overflow
 - `.cert-badge` — Identical across all directions and pages
 - `.result-count` — Same component in sidebar (A), active filter bar (B-style on tablet), and mobile (F)
+
+## User Journey Flows
+
+### Journey 1: Jérôme — Provider Discovery & Comparison
+
+**Goal:** Find compliant cloud providers matching specific criteria in <10 minutes and produce a shareable comparison.
+
+**Entry point:** Direct URL, Google search "cloud provider HDS France", or colleague recommendation.
+
+```mermaid
+flowchart TD
+    A[Landing on cloudlandscape] --> B{First visit?}
+    B -->|Yes| C[Read value proposition<br/>< 10 seconds comprehension]
+    B -->|No| D[Go directly to filters]
+    C --> D
+
+    D --> E[View all providers<br/>alphabetical, unfiltered]
+    E --> F[Click service filter<br/>e.g. Kubernetes]
+
+    F --> G[Results update instantly<br/>Result count: X of Y providers]
+    G --> H{Satisfied with results?}
+
+    H -->|Too many| I[Add certification filter<br/>e.g. HDS]
+    I --> G
+    H -->|Too few| J[Remove a filter<br/>click active tag to deselect]
+    J --> G
+    H -->|Zero results| K[See guidance message<br/>Suggest removing most restrictive filter]
+    K --> J
+
+    H -->|Good results| L[Scan provider cards<br/>name, country, services, certs]
+    L --> M{Discovery moment?}
+    M -->|Yes - unknown provider!| N[Click provider name<br/>→ provider detail page]
+    N --> O[Verify sources<br/>attestation links, official URLs]
+    O --> P[Return to listing<br/>back button]
+    M -->|No| P
+
+    P --> Q[Check compare boxes<br/>on 2-4 provider cards]
+    Q --> R[Click Compare button<br/>sticky, shows count]
+    R --> S[Comparison page loads<br/>/compare/?p=scaleway,ovh,outscale]
+
+    S --> T[Review aligned taxonomy table<br/>services + certifications + infra]
+    T --> U[Verify attestation links<br/>↗ icons on each cert]
+    U --> V[Copy comparison URL<br/>→ professional deliverable]
+
+    V --> W[Share with client/colleague]
+    V --> X[Bookmark cloudlandscape]
+```
+
+**Key interaction details:**
+
+| Step | Action | Feedback | Time |
+|------|--------|----------|------|
+| Land | Page loads | Full provider list visible, filters in sidebar | <1.5s |
+| Filter | Click tag | Tag becomes `.is-active`, results update, count changes | <2s |
+| Scan | Browse cards | Matched services highlighted, certs with ↗ icons | — |
+| Detail | Click provider | Full detail page with all data + sources | <1s |
+| Compare | Check 2-4 boxes | "Compare (3)" button appears sticky | instant |
+| Share | Click "Copy URL" | URL copied to clipboard, visual confirmation | instant |
+
+**Error recovery:**
+- Zero results → guidance message with filter removal suggestion
+- Back button from detail → returns to same filter state (URL preserves filters)
+- Comparison with 1 provider → disabled button, tooltip "Select at least 2"
+- Comparison with 5+ providers → disabled checkbox, tooltip "Maximum 4 providers"
+
+### Journey 2: Sarah — Exploration & Learning
+
+**Goal:** Explore the cloud provider ecosystem, discover alternatives to AWS/GCP/Azure, find free certification programs.
+
+**Entry point:** Professor mention in class, social media link, Google search "alternatives AWS cloud".
+
+```mermaid
+flowchart TD
+    A[Landing on cloudlandscape<br/>curious, no specific criteria] --> B[Read value proposition<br/>Understand it's a neutral reference]
+
+    B --> C[Browse all providers<br/>no filters applied, exploring]
+    C --> D[Notice service tags on cards<br/>Kubernetes, Compute, Storage...]
+
+    D --> E{Curious about a service?}
+    E -->|Yes| F[Click service filter tag<br/>e.g. Kubernetes]
+    F --> G[See which providers offer it<br/>Discovery: 8 providers have Kubernetes!]
+    E -->|No| H[Click a provider name<br/>random exploration]
+
+    G --> I[Click unfamiliar provider<br/>e.g. Exoscale, UpCloud]
+    I --> J[Read provider detail page<br/>services, country, datacenters, certs]
+    J --> K[Click official website link ↗<br/>explore provider site]
+    K --> L[Return to cloudlandscape<br/>back button]
+
+    H --> J
+
+    L --> M[Try different filter combinations<br/>exploring by country, by cert]
+    M --> N{Found interesting providers?}
+    N -->|Yes| O[Select 2-3 for comparison<br/>e.g. Scaleway vs AWS]
+    O --> P[Review comparison table<br/>see service equivalences]
+    P --> Q[Understand taxonomy<br/>S3 = Object Storage = Blob Storage]
+
+    N -->|No| M
+
+    Q --> R[Share cloudlandscape URL<br/>with classmates]
+    R --> S[Bookmark for future projects]
+```
+
+**Key differences from Jérôme:**
+- No initial filter criteria — Sarah explores freely
+- Discovery is the primary emotion, not efficiency
+- Learning the taxonomy is part of the value (S3 ≈ Object Storage)
+- Lower time pressure — can spend 20-30 minutes exploring
+- Sharing is social (classmates) not professional (client)
+
+### Journey 3: Marc — First Contribution
+
+**Goal:** Add a missing provider (Hetzner) to cloudlandscape via GitHub Pull Request.
+
+**Entry point:** Searches for "Hetzner" on cloudlandscape, finds nothing, notices "Contribute" link.
+
+```mermaid
+flowchart TD
+    A[Search for Hetzner<br/>on cloudlandscape] --> B[No results found]
+    B --> C[Click Contribute link<br/>in navigation]
+
+    C --> D[Read contribution guide<br/>bilingual FR/EN, clear steps]
+    D --> E{Feels achievable?}
+
+    E -->|Yes| F[Fork repository on GitHub]
+    E -->|No - too complex| G[Open GitHub Issue instead<br/>Request: Add Hetzner]
+
+    F --> H[Create provider file<br/>content/providers/hetzner/index.md]
+    H --> I[Fill YAML frontmatter<br/>using template from guide]
+    I --> J[Research provider data<br/>official site, certifications]
+    J --> K[Submit Pull Request<br/>with description]
+
+    K --> L[CI validates automatically<br/>schema check, link check]
+    L --> M{CI passes?}
+
+    M -->|Yes| N[Maintainer reviews<br/>within 48h target]
+    M -->|No| O[Read error messages<br/>clear validation feedback]
+    O --> P[Fix issues<br/>update PR]
+    P --> L
+
+    N --> Q{Review result?}
+    Q -->|Approved| R[PR merged!<br/>Site regenerates via CI/CD]
+    Q -->|Changes requested| S[Read review comments<br/>constructive feedback]
+    S --> P
+
+    R --> T[Hetzner appears on cloudlandscape<br/>next deploy]
+    T --> U[Share on LinkedIn<br/>Community pride moment]
+```
+
+**Key interaction details:**
+- Contribution guide must be accessible directly from navigation (not buried in footer)
+- YAML template with inline comments explains each field
+- CI error messages are human-readable, not stack traces
+- Alternative path: GitHub Issue for users who don't want to write YAML
+- Maintainer feedback is constructive and educational
+
+### Journey Patterns
+
+**Reusable patterns across all journeys:**
+
+| Pattern | Description | Used in |
+|---------|-------------|---------|
+| **Filter → Feedback loop** | Click tag → instant result update → result count change | Jérôme, Sarah |
+| **Progressive disclosure** | Overview card → detail page → external source | Jérôme, Sarah |
+| **URL as state** | Filters encoded in URL params, comparison in URL path | Jérôme, Sarah |
+| **Zero-result recovery** | Helpful message + actionable suggestion when no matches | Jérôme |
+| **Source verification** | Every claim → 1-click to official attestation page | Jérôme, Sarah |
+| **Contribution funnel** | Discover gap → contribution guide → fork → PR → review → merge | Marc |
+| **Confidence signals** | "X of Y providers" denominator, verified dates, attestation ↗ | All |
+
+### Flow Optimization Principles
+
+1. **Zero-click comprehension** — The page purpose is obvious without clicking anything. Value proposition visible on landing, filters self-explanatory, cards scannable.
+
+2. **State preservation** — URL always reflects current state. Back button works. Language switch preserves filters. Comparison URL is shareable. No state loss ever.
+
+3. **Graceful degradation** — Without JS: full provider list visible as static HTML. With JS: filters, comparison, instant updates. Without cookies: full functionality (no state depends on cookies).
+
+4. **Error as guidance** — Zero results → suggest filter removal. CI failure → explain what's wrong. Comparison limit → explain maximum. Every error is an opportunity to help.
+
+5. **Shortest path to value** — Jérôme: 3 clicks from landing to filtered results. Sarah: 0 clicks to see all providers. Marc: 1 click from navigation to contribution guide.
