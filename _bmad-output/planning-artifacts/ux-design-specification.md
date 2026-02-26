@@ -1,5 +1,7 @@
 ---
-stepsCompleted: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+stepsCompleted: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
+lastStep: 14
+status: 'complete'
 inputDocuments:
   - '_bmad-output/planning-artifacts/product-brief-cloudlandscape-20260121.md'
   - '_bmad-output/planning-artifacts/prd.md'
@@ -908,3 +910,539 @@ flowchart TD
 4. **Error as guidance** — Zero results → suggest filter removal. CI failure → explain what's wrong. Comparison limit → explain maximum. Every error is an opportunity to help.
 
 5. **Shortest path to value** — Jérôme: 3 clicks from landing to filtered results. Sarah: 0 clicks to see all providers. Marc: 1 click from navigation to contribution guide.
+
+## Component Strategy
+
+### Design System Components
+
+**Foundation layer** — Pure CSS, no component logic:
+
+| Component | CSS File | Purpose |
+|-----------|----------|---------|
+| Typography | `base.css` | Headings, body text, links, monospace |
+| Spacing | `variables.css` + `utilities.css` | Margin/padding utility classes |
+| Colors | `variables.css` | Custom properties for all semantic colors |
+| Focus styles | `base.css` | `:focus-visible` ring on all interactive elements |
+| Reset | `base.css` | Minimal CSS reset for cross-browser consistency |
+
+These are not "components" — they are the foundation tokens and base styles that all components inherit.
+
+### Custom Components
+
+All custom components are implemented as **Tera template partials** (`templates/partials/`) + **CSS classes** (`static/css/components.css`).
+
+#### 1. Provider Card — `.provider-card`
+
+**Purpose:** Display a single provider in the listing grid. Primary scan unit for Jérôme and Sarah.
+
+**Template:** `partials/provider-card.html`
+
+**Anatomy:**
+```
+┌─────────────────────────────────┐
+│ Provider Name            🇫🇷 FR │  ← .card-head
+│                                 │
+│ [Kubernetes] [Compute] [Storage]│  ← .services (service-tag list)
+│                                 │
+│ [HDS ↗] [SecNumCloud ↗]        │  ← .certs (cert-badge list)
+│                                 │
+│ Verified: Jan 2026    ☐ Compare │  ← .meta
+└─────────────────────────────────┘
+```
+
+**States:**
+
+| State | Class | Behavior |
+|-------|-------|----------|
+| Default | `.provider-card` | White surface, 1px border, subtle shadow on hover |
+| Filtered out | `.provider-card.is-hidden` | `display: none` (JS removes from flow) |
+| Compare selected | `.provider-card.is-selected` | Primary-light border left accent |
+| Service matched | `.service-tag.is-matched` | Primary-light background (highlights matching service) |
+
+**Accessibility:** Card is not a link — provider name is the link (`<a>`). Compare checkbox has associated `<label>`. `aria-live="polite"` on parent grid container.
+
+#### 2. Filter Panel — `.filter-panel`
+
+**Purpose:** Contains all filter tag groups. Sidebar on desktop, collapsible top panel on tablet, horizontal scroll on mobile.
+
+**Template:** `partials/filter-panel.html`
+
+**Anatomy:**
+```
+Desktop (sidebar):          Mobile (horizontal):
+┌──────────────┐            ┌──────────────────────────────┐
+│ SERVICES     │            │ [K8s] [HDS] [FR] [Compute]→ │
+│ [K8s] [Comp] │            └──────────────────────────────┘
+│ [DB] [Store] │
+│              │
+│ CERTIFICATIONS│
+│ [HDS] [SNC]  │
+│              │
+│ COUNTRY      │
+│ [FR] [DE]    │
+│              │
+│ Reset all    │
+└──────────────┘
+```
+
+**States:**
+
+| State | Behavior |
+|-------|----------|
+| Desktop | Fixed 240px sidebar, always visible |
+| Tablet | `<details>` collapsible, closed by default, open when filter active |
+| Mobile | Horizontal scrollable container, all tags in one row |
+
+**Accessibility:** Each filter group is a `<fieldset>` with `<legend>` for screen readers. Tags are `<button>` elements (not `<span>`) for keyboard accessibility.
+
+#### 3. Filter Tag — `.filter-tag`
+
+**Purpose:** Individual clickable filter criterion. Toggle on/off.
+
+**Template:** Inline in `filter-panel.html`
+
+**States:**
+
+| State | Class | Visual |
+|-------|-------|--------|
+| Default | `.filter-tag` | White bg, neutral border, neutral text |
+| Hover | `.filter-tag:hover` | Primary border, primary text |
+| Active (service) | `.filter-tag.is-active` | Primary-light bg, primary border, primary-dark text, `font-weight: 500` |
+| Active (cert) | `.filter-tag.is-active.filter-tag--cert` | Secondary-light bg, secondary border |
+| Active (country) | `.filter-tag.is-active.filter-tag--country` | Primary-light bg, primary border |
+| Focus | `.filter-tag:focus-visible` | 2px primary outline, 2px offset |
+
+**Element:** `<button type="button" class="filter-tag" aria-pressed="false">Kubernetes</button>`
+- `aria-pressed` toggles with state
+- Keyboard: `Enter` or `Space` to toggle
+
+#### 4. Result Counter — `.result-count`
+
+**Purpose:** Show "X of Y providers match your criteria". Confidence signal.
+
+**Template:** `partials/result-count.html`
+
+**States:**
+
+| State | Display |
+|-------|---------|
+| No filters | "12 providers" (no denominator needed) |
+| Filters active | "**4** of 12 providers match your criteria" |
+| Zero results | "**0** providers match — try removing a filter" |
+
+**Accessibility:** Container has `aria-live="polite"` — screen reader announces changes.
+
+#### 5. Comparison Table — `.compare-table`
+
+**Purpose:** Side-by-side provider comparison with aligned service taxonomy. Jérôme's deliverable.
+
+**Template:** `partials/compare-table.html`
+
+**Anatomy:**
+```
+┌──────────────┬──────────┬──────────┬──────────┐
+│ Category     │ Scaleway │ OVHcloud │ Outscale │
+├──────────────┼──────────┼──────────┼──────────┤
+│ SERVICES     │          │          │          │  ← section row
+│ Kubernetes   │    ✓     │    ✓     │    ✓     │
+│ Compute      │    ✓     │    ✓     │    ✓     │
+│ Database     │    ✓     │    ✓     │    —     │
+├──────────────┼──────────┼──────────┼──────────┤
+│ CERTIFICATIONS│         │          │          │
+│ SecNumCloud  │   ✓ ↗   │   ✓ ↗   │   ✓ ↗   │  ← ↗ = attestation link
+│ HDS          │   ✓ ↗   │   ✓ ↗   │   ✓ ↗   │
+└──────────────┴──────────┴──────────┴──────────┘
+│ /compare/?p=scaleway,ovhcloud,outscale [Copy] │  ← compare-url bar
+```
+
+**States:**
+
+| State | Behavior |
+|-------|----------|
+| 2 providers | 2-column comparison |
+| 3-4 providers | 3-4 column comparison |
+| Mobile | Horizontal scroll with sticky first column |
+| Service present | ✓ in secondary color |
+| Service absent | — in neutral-200 (muted, not red) |
+| Cert with attestation | ✓ + ↗ link icon in primary color |
+
+**Accessibility:** `<table>` with proper `<thead>`, `<th scope="col">`, `<th scope="row">`. Section rows use `<th colspan>`.
+
+#### 6. Certification Badge — `.cert-badge`
+
+**Purpose:** Visual indicator for a certification with link to attestation source.
+
+**Template:** Inline in cards and tables
+
+**Element:** `<a href="https://attestation-url" class="cert-badge" target="_blank" rel="noopener">HDS <span aria-hidden="true">↗</span><span class="sr-only">(opens attestation page)</span></a>`
+
+**Variants:** All certifications (SecNumCloud, HDS, EUCS) use identical visual treatment — secondary-light bg, secondary text. Differentiated by text content only (neutrality principle).
+
+#### 7. Service Tag — `.service-tag`
+
+**Purpose:** Display a service type on provider cards.
+
+**Variants:**
+
+| State | Class | Visual |
+|-------|-------|--------|
+| Default | `.service-tag` | Neutral-100 bg, neutral-600 text, monospace font |
+| Matched (filter active) | `.service-tag.is-matched` | Primary-light bg, primary-dark text |
+
+#### 8. Language Switcher — `.lang-switch`
+
+**Purpose:** Toggle between FR and EN.
+
+**Template:** `partials/lang-switch.html`
+
+**Element:** `<nav class="lang-switch" aria-label="Language"><a href="/fr/" lang="fr" aria-current="page">FR</a> / <a href="/en/" lang="en">EN</a></nav>`
+
+**Behavior:** Links to the equivalent page in the other language. Preserves current path. `aria-current="page"` on active language.
+
+#### 9. Skip Navigation — `.skip-nav`
+
+**Purpose:** Accessibility skip link, first focusable element in `<body>`.
+
+**Template:** `partials/skip-nav.html`
+
+**Element:** `<a href="#main-content" class="skip-nav">Skip to main content</a>`
+
+**Visual:** Hidden by default, visible on `:focus` — positioned at top of viewport.
+
+#### 10. Empty State — `.empty-state`
+
+**Purpose:** Zero-result guidance when filters produce no matches.
+
+**Template:** `partials/empty-state.html`
+
+**Content:** "No providers match all your criteria. Try removing **[most restrictive filter name]**."
+
+**Visual:** Centered text, accent-light background, neutral text. Includes a "Reset all filters" link.
+
+#### 11. Compare Button — `.compare-btn`
+
+**Purpose:** Sticky button that appears when 2+ providers are checked for comparison.
+
+**States:**
+
+| State | Visual |
+|-------|--------|
+| Hidden (0-1 selected) | `display: none` |
+| Active (2-4 selected) | Sticky bottom bar, primary bg, white text: "Compare (3)" |
+| Disabled (5+ selected) | Neutral bg, tooltip "Maximum 4 providers" |
+
+**Accessibility:** `<button>` with `aria-label="Compare 3 selected providers"`. Updates dynamically with count.
+
+### Component Implementation Strategy
+
+**Implementation as Tera partials + CSS:**
+
+| Component | Tera Partial | CSS Class | JS Required |
+|-----------|-------------|-----------|-------------|
+| Provider Card | `partials/provider-card.html` | `.provider-card` | Yes (filter visibility, compare checkbox) |
+| Filter Panel | `partials/filter-panel.html` | `.filter-panel` | Yes (filter logic in `filter.js`) |
+| Filter Tag | inline | `.filter-tag` | Yes (toggle state, trigger filter) |
+| Result Counter | `partials/result-count.html` | `.result-count` | Yes (updates on filter change) |
+| Compare Table | `partials/compare-table.html` | `.compare-table` | Yes (built from URL params in `compare.js`) |
+| Compare Button | `partials/compare-btn.html` | `.compare-btn` | Yes (visibility, count, navigation) |
+| Cert Badge | inline | `.cert-badge` | No (static link) |
+| Service Tag | inline | `.service-tag` | Yes (matched state on filter) |
+| Lang Switch | `partials/lang-switch.html` | `.lang-switch` | No (static links) |
+| Skip Nav | `partials/skip-nav.html` | `.skip-nav` | No (CSS only) |
+| Empty State | `partials/empty-state.html` | `.empty-state` | Yes (shown when 0 results) |
+
+### Implementation Roadmap
+
+**Phase 1 — Core (MVP launch):**
+All 11 components above. These are all needed for the 3 critical user journeys (Jérôme, Sarah, Marc).
+
+**Phase 2 — Enhancement (post-MVP):**
+- Provider logo component (`.provider-logo`) — WebP with fallback, lazy loaded
+- Breadcrumb navigation (`.breadcrumb`) — Provider detail pages
+- Toast notification (`.toast`) — "URL copied!" confirmation
+- Dark mode toggle (`.theme-switch`) — When dark mode is implemented
+
+## UX Consistency Patterns
+
+### Interaction Patterns
+
+**Filter interactions — The core pattern:**
+
+| Interaction | Trigger | Response | Timing |
+|-------------|---------|----------|--------|
+| Apply filter | Click/tap filter tag | Tag → `.is-active`, results update, count changes, URL updates | <150ms visual, <2s data |
+| Remove filter | Click/tap active tag | Tag → default state, results expand, count changes, URL updates | <150ms visual, <2s data |
+| Reset all | Click "Reset all filters" | All tags → default, full list restored, URL cleaned | <150ms |
+| Compare select | Check provider checkbox | Card gets `.is-selected` border, compare button appears/updates | instant |
+| Compare navigate | Click "Compare (N)" button | Navigate to `/compare/?p=slug1,slug2` | page navigation |
+
+**Click/tap targets:**
+- All interactive elements: minimum 44×44px touch target on mobile
+- Filter tags: `padding: 4px 10px` + margin creates adequate target
+- Checkbox labels include text "Compare" — entire label is clickable
+- Links have sufficient padding for comfortable tapping
+
+**Hover states (desktop only):**
+- Filter tags: border color changes to primary
+- Provider cards: `box-shadow` elevates (`.shadow-md`)
+- Links: no underline by default, underline on hover
+- Certification badges: slight opacity increase on hover
+
+### Feedback Patterns
+
+**State feedback — How the interface communicates:**
+
+| State | Visual Pattern | Component | Example |
+|-------|---------------|-----------|---------|
+| **Success** | Secondary color (sage green) ✓ | Cert badge, compare table | "✓ SecNumCloud" |
+| **Absence** | Neutral-200 (muted dash) — | Compare table | "—" (service not available) |
+| **Active filter** | Pastel background + border + weight | Filter tag | Tag with `.is-active` |
+| **Error/empty** | Accent-light background + guidance text | Empty state | "0 providers match — try removing..." |
+| **Loading** | Not applicable | — | Static site, no loading states needed |
+| **Disabled** | Neutral background, reduced opacity | Compare button (5+ selected) | Button grayed, tooltip explains |
+
+**No loading states needed:** cloudlandscape is a static site with inline JSON. Filtering is instantaneous client-side. If the user ever sees a "loading" state, something is broken. The only page transitions are standard navigation (handled by the browser).
+
+**Copy confirmation:** When user clicks "Copy URL" on comparison page:
+- Button text briefly changes: "Copy URL" → "Copied ✓" (2 seconds)
+- Returns to "Copy URL"
+- No toast, no modal — inline feedback only
+- `aria-live="assertive"` announces "URL copied to clipboard"
+
+### Navigation Patterns
+
+**Site navigation hierarchy:**
+
+```
+Header (persistent across all pages):
+┌──────────────────────────────────────────────────┐
+│ cloudlandscape    Providers  Compare  About  Contribute  FR/EN │
+└──────────────────────────────────────────────────┘
+```
+
+| Nav item | URL | Behavior |
+|----------|-----|----------|
+| Logo/wordmark | `/` | Homepage (= provider listing) |
+| Providers | `/providers/` | Provider listing with filters (primary page) |
+| Compare | `/compare/` | Empty compare page with instructions (or last comparison if URL has params) |
+| About | `/about/` | Project mission, methodology, team |
+| Contribute | `/contribute/` | Contribution guide (bilingual) |
+| FR / EN | `/fr/...` or `/en/...` | Language switch, preserves current path |
+
+**Navigation rules:**
+- Current page highlighted with `font-weight: 500` + bottom border (primary color)
+- No dropdown menus — flat navigation only (5 items max)
+- Mobile: hamburger menu (☰) → full-screen overlay with stacked links
+- Skip navigation link is the first focusable element (before header)
+- `aria-current="page"` on current nav item
+
+**Breadcrumbs (provider detail pages only):**
+```
+Providers > Scaleway
+```
+- Only on provider detail pages — not on listing, compare, or content pages
+- Links back to `/providers/` (preserves any active filters via URL)
+
+**Back navigation:**
+- Browser back button always works (URL reflects state)
+- "← Back to providers" link on comparison page
+- No JavaScript-dependent navigation — all links are standard `<a>` tags
+
+### Content Patterns
+
+**Text content rules:**
+
+| Context | Language | Tone | Example |
+|---------|----------|------|---------|
+| UI labels | Technical, concise | Factual, no marketing | "Kubernetes", not "Powerful K8s Platform" |
+| Filter labels | Category names, uppercase, small | Informational | "SERVICES", "CERTIFICATIONS", "COUNTRY" |
+| Result count | Dynamic, factual | Precise | "4 of 12 providers match your criteria" |
+| Empty state | Helpful, actionable | Guiding | "No providers match. Try removing HDS." |
+| Provider descriptions | Factual, sourced | Neutral, no superlatives | "French cloud provider founded in 1999" |
+| Error messages | Clear, actionable | Constructive | "Select at least 2 providers to compare" |
+| Tooltips | Short, informative | Explanatory | "Maximum 4 providers for comparison" |
+
+**Content rules:**
+- No marketing language anywhere — factual, technical, neutral
+- No superlatives ("best", "leading", "top") — conflicts with neutrality
+- Provider descriptions: 1-2 sentences max, factual, include founding year and country
+- All external links open in new tab (`target="_blank" rel="noopener"`)
+- Internal links open in same tab (standard navigation)
+- Dates always in format: "Mon YYYY" (e.g., "Jan 2026") — brief and scannable
+
+### Link Patterns
+
+| Link type | Visual | Behavior |
+|-----------|--------|----------|
+| Internal navigation | Primary color, no underline, underline on hover | Same tab |
+| Provider name (in card) | Heading color, bold, underline on hover | Same tab → detail page |
+| External (provider site) | Primary color + " ↗" suffix | New tab |
+| Attestation (cert link) | In cert badge, " ↗" icon | New tab |
+| "Reset all filters" | Accent color, no underline | Same page, JS action |
+
+### Keyboard Navigation Patterns
+
+**Tab order (provider listing page):**
+1. Skip navigation link
+2. Header navigation items (left to right)
+3. Language switcher
+4. Filter panel: filter groups top to bottom, tags left to right
+5. Reset all filters link
+6. Result count (not focusable — `aria-live` handles updates)
+7. Provider cards: top-left to bottom-right, within each card: provider name link → compare checkbox
+8. Compare button (when visible)
+9. Footer links
+
+**Keyboard shortcuts:** None. The target audience uses keyboard shortcuts in their IDE — cloudlandscape should not conflict with browser or OS shortcuts. Standard browser navigation only.
+
+## Responsive Design & Accessibility
+
+### Responsive Strategy
+
+**Approach: Desktop-primary, mobile-adapted**
+
+cloudlandscape's primary use case is desktop (Jérôme at work, investigating providers for a project). Mobile is secondary (Sarah discovering on her phone, sharing links). The design is not "mobile-first" in implementation order — it's **content-first, then adapted** to each breakpoint.
+
+**Desktop (≥1024px) — Primary experience:**
+- 3-column provider card grid + 240px fixed sidebar
+- Comparison table with all columns visible
+- Full header navigation with all items visible
+- Filter panel always visible in sidebar — no toggle needed
+- Maximum information density without clutter
+
+**Tablet (768-1023px) — Adapted experience:**
+- 2-column card grid, full container width (no sidebar)
+- Filter panel as collapsible `<details>` element at top of content
+- Auto-opens when any filter is active
+- Comparison table: horizontal scroll if >3 providers
+- Header navigation: all items visible (5 items fit comfortably)
+
+**Mobile (<768px) — Compact experience:**
+- 1-column stacked cards, full width
+- Horizontal scroll filter bar (Direction F pattern)
+- Hamburger menu (☰) → overlay navigation
+- Comparison: stacked provider cards OR horizontal scroll table
+- "Compare" checkboxes still available on cards
+- Compare button: fixed bottom bar when active
+
+### Breakpoint Strategy
+
+**Standard breakpoints matching project-context.md:**
+
+```css
+/* Desktop-first: base styles = desktop */
+
+/* Tablet */
+@media (max-width: 1023px) { ... }
+
+/* Mobile */
+@media (max-width: 767px) { ... }
+```
+
+**Rationale for desktop-first media queries:**
+- Primary audience uses desktop — desktop styles are the "default"
+- Mobile overrides are simpler (hide sidebar, stack cards, collapse nav)
+- Aligns with Zola's static generation — no responsive framework needed
+- CSS is smaller: base (desktop) + overrides, not mobile + enhancements
+
+**Component behavior per breakpoint:**
+
+| Component | Desktop | Tablet | Mobile |
+|-----------|---------|--------|--------|
+| `.filter-panel` | 240px sidebar, always visible | `<details>` collapsible, top of content | Horizontal scroll bar |
+| `.provider-card` | 3-column grid | 2-column grid | 1-column stack |
+| `.compare-table` | Full table, all columns | Horizontal scroll if >3 cols | Horizontal scroll, sticky 1st col |
+| `.compare-btn` | Sticky bottom-right | Sticky bottom-right | Fixed full-width bottom bar |
+| `header nav` | Inline links | Inline links | Hamburger → overlay |
+| `.lang-switch` | In header, inline | In header, inline | In hamburger overlay |
+| `.cert-badge` | Inline in card | Inline in card | Inline in card (no change) |
+| `.result-count` | Above card grid | Above card grid | Above card stack |
+
+### Accessibility Strategy
+
+**Compliance level: RGAA 4 Niveau AA (= WCAG 2.1 AA)**
+
+This is non-negotiable. RGAA 4 is the French government accessibility standard, aligned with WCAG 2.1 AA. For a French-origin project promoting digital sovereignty, AA compliance is a credibility requirement, not just a legal one.
+
+**Accessibility checklist by component:**
+
+| Component | Required | Implementation |
+|-----------|----------|----------------|
+| Skip nav | `<a>` first in `<body>`, visible on focus | `partials/skip-nav.html` |
+| Page language | `lang="fr"` or `lang="en"` on `<html>` | Set by Zola per page variant |
+| Semantic HTML | `<header>`, `<main>`, `<nav>`, `<footer>`, `<aside>` | Template structure |
+| Headings hierarchy | h1 → h2 → h3, no skipping | One `<h1>` per page |
+| Images | `alt` on all `<img>` | Provider logos: `alt="Logo {name}"` |
+| Filter tags | `<button>` with `aria-pressed` | Not `<span>` or `<div>` |
+| Filter panel | `<fieldset>` + `<legend>` per group | Screen reader group labels |
+| Result count | `aria-live="polite"` | Announces changes |
+| Compare table | `<th scope="col/row">`, `<caption>` | Semantic table structure |
+| External links | `rel="noopener"`, `aria-label` for icon-only | Cert badges include sr-only text |
+| Focus indicators | `:focus-visible` 2px solid primary, 2px offset | In `base.css`, never removed |
+| Color contrast | ≥4.5:1 normal text, ≥3:1 large text | Validated in step 8 |
+| Touch targets | ≥44×44px on mobile | Padding + margin on interactive elements |
+| Reduced motion | `@media (prefers-reduced-motion: reduce)` | Disables all transitions |
+
+**Progressive enhancement accessibility:**
+- Without JavaScript: all provider data is visible as static HTML cards. No filtering, but all content is accessible.
+- With JavaScript: filtering, comparison, and interactive features enhance the experience.
+- Without CSS: content is readable via semantic HTML structure. Headings, lists, tables, links all work without styling.
+
+### Testing Strategy
+
+**Automated testing (CI pipeline):**
+
+| Tool | What it tests | Gate |
+|------|--------------|------|
+| axe-core | WCAG 2.1 AA violations | Zero critical/serious violations |
+| Lighthouse Accessibility | Accessibility score | >95 |
+| Lighthouse Performance | Performance metrics | >90 |
+| `zola check` | Broken internal/external links | Zero broken links |
+| HTML validator | Valid HTML5 markup | Zero errors |
+
+**Manual testing checklist (per release):**
+
+| Test | Tool | Frequency |
+|------|------|-----------|
+| Keyboard navigation | Browser (no mouse) | Every release |
+| Screen reader | VoiceOver (macOS/iOS) | Every release |
+| Color contrast | Browser DevTools | On color changes |
+| Mobile usability | Real device (iPhone/Android) | Every release |
+| Responsive breakpoints | Browser resize | Every release |
+| Reduced motion | OS setting + browser | On animation changes |
+
+**Browser support matrix:**
+
+| Browser | Desktop | Mobile |
+|---------|---------|--------|
+| Chrome | Last 2 versions ✓ | Last 2 versions ✓ |
+| Firefox | Last 2 versions ✓ | Last 2 versions ✓ |
+| Safari | Last 2 versions ✓ | iOS Safari last 2 ✓ |
+| Edge | Last 2 versions ✓ | Last 2 versions ✓ |
+
+Progressive enhancement: core content works on older browsers. Advanced features (CSS custom properties, `aria-pressed`, `<details>`) degrade gracefully.
+
+### Implementation Guidelines
+
+**For developers implementing the UX design:**
+
+**HTML rules:**
+- Semantic elements always: `<header>`, `<main>`, `<nav>`, `<footer>`, `<aside>`, `<section>`, `<article>`
+- One `<h1>` per page, headings never skip levels
+- `<button>` for actions, `<a>` for navigation — never the reverse
+- `<table>` for tabular data (comparison), never for layout
+- `lang` attribute on `<html>` — critical for screen reader pronunciation
+
+**CSS rules:**
+- Use `rem` for font sizes, spacing — never `px` for text
+- `px` acceptable for borders, shadows, fine visual details
+- Media queries use `max-width` (desktop-first)
+- `:focus-visible` styled globally in `base.css` — never override with `outline: none`
+- `@media (prefers-reduced-motion: reduce)` → set all `transition` and `animation` to `none`
+
+**JavaScript rules:**
+- All JS features are progressive enhancements — page works without JS
+- `aria-pressed`, `aria-live`, `aria-expanded` updated by JS when states change
+- No `tabindex` values >0 — use DOM order for tab order
+- Event listeners on `click` AND `keydown` (Enter/Space) for custom interactive elements
+- `document.getElementById('providers-data').textContent` for inline JSON parsing

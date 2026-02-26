@@ -29,7 +29,7 @@ workflow_status:
   
   # Phase 2 - Planning (Required)
   prd: _bmad-output/planning-artifacts/prd.md
-  create-ux-design: conditional
+  create-ux-design: _bmad-output/planning-artifacts/ux-design-specification.md
   
   # Phase 3 - Solutioning (Required)
   create-architecture: _bmad-output/planning-artifacts/architecture.md
