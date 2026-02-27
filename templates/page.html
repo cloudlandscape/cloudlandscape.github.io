@@ -3,48 +3,110 @@
 {% block title %}{{ page.title }} - {{ config.title }}{% endblock %}
 
 {% block content %}
-<h1>{{ page.title }}</h1>
+<div class="provider-detail">
+    <div class="provider-header">
+        <h1>{{ page.title }}</h1>
+        {% if page.description %}
+        <p class="provider-tagline">{{ page.description }}</p>
+        {% endif %}
+    </div>
 
-{% if page.extra.country %}
-<p><strong>Country:</strong> {{ page.extra.country }}</p>
-{% endif %}
+    <div class="provider-meta-grid">
+        {% if page.extra.country %}
+        <div class="meta-item">
+            <strong>Country of Origin:</strong>
+            <span>{{ page.extra.country }}</span>
+        </div>
+        {% endif %}
 
-{% if page.extra.headquarters %}
-<p><strong>Headquarters:</strong> {{ page.extra.headquarters }}</p>
-{% endif %}
+        {% if page.extra.headquarters %}
+        <div class="meta-item">
+            <strong>Headquarters:</strong>
+            <span>{{ page.extra.headquarters }}</span>
+        </div>
+        {% endif %}
 
-{% if page.extra.website %}
-<p><strong>Website:</strong> <a href="{{ page.extra.website }}" target="_blank">{{ page.extra.website }}</a></p>
-{% endif %}
+        {% if page.extra.founded %}
+        <div class="meta-item">
+            <strong>Founded:</strong>
+            <span>{{ page.extra.founded }}</span>
+        </div>
+        {% endif %}
 
-{% if page.taxonomies.services %}
-<h2>Services</h2>
-<ul>
-    {% for service in page.taxonomies.services %}
-    <li>{{ service }}</li>
-    {% endfor %}
-</ul>
-{% endif %}
+        {% if page.extra.website %}
+        <div class="meta-item">
+            <strong>Website:</strong>
+            <a href="{{ page.extra.website }}" target="_blank" rel="noopener noreferrer" class="external-link">
+                {{ page.extra.website }}
+                <span class="external-icon" aria-label="(opens in new tab)">↗</span>
+            </a>
+        </div>
+        {% endif %}
+    </div>
 
-{% if page.taxonomies.certifications %}
-<h2>Certifications</h2>
-<ul>
-    {% for cert in page.taxonomies.certifications %}
-    <li>{{ cert }}</li>
-    {% endfor %}
-</ul>
-{% endif %}
+    {% if page.content %}
+    <section class="provider-description">
+        <h2>About</h2>
+        <div class="content">
+            {{ page.content | safe }}
+        </div>
+    </section>
+    {% endif %}
 
-{% if page.extra.datacenter_locations %}
-<h2>Datacenter Locations</h2>
-<ul>
-    {% for location in page.extra.datacenter_locations %}
-    <li>{{ location }}</li>
-    {% endfor %}
-</ul>
-{% endif %}
+    {% if page.taxonomies.services %}
+    <section class="provider-services">
+        <h2>Services Offered</h2>
+        <p class="section-intro">Services are mapped to unified taxonomy categories for easy comparison across providers.</p>
+        <div class="services-grid">
+            {% for service in page.taxonomies.services %}
+            <div class="service-card">
+                <span class="service-name">{{ service | replace(from="-", to=" ") | title }}</span>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
 
-<div>
-    {{ page.content | safe }}
+    {% if page.taxonomies.certifications %}
+    <section class="provider-certifications">
+        <h2>Certifications & Compliance</h2>
+        <p class="section-intro">Verified certifications and compliance attestations.</p>
+        <div class="certifications-list">
+            {% for cert in page.taxonomies.certifications %}
+            <div class="certification-badge">
+                <span class="cert-icon">✓</span>
+                <div class="cert-info">
+                    <strong class="cert-name">{{ cert | upper }}</strong>
+                    {% if page.extra.certification_links and page.extra.certification_links[cert] %}
+                    <a href="{{ page.extra.certification_links[cert] }}" target="_blank" rel="noopener noreferrer" class="cert-link">
+                        View Attestation <span class="external-icon">↗</span>
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+
+    {% if page.extra.datacenter_locations %}
+    <section class="provider-datacenters">
+        <h2>Geographic Coverage</h2>
+        <p class="section-intro">Datacenter locations for data residency and latency considerations.</p>
+        <div class="datacenters-list">
+            {% for location in page.extra.datacenter_locations %}
+            <div class="datacenter-item">
+                <span class="location-icon">📍</span>
+                <span>{{ location }}</span>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+
+    <div class="provider-actions">
+        <a href="/providers/" class="btn btn-secondary">← Back to All Providers</a>
+        <button class="btn btn-primary" data-provider="{{ page.slug }}">Add to Comparison</button>
+    </div>
 </div>
 {% endblock %}

@@ -178,3 +178,323 @@ h2 {
         padding: 0.5rem;
     }
 }
+
+/* Provider Detail Page */
+.provider-detail {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.provider-header {
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 2px solid #ecf0f1;
+}
+
+.provider-tagline {
+    font-size: 1.2rem;
+    color: #666;
+    margin-top: 0.5rem;
+}
+
+.provider-meta-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+    margin: 2rem 0;
+    padding: 1.5rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+}
+
+.meta-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.meta-item strong {
+    color: #2c3e50;
+    margin-bottom: 0.25rem;
+}
+
+.external-link {
+    color: #3498db;
+    text-decoration: none;
+}
+
+.external-link:hover {
+    text-decoration: underline;
+}
+
+.external-icon {
+    font-size: 0.85em;
+    margin-left: 0.25rem;
+}
+
+.provider-detail section {
+    margin: 3rem 0;
+}
+
+.provider-detail h2 {
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+}
+
+.section-intro {
+    color: #666;
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+}
+
+.provider-description .content {
+    line-height: 1.8;
+    font-size: 1.05rem;
+}
+
+/* Services Grid */
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 1rem;
+}
+
+.service-card {
+    background: #3498db;
+    color: white;
+    padding: 1rem;
+    border-radius: 6px;
+    text-align: center;
+    font-weight: 600;
+}
+
+.service-name {
+    display: block;
+}
+
+/* Certifications */
+.certifications-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.certification-badge {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.5rem;
+    background: #d5f4e6;
+    border-left: 4px solid #27ae60;
+    border-radius: 6px;
+}
+
+.cert-icon {
+    font-size: 2rem;
+    color: #27ae60;
+}
+
+.cert-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.cert-name {
+    font-size: 1.1rem;
+    color: #2c3e50;
+}
+
+.cert-link {
+    color: #27ae60;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.cert-link:hover {
+    text-decoration: underline;
+}
+
+/* Datacenters */
+.datacenters-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.datacenter-item {
+    padding: 1rem;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.location-icon {
+    font-size: 1.5rem;
+}
+
+/* Provider Actions */
+.provider-actions {
+    display: flex;
+    gap: 1rem;
+    margin: 3rem 0;
+    padding-top: 2rem;
+    border-top: 2px solid #ecf0f1;
+}
+
+.btn {
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background 0.2s;
+}
+
+.btn-primary {
+    background: #3498db;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #2980b9;
+}
+
+.btn-secondary {
+    background: #95a5a6;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background: #7f8c8d;
+}
+
+@media (max-width: 768px) {
+    .provider-actions {
+        flex-direction: column;
+    }
+    
+    .services-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Comparison Bar */
+.comparison-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: white;
+    border-top: 3px solid #3498db;
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+    padding: 1rem;
+    z-index: 1000;
+    display: none;
+}
+
+.comparison-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.comparison-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.comparison-counter {
+    background: #3498db;
+    color: white;
+    padding: 0.25rem 0.6rem;
+    border-radius: 50%;
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+.btn-clear-comparison {
+    background: transparent;
+    border: 1px solid #ddd;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.btn-clear-comparison:hover {
+    background: #ecf0f1;
+}
+
+.comparison-list {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    flex: 1;
+}
+
+.comparison-item {
+    background: #ecf0f1;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.remove-comparison {
+    background: #e74c3c;
+    color: white;
+    border: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.2rem;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.remove-comparison:hover {
+    background: #c0392b;
+}
+
+.btn-compare {
+    background: #27ae60;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.btn-compare:hover {
+    background: #229954;
+}
+
+.in-comparison {
+    background: #27ae60 !important;
+}
+
+.in-comparison:hover {
+    background: #229954 !important;
+}
+
+@media (max-width: 768px) {
+    .comparison-content {
+        flex-direction: column;
+        align-items: stretch;
+    }
+}

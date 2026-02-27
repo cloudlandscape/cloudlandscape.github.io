@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compare Providers - Cloud Landscape</title>
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        .comparison-page {
+            padding: 2rem 0;
+        }
+        
+        .comparison-table-wrapper {
+            overflow-x: auto;
+            margin: 2rem 0;
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .comparison-table th,
+        .comparison-table td {
+            padding: 1rem;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        
+        .comparison-table thead th {
+            background: #2c3e50;
+            color: white;
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+        }
+        
+        .comparison-table tbody th {
+            background: #ecf0f1;
+            font-weight: 600;
+        }
+        
+        .comparison-table td {
+            text-align: center;
+        }
+        
+        .has-feature {
+            color: #27ae60;
+            font-size: 1.5rem;
+        }
+        
+        .no-feature {
+            color: #e74c3c;
+            font-size: 1.5rem;
+        }
+        
+        .cert-yes {
+            background: #d5f4e6;
+        }
+        
+        .cert-no {
+            background: #fadbd8;
+        }
+        
+        .provider-link {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .provider-link:hover {
+            text-decoration: underline;
+        }
+        
+        .comparison-actions {
+            display: flex;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        
+        .empty-comparison {
+            text-align: center;
+            padding: 4rem 2rem;
+        }
+        
+        .empty-comparison h2 {
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="/">Home</a>
+        <a href="/providers/">Providers</a>
+    </nav>
+    
+    <main>
+        <div class="comparison-page">
+            <h1>Provider Comparison</h1>
+            
+            <div id="comparison-content">
+                <p>Loading comparison...</p>
+            </div>
+            
+            <div class="comparison-actions">
+                <a href="/providers/" class="btn btn-secondary">← Back to Providers</a>
+                <button class="btn btn-primary" onclick="shareComparison()">Share Comparison</button>
+            </div>
+        </div>
+    </main>
+    
+    <script>
+        // Get provider data from URL
+        function getProvidersFromUrl() {
+            const params = new URLSearchParams(window.location.search);
+            const providers = params.get('providers');
+            return providers ? providers.split(',') : [];
+        }
+        
+        // Fetch provider data
+        async function fetchProviderData(slug) {
+            // In a real implementation, this would fetch from an API or JSON file
+            // For now, we'll scrape from the generated pages
+            try {
+                const response = await fetch(`/providers/${slug}/`);
+                const html = await response.text();
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, 'text/html');
+                
+                const title = doc.querySelector('h1')?.textContent || slug;
+                const country = doc.querySelector('.meta-item:has(strong:contains("Country"))  span')?.textContent || 'Unknown';
+                const services = Array.from(doc.querySelectorAll('.service-card .service-name')).map(s => s.textContent.trim());
+                const certifications = Array.from(doc.querySelectorAll('.cert-name')).map(c => c.textContent.trim());
+                
+                return {
+                    slug,
+                    title,
+                    country,
+                    services,
+                    certifications
+                };
+            } catch (e) {
+                console.error(`Failed to fetch data for ${slug}`, e);
+                return {
+                    slug,
+                    title: slug,
+                    country: 'Unknown',
+                    services: [],
+                    certifications: []
+                };
+            }
+        }
+        
+        // Get all unique services
+        function getAllServices(providers) {
+            const allServices = new Set();
+            providers.forEach(p => p.services.forEach(s => allServices.add(s)));
+            return Array.from(allServices).sort();
+        }
+        
+        // Get all unique certifications
+        function getAllCertifications() {
+            return ['SECNUMCLOUD', 'HDS', 'EUCS'];
+        }
+        
+        // Render comparison table
+        function renderComparison(providers) {
+            if (providers.length === 0) {
+                return `
+                    <div class="empty-comparison">
+                        <h2>No providers selected</h2>
+                        <p>Please select 2-4 providers from the <a href="/providers/">provider listing</a> to compare.</p>
+                    </div>
+                `;
+            }
+            
+            const services = getAllServices(providers);
+            const certifications = getAllCertifications();
+            
+            let html = '<div class="comparison-table-wrapper"><table class="comparison-table">';
+            
+            // Header row with provider names
+            html += '<thead><tr><th>Feature</th>';
+            providers.forEach(p => {
+                html += `<th><a href="/providers/${p.slug}/" class="provider-link">${p.title}</a></th>`;
+            });
+            html += '</tr></thead><tbody>';
+            
+            // Country row
+            html += '<tr><th>Country</th>';
+            providers.forEach(p => {
+                html += `<td>${p.country}</td>`;
+            });
+            html += '</tr>';
+            
+            // Service rows
+            html += '<tr><th colspan="' + (providers.length + 1) + '" style="background: #34495e; color: white;">Services</th></tr>';
+            services.forEach(service => {
+                html += `<tr><th>${service}</th>`;
+                providers.forEach(p => {
+                    const has = p.services.some(s => s.toLowerCase() === service.toLowerCase());
+                    html += `<td>${has ? '<span class="has-feature">✓</span>' : '<span class="no-feature">✗</span>'}</td>`;
+                });
+                html += '</tr>';
+            });
+            
+            // Certification rows
+            html += '<tr><th colspan="' + (providers.length + 1) + '" style="background: #34495e; color: white;">Certifications</th></tr>';
+            certifications.forEach(cert => {
+                html += `<tr><th>${cert}</th>`;
+                providers.forEach(p => {
+                    const has = p.certifications.some(c => c.toUpperCase() === cert);
+                    const className = has ? 'cert-yes' : 'cert-no';
+                    html += `<td class="${className}">${has ? '<span class="has-feature">✓</span>' : '<span class="no-feature">✗</span>'}</td>`;
+                });
+                html += '</tr>';
+            });
+            
+            html += '</tbody></table></div>';
+            
+            return html;
+        }
+        
+        // Share comparison
+        function shareComparison() {
+            const url = window.location.href;
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Cloud Provider Comparison',
+                    url: url
+                });
+            } else {
+                navigator.clipboard.writeText(url).then(() => {
+                    alert('Comparison URL copied to clipboard!');
+                });
+            }
+        }
+        
+        // Initialize comparison
+        async function init() {
+            const slugs = getProvidersFromUrl();
+            const container = document.getElementById('comparison-content');
+            
+            if (slugs.length === 0) {
+                container.innerHTML = renderComparison([]);
+                return;
+            }
+            
+            container.innerHTML = '<p>Loading provider data...</p>';
+            
+            try {
+                const providers = await Promise.all(slugs.map(slug => fetchProviderData(slug)));
+                container.innerHTML = renderComparison(providers);
+            } catch (e) {
+                container.innerHTML = '<p style="color: red;">Error loading comparison. Please try again.</p>';
+                console.error(e);
+            }
+        }
+        
+        init();
+    </script>
+</body>
+</html>
