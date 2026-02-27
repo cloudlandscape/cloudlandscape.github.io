@@ -1,0 +1,73 @@
++++
+# Provider Template
+# Copy this template to create a new provider
+# Replace all example values with actual provider information
+
+# Required: Provider name
+title = "Provider Name"
+
+# Required: URL-friendly identifier (lowercase, use hyphens)
+slug = "provider-name"
+
+# Required: Brief description (aim for 100-150 characters)
+description = "Brief description of the cloud provider and their main value proposition"
+
+# Required: Service taxonomy - select all that apply
+[taxonomies]
+services = [
+    "compute",          # Virtual machines, bare metal servers
+    "kubernetes",       # Managed Kubernetes service
+    "object-storage",   # S3-compatible object storage
+    "database",         # Managed database services
+    "paas",            # Platform as a Service offerings
+    "caas",            # Containers as a Service
+    "iam",             # Identity & Access Management
+    "api-gateway"      # API management and gateway
+]
+
+# Optional: Certifications - only include if provider holds these
+certifications = [
+    "secnumcloud",     # French sovereign cloud certification
+    "hds",             # French health data hosting
+    "eucs"             # EU Cybersecurity Certification
+]
+
+# Required: Countries where provider is headquartered (lowercase)
+countries = ["france"]
+
+# Required: Additional provider information
+[extra]
+# Required: Country of origin (full name, proper case)
+country = "France"
+
+# Required: Headquarters location (City, Country)
+headquarters = "Paris, France"
+
+# Required: Official website URL
+website = "https://www.provider-website.com"
+
+# Required: List of datacenter locations (cities or regions)
+datacenter_locations = ["Paris", "Amsterdam", "Frankfurt"]
+
+# Optional: Year the company was founded
+founded = 2010
+
+# Optional: Links to official certification attestation pages
+[extra.certification_links]
+secnumcloud = "https://www.ssi.gouv.fr/..."
+hds = "https://esante.gouv.fr/..."
++++
+
+# Content Section (below the +++ markers)
+# Write a detailed description of the provider in the target language
+# For index.md: Write in French
+# For index.en.md: Write in English
+
+Provider Name is a leading cloud provider offering [describe main services and value proposition]. Founded in [year], the company operates datacenters in [locations] and serves [customer base or market segment].
+
+Key features include:
+- [Service or feature 1]
+- [Service or feature 2]
+- [Service or feature 3]
+
+[Add more details about certifications, compliance, unique offerings, etc.]

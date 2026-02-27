@@ -1,0 +1,33 @@
+name: Validate Provider Data
+on:
+  push:
+    paths:
+      - 'content/providers/**'
+      - 'docs/provider-schema.json'
+      - 'docs/validate_providers.py'
+  pull_request:
+    paths:
+      - 'content/providers/**'
+      - 'docs/provider-schema.json'
+      - 'docs/validate_providers.py'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6.0.1
+
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+
+      - name: Set up Python
+        run: uv python install
+
+      - name: Install dependencies
+        run: uv pip install tomli
+
+      - name: Validate provider data
+        run: uv run docs/validate_providers.py

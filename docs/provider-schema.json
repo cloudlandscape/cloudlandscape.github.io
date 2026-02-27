@@ -1,0 +1,131 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Cloud Provider Schema",
+  "description": "Schema for cloud provider data in Cloud Landscape",
+  "type": "object",
+  "required": ["title", "slug", "description", "taxonomies", "extra"],
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Provider name",
+      "minLength": 1,
+      "maxLength": 100
+    },
+    "slug": {
+      "type": "string",
+      "description": "URL-friendly identifier (lowercase, hyphens)",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+      "minLength": 1,
+      "maxLength": 50
+    },
+    "description": {
+      "type": "string",
+      "description": "Brief provider description",
+      "minLength": 50,
+      "maxLength": 200
+    },
+    "taxonomies": {
+      "type": "object",
+      "required": ["services", "countries"],
+      "properties": {
+        "services": {
+          "type": "array",
+          "description": "List of services offered",
+          "items": {
+            "type": "string",
+            "enum": [
+              "compute",
+              "kubernetes",
+              "object-storage",
+              "database",
+              "paas",
+              "caas",
+              "iam",
+              "api-gateway"
+            ]
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "certifications": {
+          "type": "array",
+          "description": "List of certifications held",
+          "items": {
+            "type": "string",
+            "enum": ["secnumcloud", "hds", "eucs"]
+          },
+          "uniqueItems": true
+        },
+        "countries": {
+          "type": "array",
+          "description": "Countries where provider is headquartered",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z]+$"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        }
+      }
+    },
+    "extra": {
+      "type": "object",
+      "required": ["country", "headquarters", "website", "datacenter_locations"],
+      "properties": {
+        "country": {
+          "type": "string",
+          "description": "Country of origin (proper case)",
+          "minLength": 2,
+          "maxLength": 50
+        },
+        "headquarters": {
+          "type": "string",
+          "description": "Headquarters location (City, Country)",
+          "minLength": 3,
+          "maxLength": 100
+        },
+        "website": {
+          "type": "string",
+          "description": "Official website URL",
+          "format": "uri",
+          "pattern": "^https?://"
+        },
+        "datacenter_locations": {
+          "type": "array",
+          "description": "List of datacenter cities/regions",
+          "items": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 50
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "founded": {
+          "type": "integer",
+          "description": "Year founded",
+          "minimum": 1950,
+          "maximum": 2030
+        },
+        "certification_links": {
+          "type": "object",
+          "description": "URLs to certification attestation pages",
+          "properties": {
+            "secnumcloud": {
+              "type": "string",
+              "format": "uri"
+            },
+            "hds": {
+              "type": "string",
+              "format": "uri"
+            },
+            "eucs": {
+              "type": "string",
+              "format": "uri"
+            }
+          }
+        }
+      }
+    }
+  }
+}
