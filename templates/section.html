@@ -6,7 +6,12 @@
 <h1>{{ section.title }}</h1>
 
 <div class="filters-container">
-    <h2>Filters</h2>
+    <button class="filters-toggle" aria-expanded="false" aria-controls="filters-content">
+        <span class="toggle-text">Show Filters</span>
+    </button>
+    
+    <div class="filters-content" id="filters-content">
+        <h2>Filters</h2>
     
     <div class="filter-group">
         <h3>Services</h3>
@@ -36,6 +41,7 @@
     </div>
     
     <button class="filter-reset">Reset All Filters</button>
+    </div>
 </div>
 
 <p class="result-count" role="status" aria-live="polite">

@@ -177,6 +177,67 @@ h2 {
     body {
         padding: 0.5rem;
     }
+    
+    /* Collapsible filters on mobile */
+    .filters-container {
+        position: relative;
+    }
+    
+    .filters-toggle {
+        display: block;
+        width: 100%;
+        padding: 1rem;
+        background: #3498db;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        font-weight: 600;
+        font-size: 1rem;
+        cursor: pointer;
+        margin-bottom: 1rem;
+    }
+    
+    .filters-content {
+        display: none;
+    }
+    
+    .filters-content.open {
+        display: block;
+    }
+    
+    /* Touch-friendly buttons */
+    .btn,
+    .filter-checkbox,
+    .lang-btn {
+        min-height: 44px;
+        min-width: 44px;
+    }
+    
+    .filter-group label {
+        padding: 0.5rem 0;
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+    }
+    
+    /* Mobile navigation */
+    nav {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+    
+    nav a {
+        margin-right: 0.5rem;
+    }
+    
+    /* Comparison bar on mobile */
+    .comparison-bar {
+        padding: 0.5rem;
+    }
+    
+    .comparison-item {
+        font-size: 0.9rem;
+    }
 }
 
 /* Provider Detail Page */
@@ -380,6 +441,34 @@ h2 {
     
     .services-grid {
         grid-template-columns: 1fr;
+    }
+    
+    .provider-meta-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .comparison-table-wrapper {
+        position: relative;
+    }
+    
+    /* Sticky first column in comparison table */
+    .comparison-table thead th:first-child,
+    .comparison-table tbody th:first-child {
+        position: sticky;
+        left: 0;
+        z-index: 10;
+        background: white;
+        box-shadow: 2px 0 4px rgba(0,0,0,0.1);
+    }
+    
+    .comparison-table thead th {
+        position: sticky;
+        top: 0;
+        z-index: 11;
+    }
+    
+    .comparison-table thead th:first-child {
+        z-index: 12;
     }
 }
 
