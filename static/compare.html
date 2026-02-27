@@ -130,16 +130,27 @@
                 const doc = parser.parseFromString(html, 'text/html');
                 
                 const title = doc.querySelector('h1')?.textContent || slug;
-                const country = doc.querySelector('.meta-item:has(strong:contains("Country"))  span')?.textContent || 'Unknown';
+                const countryEl = doc.querySelector('.meta-item strong');
+                let country = 'Unknown';
+                if (countryEl && countryEl.textContent.includes('Country')) {
+                    country = countryEl.nextElementSibling?.textContent?.trim() || 'Unknown';
+                }
+                
                 const services = Array.from(doc.querySelectorAll('.service-card .service-name')).map(s => s.textContent.trim());
                 const certifications = Array.from(doc.querySelectorAll('.cert-name')).map(c => c.textContent.trim());
+                
+                // Extract datacenter locations
+                const datacenterSection = doc.querySelector('.provider-datacenters');
+                const datacenters = datacenterSection ? 
+                    Array.from(datacenterSection.querySelectorAll('li')).map(li => li.textContent.trim()) : [];
                 
                 return {
                     slug,
                     title,
                     country,
                     services,
-                    certifications
+                    certifications,
+                    datacenters
                 };
             } catch (e) {
                 console.error(`Failed to fetch data for ${slug}`, e);
@@ -148,7 +159,8 @@
                     title: slug,
                     country: 'Unknown',
                     services: [],
-                    certifications: []
+                    certifications: [],
+                    datacenters: []
                 };
             }
         }
@@ -217,6 +229,17 @@
                 });
                 html += '</tr>';
             });
+            
+            // Geographic coverage row
+            html += '<tr><th colspan="' + (providers.length + 1) + '" style="background: #34495e; color: white;">Geographic Coverage</th></tr>';
+            html += '<tr><th>Datacenters</th>';
+            providers.forEach(p => {
+                const locations = p.datacenters && p.datacenters.length > 0 
+                    ? p.datacenters.join(', ') 
+                    : 'Not specified';
+                html += `<td>${locations}</td>`;
+            });
+            html += '</tr>';
             
             html += '</tbody></table></div>';
             
