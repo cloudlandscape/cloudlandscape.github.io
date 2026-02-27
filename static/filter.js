@@ -13,12 +13,17 @@
             const certifications = Array.from(card.querySelectorAll('.provider-certifications .badge'))
                 .map(badge => badge.textContent.trim());
             const country = card.querySelector('.provider-meta p strong')?.nextSibling?.textContent?.trim() || '';
+            const title = card.querySelector('h3')?.textContent?.trim() || '';
+            const description = card.querySelector('p')?.textContent?.trim() || '';
             
             providers.push({
                 element: card,
                 services: services,
                 certifications: certifications,
-                country: country
+                country: country,
+                title: title,
+                description: description,
+                searchText: (title + ' ' + description).toLowerCase()
             });
         });
         
@@ -31,7 +36,8 @@
         return {
             services: params.getAll('service'),
             certifications: params.getAll('cert'),
-            countries: params.getAll('country')
+            countries: params.getAll('country'),
+            search: params.get('search') || ''
         };
     }
     
@@ -42,6 +48,7 @@
         filters.services.forEach(s => params.append('service', s));
         filters.certifications.forEach(c => params.append('cert', c));
         filters.countries.forEach(c => params.append('country', c));
+        if (filters.search) params.set('search', filters.search);
         
         const newUrl = params.toString() ? `?${params.toString()}` : window.location.pathname;
         window.history.pushState({}, '', newUrl);
@@ -75,6 +82,12 @@
                 );
             }
             
+            // Search filter
+            if (filters.search) {
+                const searchTerm = filters.search.toLowerCase();
+                visible = visible && provider.searchText.includes(searchTerm);
+            }
+            
             provider.element.style.display = visible ? '' : 'none';
             if (visible) visibleCount++;
         });
@@ -101,12 +114,25 @@
         const activeFilters = {
             services: urlParams.services,
             certifications: urlParams.certifications,
-            countries: urlParams.countries
+            countries: urlParams.countries,
+            search: urlParams.search
         };
         
         // Apply initial filters from URL
         const visibleCount = filterProviders(providers, activeFilters);
         updateResultCount(visibleCount, providers.length);
+        
+        // Set up search input
+        const searchInput = document.querySelector('.search-input');
+        if (searchInput) {
+            searchInput.value = activeFilters.search;
+            searchInput.addEventListener('input', function() {
+                activeFilters.search = this.value;
+                const visible = filterProviders(providers, activeFilters);
+                updateResultCount(visible, providers.length);
+                updateUrl(activeFilters);
+            });
+        }
         
         // Set up filter UI event listeners
         document.querySelectorAll('.filter-checkbox').forEach(checkbox => {
@@ -145,8 +171,10 @@
                 activeFilters.services = [];
                 activeFilters.certifications = [];
                 activeFilters.countries = [];
+                activeFilters.search = '';
                 
                 document.querySelectorAll('.filter-checkbox').forEach(cb => cb.checked = false);
+                if (searchInput) searchInput.value = '';
                 const visible = filterProviders(providers, activeFilters);
                 updateResultCount(visible, providers.length);
                 updateUrl(activeFilters);
