@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block title %}{{ config.title }} - Home{% endblock %}
+
+{% block content %}
+<h1>{{ config.title }}</h1>
+<p>{{ config.description }}</p>
+
+<h2>Providers</h2>
+<p><a href="/providers/">Browse all cloud providers</a></p>
+{% endblock %}

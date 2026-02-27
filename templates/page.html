@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block title %}{{ page.title }} - {{ config.title }}{% endblock %}
+
+{% block content %}
+<h1>{{ page.title }}</h1>
+
+{% if page.extra.country %}
+<p><strong>Country:</strong> {{ page.extra.country }}</p>
+{% endif %}
+
+{% if page.extra.headquarters %}
+<p><strong>Headquarters:</strong> {{ page.extra.headquarters }}</p>
+{% endif %}
+
+{% if page.extra.website %}
+<p><strong>Website:</strong> <a href="{{ page.extra.website }}" target="_blank">{{ page.extra.website }}</a></p>
+{% endif %}
+
+{% if page.taxonomies.services %}
+<h2>Services</h2>
+<ul>
+    {% for service in page.taxonomies.services %}
+    <li>{{ service }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+{% if page.taxonomies.certifications %}
+<h2>Certifications</h2>
+<ul>
+    {% for cert in page.taxonomies.certifications %}
+    <li>{{ cert }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+{% if page.extra.datacenter_locations %}
+<h2>Datacenter Locations</h2>
+<ul>
+    {% for location in page.extra.datacenter_locations %}
+    <li>{{ location }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+<div>
+    {{ page.content | safe }}
+</div>
+{% endblock %}

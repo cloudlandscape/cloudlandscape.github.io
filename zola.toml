@@ -1,0 +1,38 @@
+# The URL the site will be built for
+base_url = "https://cloudlandscape.github.io"
+
+# Default language
+default_language = "fr"
+
+# Whether to automatically compile all Sass files in the sass directory
+compile_sass = false
+
+# Whether to build a search index to be used later on by a JavaScript library
+build_search_index = true
+
+# Language configuration
+[languages.en]
+title = "Cloud Landscape"
+description = "Comprehensive directory of European sovereign cloud providers"
+taxonomies = [
+    { name = "services", render = true },
+    { name = "certifications", render = true },
+    { name = "countries", render = true },
+]
+
+[languages.fr]
+title = "Cloud Landscape"
+description = "Annuaire complet des fournisseurs cloud souverains européens"
+taxonomies = [
+    { name = "services", render = true },
+    { name = "certifications", render = true },
+    { name = "countries", render = true },
+]
+
+[markdown]
+
+[markdown.highlighting]
+theme = "catppuccin-mocha"
+
+[extra]
+# Put all your custom variables here
