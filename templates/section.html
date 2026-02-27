@@ -5,15 +5,77 @@
 {% block content %}
 <h1>{{ section.title }}</h1>
 
+<div class="filters-container">
+    <h2>Filters</h2>
+    
+    <div class="filter-group">
+        <h3>Services</h3>
+        <label><input type="checkbox" class="filter-checkbox" data-filter-type="service" data-filter-value="compute"> Compute</label>
+        <label><input type="checkbox" class="filter-checkbox" data-filter-type="service" data-filter-value="kubernetes"> Kubernetes</label>
+        <label><input type="checkbox" class="filter-checkbox" data-filter-type="service" data-filter-value="object-storage"> Object Storage</label>
+        <label><input type="checkbox" class="filter-checkbox" data-filter-type="service" data-filter-value="database"> Database</label>
+        <label><input type="checkbox" class="filter-checkbox" data-filter-type="service" data-filter-value="paas"> PaaS</label>
+        <label><input type="checkbox" class="filter-checkbox" data-filter-type="service" data-filter-value="caas"> CaaS</label>
+        <label><input type="checkbox" class="filter-checkbox" data-filter-type="service" data-filter-value="iam"> IAM</label>
+        <label><input type="checkbox" class="filter-checkbox" data-filter-type="service" data-filter-value="api-gateway"> API Gateway</label>
+    </div>
+    
+    <div class="filter-group">
+        <h3>Certifications</h3>
+        <label><input type="checkbox" class="filter-checkbox" data-filter-type="cert" data-filter-value="secnumcloud"> SecNumCloud</label>
+        <label><input type="checkbox" class="filter-checkbox" data-filter-type="cert" data-filter-value="hds"> HDS</label>
+        <label><input type="checkbox" class="filter-checkbox" data-filter-type="cert" data-filter-value="eucs"> EUCS</label>
+    </div>
+    
+    <div class="filter-group">
+        <h3>Countries</h3>
+        <label><input type="checkbox" class="filter-checkbox" data-filter-type="country" data-filter-value="France"> France</label>
+        <label><input type="checkbox" class="filter-checkbox" data-filter-type="country" data-filter-value="United States"> United States</label>
+        <label><input type="checkbox" class="filter-checkbox" data-filter-type="country" data-filter-value="Germany"> Germany</label>
+        <label><input type="checkbox" class="filter-checkbox" data-filter-type="country" data-filter-value="Switzerland"> Switzerland</label>
+    </div>
+    
+    <button class="filter-reset">Reset All Filters</button>
+</div>
+
+<p class="result-count" role="status" aria-live="polite">
+    {{ section.pages | length }} providers available
+</p>
+
 {% if section.pages %}
-<ul>
+<div class="provider-grid">
     {% for page in section.pages %}
-    <li>
+    <article class="provider-card">
         <h2><a href="{{ page.permalink }}">{{ page.title }}</a></h2>
-        <p>{{ page.description }}</p>
-        <p>Country: {{ page.country }}</p>
-    </li>
+        <p class="provider-description">{{ page.description }}</p>
+        
+        <div class="provider-meta">
+            <p><strong>Country:</strong> {{ page.extra.country }}</p>
+            
+            {% if page.taxonomies.services %}
+            <p class="provider-services">
+                <strong>Services:</strong>
+                {% for service in page.taxonomies.services %}
+                <span class="badge">{{ service }}</span>{% if not loop.last %}, {% endif %}
+                {% endfor %}
+            </p>
+            {% endif %}
+            
+            {% if page.taxonomies.certifications %}
+            <p class="provider-certifications">
+                <strong>Certifications:</strong>
+                {% for cert in page.taxonomies.certifications %}
+                <span class="badge cert-badge">{{ cert }}</span>{% if not loop.last %}, {% endif %}
+                {% endfor %}
+            </p>
+            {% endif %}
+        </div>
+    </article>
     {% endfor %}
-</ul>
+</div>
+{% else %}
+<p>No providers found.</p>
 {% endif %}
+
+<script src="/filter.js"></script>
 {% endblock %}
