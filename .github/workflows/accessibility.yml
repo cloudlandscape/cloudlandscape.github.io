@@ -1,0 +1,47 @@
+name: Accessibility Testing
+on:
+  pull_request:
+    paths:
+      - 'templates/**'
+      - 'static/**'
+      - 'content/**'
+  workflow_dispatch:
+
+jobs:
+  axe-core:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6.0.1
+
+      - name: Install Zola
+        run: |
+          wget -q https://github.com/getzola/zola/releases/download/v0.22.1/zola-v0.22.1-x86_64-unknown-linux-gnu.tar.gz
+          tar -xzf zola-v0.22.1-x86_64-unknown-linux-gnu.tar.gz
+          sudo mv zola /usr/local/bin/
+
+      - name: Build site
+        run: zola build
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install axe-core CLI
+        run: npm install -g @axe-core/cli
+
+      - name: Serve site and run axe-core
+        run: |
+          cd public
+          python3 -m http.server 8000 &
+          sleep 3
+          
+          # Test key pages
+          axe http://localhost:8000/ --exit
+          axe http://localhost:8000/providers/ --exit
+          axe http://localhost:8000/providers/scaleway/ --exit
+
+      - name: Report results
+        if: always()
+        run: echo "Accessibility testing completed. Check logs above for any violations."

@@ -8,6 +8,7 @@ import json
 import sys
 import re
 from pathlib import Path
+from urllib.parse import urlparse
 
 def extract_toml_frontmatter(content):
     """Extract TOML frontmatter from Zola markdown file"""
@@ -30,6 +31,36 @@ def toml_to_dict(toml_str):
         except ImportError:
             print("Error: Install tomli or toml library: pip install tomli", file=sys.stderr)
             sys.exit(1)
+
+def validate_url(url):
+    """Validate URL format"""
+    try:
+        result = urlparse(url)
+        return all([result.scheme in ('http', 'https'), result.netloc])
+    except:
+        return False
+
+def check_duplicate_slugs(provider_files):
+    """Check for duplicate provider slugs"""
+    slugs = {}
+    duplicates = []
+    
+    for provider_file in provider_files:
+        try:
+            content = provider_file.read_text(encoding='utf-8')
+            frontmatter = extract_toml_frontmatter(content)
+            if frontmatter:
+                data = toml_to_dict(frontmatter)
+                slug = data.get('slug')
+                if slug:
+                    if slug in slugs:
+                        duplicates.append((slug, slugs[slug], provider_file))
+                    else:
+                        slugs[slug] = provider_file
+        except:
+            pass
+    
+    return duplicates
 
 def validate_provider(provider_file, schema):
     """Validate a provider file against schema"""
@@ -55,20 +86,27 @@ def validate_provider(provider_file, schema):
         if 'slug' in data:
             slug = data['slug']
             if not re.match(r'^[a-z0-9]+(-[a-z0-9]+)*$', slug):
-                errors.append(f"Invalid slug format: {slug}")
+                errors.append(f"Invalid slug format: {slug}. Use lowercase letters, numbers, and hyphens only.")
         
         # Validate services enum
         if 'taxonomies' in data and 'services' in data['taxonomies']:
             valid_services = schema['properties']['taxonomies']['properties']['services']['items']['enum']
             for service in data['taxonomies']['services']:
                 if service not in valid_services:
-                    errors.append(f"Invalid service: {service}")
+                    errors.append(f"Invalid service: {service}. Valid services: {', '.join(valid_services)}")
         
         # Validate website URL
         if 'extra' in data and 'website' in data['extra']:
             website = data['extra']['website']
-            if not website.startswith(('http://', 'https://')):
-                errors.append(f"Invalid website URL: {website}")
+            if not validate_url(website):
+                errors.append(f"Invalid or unreachable website URL: {website}")
+        
+        # Validate certification URLs (story-6.5)
+        if 'extra' in data and 'certification_links' in data['extra']:
+            cert_links = data['extra']['certification_links']
+            for cert, url in cert_links.items():
+                if not validate_url(url):
+                    errors.append(f"Invalid certification URL for {cert}: {url}")
         
         if errors:
             return False, "; ".join(errors)
@@ -94,6 +132,16 @@ def main():
         print("No provider files found", file=sys.stderr)
         sys.exit(1)
     
+    # Check for duplicate slugs (story-6.6)
+    duplicates = check_duplicate_slugs(provider_files)
+    if duplicates:
+        print("❌ DUPLICATE SLUGS FOUND:", file=sys.stderr)
+        for slug, file1, file2 in duplicates:
+            print(f"  Slug '{slug}' appears in:", file=sys.stderr)
+            print(f"    - {file1.relative_to(providers_dir.parent)}", file=sys.stderr)
+            print(f"    - {file2.relative_to(providers_dir.parent)}", file=sys.stderr)
+        sys.exit(1)
+    
     errors = []
     valid_count = 0
     
@@ -105,13 +153,15 @@ def main():
             print(f"✓ {provider_file.relative_to(providers_dir.parent)}")
         else:
             errors.append((provider_file, message))
-            print(f"✗ {provider_file.relative_to(providers_dir.parent)}: {message}")
+            print(f"✗ {provider_file.relative_to(providers_dir.parent)}: {message}", file=sys.stderr)
     
     print(f"\n{valid_count}/{len(provider_files)} files valid")
     
     if errors:
+        print(f"\n❌ {len(errors)} validation error(s) found", file=sys.stderr)
         sys.exit(1)
     
+    print("✅ All validations passed")
     sys.exit(0)
 
 if __name__ == '__main__':
