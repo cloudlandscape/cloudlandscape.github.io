@@ -5,6 +5,22 @@
 {% block content %}
 <h1>{{ section.title }}</h1>
 
+<noscript>
+    <style>
+        .noscript-message {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+        }
+        .filters-container { display: none; }
+    </style>
+    <div class="noscript-message">
+        <strong>Note:</strong> All providers are visible below. Filtering and search features require JavaScript to be enabled.
+    </div>
+</noscript>
+
 <div class="filters-container" role="region" aria-label="Search and filter options">
     <div class="search-container">
         <label for="search-input">Search providers</label>
