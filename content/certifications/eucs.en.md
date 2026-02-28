@@ -53,5 +53,5 @@ Check our [provider list](/en/providers/) to identify suppliers actively prepari
 
 ## Official resources
 
-- [ENISA - EUCS](https://www.enisa.europa.eu/topics/cybersecurity-policy/eu-cybersecurity-certification-framework)
+- [ENISA - EUCS](https://www.enisa.europa.eu/publications/eucs-cloud-service-scheme)
 - [EU Cybersecurity Act](https://digital-strategy.ec.europa.eu/en/policies/cybersecurity-act)

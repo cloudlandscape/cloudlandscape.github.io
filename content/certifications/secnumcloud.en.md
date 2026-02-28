@@ -38,5 +38,5 @@ Cloud providers with SecNumCloud certification are listed in our directory with 
 
 ## Official resources
 
-- [ANSSI - SecNumCloud](https://www.ssi.gouv.fr/entreprise/qualification/secnumcloud/)
-- [SecNumCloud Reference](https://www.ssi.gouv.fr/entreprise/produits-certifies/produits-qualifies/prestataires-de-service-de-confiance-qualifies/prestataires-de-services-dinformatique-en-nuage-secnumcloud/)
+- [ANSSI - SecNumCloud](https://cyber.gouv.fr/documents/388/secnumcloud-referentiel-exigences-v3.2.pdf)
+- [SecNumCloud products & services’ catalog](https://messervices.cyber.gouv.fr/visas/catalogue-produits-services-profils-de-protection-sites-certifies-qualifies-agrees-anssi.pdf)

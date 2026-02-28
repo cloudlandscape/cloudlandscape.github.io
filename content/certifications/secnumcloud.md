@@ -38,5 +38,5 @@ Les fournisseurs cloud certifiés SecNumCloud figurent dans notre annuaire avec 
 
 ## Ressources officielles
 
-- [ANSSI - SecNumCloud](https://www.ssi.gouv.fr/entreprise/qualification/secnumcloud/)
-- [Référentiel SecNumCloud](https://www.ssi.gouv.fr/entreprise/produits-certifies/produits-qualifies/prestataires-de-service-de-confiance-qualifies/prestataires-de-services-dinformatique-en-nuage-secnumcloud/)
+- [ANSSI - SecNumCloud](https://cyber.gouv.fr/documents/388/secnumcloud-referentiel-exigences-v3.2.pdf)
+- [Catalogue produits et services qualifiés SecNumCloud](https://messervices.cyber.gouv.fr/visas/catalogue-produits-services-profils-de-protection-sites-certifies-qualifies-agrees-anssi.pdf)
