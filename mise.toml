@@ -1,2 +1,8 @@
 [tools]
 zola = "latest"
+
+[tasks]
+check = "zola check"
+build = "zola build"
+validate = "uv run docs/validate_providers.py"
+
