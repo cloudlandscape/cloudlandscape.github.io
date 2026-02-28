@@ -46,4 +46,4 @@ Consultez notre [liste de providers](/providers/) et filtrez par certification "
 ## Ressources officielles
 
 - [Agence du Numérique en Santé](https://esante.gouv.fr/produits-services/hds)
-- [Liste des hébergeurs certifiés](https://esante.gouv.fr/node/2383)
+

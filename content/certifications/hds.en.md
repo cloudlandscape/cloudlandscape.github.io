@@ -46,4 +46,4 @@ Check our [provider list](/en/providers/) and filter by "HDS" certification to i
 ## Official resources
 
 - [Digital Health Agency](https://esante.gouv.fr/produits-services/hds)
-- [List of certified hosts](https://esante.gouv.fr/node/2383)
+
