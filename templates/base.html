@@ -4,17 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{{ config.title }}{% endblock %}</title>
+    {% if page.description %}
+    <meta name="description" content="{{ page.description }}">
+    {% elif section.description %}
+    <meta name="description" content="{{ section.description }}">
+    {% elif config.description %}
+    <meta name="description" content="{{ config.description }}">
+    {% endif %}
+    
+    {# Hreflang tags for multilingual SEO #}
+    {% if page %}
+        {% for translation in page.translations %}
+        <link rel="alternate" hreflang="{{ translation.lang }}" href="{{ translation.permalink }}" />
+        {% endfor %}
+        <link rel="alternate" hreflang="{{ page.lang }}" href="{{ page.permalink }}" />
+    {% elif section %}
+        {% for translation in section.translations %}
+        <link rel="alternate" hreflang="{{ translation.lang }}" href="{{ translation.permalink }}" />
+        {% endfor %}
+        <link rel="alternate" hreflang="{{ section.lang }}" href="{{ section.permalink }}" />
+    {% endif %}
+    
     <link rel="stylesheet" href="/style.css">
 </head>
 <body>
     <a href="#main-content" class="skip-link">Skip to main content</a>
     
-    <nav>
+    <nav aria-label="Main navigation">
         <a href="/">Home</a>
         <a href="/providers/">Providers</a>
     </nav>
     
-    <main id="main-content" tabindex="-1">
+    <main id="main-content" tabindex="-1" role="main">
         {% block content %}{% endblock %}
     </main>
     

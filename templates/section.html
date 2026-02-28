@@ -5,7 +5,7 @@
 {% block content %}
 <h1>{{ section.title }}</h1>
 
-<div class="filters-container">
+<div class="filters-container" role="region" aria-label="Search and filter options">
     <div class="search-container">
         <label for="search-input">Search providers</label>
         <input 
@@ -22,10 +22,10 @@
     </button>
     
     <div class="filters-content" id="filters-content">
-        <h2>Filters</h2>
+        <h2 id="filters-heading">Filters</h2>
     
-    <div class="filter-group">
-        <h3>Services</h3>
+    <fieldset class="filter-group">
+        <legend>Services</legend>
         <label><input type="checkbox" class="filter-checkbox" data-filter-type="service" data-filter-value="compute"> Compute</label>
         <label><input type="checkbox" class="filter-checkbox" data-filter-type="service" data-filter-value="kubernetes"> Kubernetes</label>
         <label><input type="checkbox" class="filter-checkbox" data-filter-type="service" data-filter-value="object-storage"> Object Storage</label>
@@ -34,24 +34,24 @@
         <label><input type="checkbox" class="filter-checkbox" data-filter-type="service" data-filter-value="caas"> CaaS</label>
         <label><input type="checkbox" class="filter-checkbox" data-filter-type="service" data-filter-value="iam"> IAM</label>
         <label><input type="checkbox" class="filter-checkbox" data-filter-type="service" data-filter-value="api-gateway"> API Gateway</label>
-    </div>
+    </fieldset>
     
-    <div class="filter-group">
-        <h3>Certifications</h3>
+    <fieldset class="filter-group">
+        <legend>Certifications</legend>
         <label><input type="checkbox" class="filter-checkbox" data-filter-type="cert" data-filter-value="secnumcloud"> SecNumCloud</label>
         <label><input type="checkbox" class="filter-checkbox" data-filter-type="cert" data-filter-value="hds"> HDS</label>
         <label><input type="checkbox" class="filter-checkbox" data-filter-type="cert" data-filter-value="eucs"> EUCS</label>
-    </div>
+    </fieldset>
     
-    <div class="filter-group">
-        <h3>Countries</h3>
+    <fieldset class="filter-group">
+        <legend>Countries</legend>
         <label><input type="checkbox" class="filter-checkbox" data-filter-type="country" data-filter-value="France"> France</label>
         <label><input type="checkbox" class="filter-checkbox" data-filter-type="country" data-filter-value="United States"> United States</label>
         <label><input type="checkbox" class="filter-checkbox" data-filter-type="country" data-filter-value="Germany"> Germany</label>
         <label><input type="checkbox" class="filter-checkbox" data-filter-type="country" data-filter-value="Switzerland"> Switzerland</label>
-    </div>
+    </fieldset>
     
-    <button class="filter-reset">Reset All Filters</button>
+    <button class="filter-reset" aria-label="Clear all filters">Reset All Filters</button>
     </div>
 </div>
 
@@ -60,31 +60,37 @@
 </p>
 
 {% if section.pages %}
-<div class="provider-grid">
+<div class="provider-grid" role="list">
     {% for page in section.pages %}
-    <article class="provider-card">
+    <article class="provider-card" role="listitem">
         <h2><a href="{{ page.permalink }}">{{ page.title }}</a></h2>
         <p class="provider-description">{{ page.description }}</p>
         
         <div class="provider-meta">
-            <p><strong>Country:</strong> {{ page.extra.country }}</p>
+            {% if page.extra.country %}
+            <p><strong>Country:</strong> <span>{{ page.extra.country }}</span></p>
+            {% endif %}
             
             {% if page.taxonomies.services %}
-            <p class="provider-services">
+            <div class="provider-services">
                 <strong>Services:</strong>
+                <ul aria-label="Services offered">
                 {% for service in page.taxonomies.services %}
-                <span class="badge">{{ service }}</span>{% if not loop.last %}, {% endif %}
+                    <li><span class="badge">{{ service }}</span></li>
                 {% endfor %}
-            </p>
+                </ul>
+            </div>
             {% endif %}
             
             {% if page.taxonomies.certifications %}
-            <p class="provider-certifications">
+            <div class="provider-certifications">
                 <strong>Certifications:</strong>
+                <ul aria-label="Certifications held">
                 {% for cert in page.taxonomies.certifications %}
-                <span class="badge cert-badge">{{ cert }}</span>{% if not loop.last %}, {% endif %}
+                    <li><span class="badge cert-badge">{{ cert }}</span></li>
                 {% endfor %}
-            </p>
+                </ul>
+            </div>
             {% endif %}
         </div>
     </article>

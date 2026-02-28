@@ -3,15 +3,15 @@
 {% block title %}{{ page.title }} - {{ config.title }}{% endblock %}
 
 {% block content %}
-<div class="provider-detail">
-    <div class="provider-header">
+<article class="provider-detail">
+    <header class="provider-header">
         <h1>{{ page.title }}</h1>
         {% if page.description %}
         <p class="provider-tagline">{{ page.description }}</p>
         {% endif %}
-    </div>
+    </header>
 
-    <div class="provider-meta-grid">
+    <section class="provider-meta-grid" aria-label="Provider information">
         {% if page.extra.country %}
         <div class="meta-item">
             <strong>Country of Origin:</strong>
@@ -42,11 +42,11 @@
             </a>
         </div>
         {% endif %}
-    </div>
+    </section>
 
     {% if page.content %}
-    <section class="provider-description">
-        <h2>About</h2>
+    <section class="provider-description" aria-labelledby="about-heading">
+        <h2 id="about-heading">About</h2>
         <div class="content">
             {{ page.content | safe }}
         </div>
@@ -54,10 +54,10 @@
     {% endif %}
 
     {% if page.taxonomies.services %}
-    <section class="provider-services">
-        <h2>Services Offered</h2>
+    <section class="provider-services" aria-labelledby="services-heading">
+        <h2 id="services-heading">Services Offered</h2>
         <p class="section-intro">Services are mapped to unified taxonomy categories for easy comparison across providers.</p>
-        <div class="services-grid">
+        <ul class="services-grid" role="list">
             {% for service in page.taxonomies.services %}
             <div class="service-card">
                 <span class="service-name">{{ service | replace(from="-", to=" ") | title }}</span>
@@ -90,23 +90,23 @@
     {% endif %}
 
     {% if page.extra.datacenter_locations %}
-    <section class="provider-datacenters">
-        <h2>Geographic Coverage</h2>
+    <section class="provider-datacenters" aria-labelledby="datacenter-heading">
+        <h2 id="datacenter-heading">Geographic Coverage</h2>
         <p class="section-intro">Datacenter locations for data residency and latency considerations.</p>
-        <div class="datacenters-list">
+        <ul class="datacenters-list" role="list">
             {% for location in page.extra.datacenter_locations %}
-            <div class="datacenter-item">
-                <span class="location-icon">📍</span>
+            <li class="datacenter-item">
+                <span class="location-icon" aria-hidden="true">📍</span>
                 <span>{{ location }}</span>
-            </div>
+            </li>
             {% endfor %}
-        </div>
+        </ul>
     </section>
     {% endif %}
 
     <div class="provider-actions">
         <a href="/providers/" class="btn btn-secondary">← Back to All Providers</a>
-        <button class="btn btn-primary" data-provider="{{ page.slug }}">Add to Comparison</button>
+        <button class="btn btn-primary" data-provider="{{ page.slug }}" aria-label="Add {{ page.title }} to comparison">Add to Comparison</button>
     </div>
-</div>
+</article>
 {% endblock %}
