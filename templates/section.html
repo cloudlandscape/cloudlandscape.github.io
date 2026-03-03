@@ -5,9 +5,51 @@
 {% block content %}
 <h1>{{ section.title }}</h1>
 
+{% if section.lang == "fr" %}
+{% set t_noscript = "Tous les fournisseurs sont visibles ci-dessous. Les fonctionnalités de filtrage et de recherche nécessitent l'activation de JavaScript." %}
+{% set t_search_label = "Rechercher des fournisseurs" %}
+{% set t_search_placeholder = "Rechercher par nom ou description..." %}
+{% set t_show_filters = "Afficher les filtres" %}
+{% set t_hide_filters = "Masquer les filtres" %}
+{% set t_filters_heading = "Filtres" %}
+{% set t_services_legend = "Services" %}
+{% set t_certifications_legend = "Certifications" %}
+{% set t_countries_legend = "Pays" %}
+{% set t_reset_filters = "Réinitialiser tous les filtres" %}
+{% set t_providers_available = "fournisseurs disponibles" %}
+{% set t_result_template_all = "{count} fournisseurs disponibles" %}
+{% set t_result_template_filtered = "{count} sur {total} fournisseurs correspondent à vos filtres" %}
+{% set t_country_label = "Pays" %}
+{% set t_services_label = "Services" %}
+{% set t_certifications_label = "Certifications" %}
+{% set t_add_to_comparison = "Ajouter à la comparaison" %}
+{% set t_added_to_comparison = "✓ Ajouté à la comparaison" %}
+{% set t_comparison_full = "Comparaison complète" %}
+{% else %}
+{% set t_noscript = "All providers are visible below. Filtering and search features require JavaScript to be enabled." %}
+{% set t_search_label = "Search providers" %}
+{% set t_search_placeholder = "Search by name or description..." %}
+{% set t_show_filters = "Show Filters" %}
+{% set t_hide_filters = "Hide Filters" %}
+{% set t_filters_heading = "Filters" %}
+{% set t_services_legend = "Services" %}
+{% set t_certifications_legend = "Certifications" %}
+{% set t_countries_legend = "Countries" %}
+{% set t_reset_filters = "Reset All Filters" %}
+{% set t_providers_available = "providers available" %}
+{% set t_result_template_all = "{count} providers available" %}
+{% set t_result_template_filtered = "{count} of {total} providers match your filters" %}
+{% set t_country_label = "Country" %}
+{% set t_services_label = "Services" %}
+{% set t_certifications_label = "Certifications" %}
+{% set t_add_to_comparison = "Add to Comparison" %}
+{% set t_added_to_comparison = "✓ Added to Comparison" %}
+{% set t_comparison_full = "Comparison Full" %}
+{% endif %}
+
 <noscript>
     <style>
-        .noscript-message {
+        .noscript_message {
             background: #fff3cd;
             border: 2px solid #ffc107;
             padding: 1rem;
@@ -17,19 +59,19 @@
         .filters-container { display: none; }
     </style>
     <div class="noscript-message">
-        <strong>Note:</strong> {{ lang.translations.noscript_message | default(value="All providers are visible below. Filtering and search features require JavaScript to be enabled.") }}
+        <strong>Note:</strong> {{ t_noscript }}
     </div>
 </noscript>
 
 <div class="filters-container" role="region" aria-label="Search and filter options">
     <div class="search-container">
-        <label for="search-input">{{ lang.translations.search_label | default(value="Search providers") }}</label>
+        <label for="search-input">{{ t_search_label }}</label>
         <input 
             type="search" 
             id="search-input" 
             class="search-input" 
-            placeholder="{{ lang.translations.search_placeholder | default(value="Search by name or description...") }}" 
-            aria-label="{{ lang.translations.search_placeholder | default(value="Search by name or description...") }}"
+            placeholder="{{ t_search_placeholder }}" 
+            aria-label="{{ t_search_placeholder }}"
         />
     </div>
     
@@ -37,17 +79,17 @@
         class="filters-toggle" 
         aria-expanded="false" 
         aria-controls="filters-content"
-        data-show-text="{{ lang.translations.show_filters | default(value='Show Filters') }}"
-        data-hide-text="{{ lang.translations.hide_filters | default(value='Hide Filters') }}"
+        data-show-text="{{ t_show_filters }}"
+        data-hide-text="{{ t_hide_filters }}"
     >
-        <span class="toggle-text">{{ lang.translations.show_filters | default(value="Show Filters") }}</span>
+        <span class="toggle-text">{{ t_show_filters }}</span>
     </button>
     
     <div class="filters-content" id="filters-content">
-        <h2 id="filters-heading">{{ lang.translations.filters_heading | default(value="Filters") }}</h2>
+        <h2 id="filters-heading">{{ t_filters_heading }}</h2>
     
     <fieldset class="filter-group">
-        <legend>{{ lang.translations.services_legend | default(value="Services") }}</legend>
+        <legend>{{ t_services_legend }}</legend>
         <label><input type="checkbox" class="filter-checkbox" data-filter-type="service" data-filter-value="compute"> Compute</label>
         <label><input type="checkbox" class="filter-checkbox" data-filter-type="service" data-filter-value="kubernetes"> Kubernetes</label>
         <label><input type="checkbox" class="filter-checkbox" data-filter-type="service" data-filter-value="object-storage"> Object Storage</label>
@@ -59,28 +101,28 @@
     </fieldset>
     
     <fieldset class="filter-group">
-        <legend>{{ lang.translations.certifications_legend | default(value="Certifications") }}</legend>
+        <legend>{{ t_certifications_legend }}</legend>
         <label><input type="checkbox" class="filter-checkbox" data-filter-type="cert" data-filter-value="secnumcloud"> SecNumCloud</label>
         <label><input type="checkbox" class="filter-checkbox" data-filter-type="cert" data-filter-value="hds"> HDS</label>
         <label><input type="checkbox" class="filter-checkbox" data-filter-type="cert" data-filter-value="eucs"> EUCS</label>
     </fieldset>
     
     <fieldset class="filter-group">
-        <legend>{{ lang.translations.countries_legend | default(value="Countries") }}</legend>
+        <legend>{{ t_countries_legend }}</legend>
         <label><input type="checkbox" class="filter-checkbox" data-filter-type="country" data-filter-value="France"> France</label>
         <label><input type="checkbox" class="filter-checkbox" data-filter-type="country" data-filter-value="United States"> United States</label>
         <label><input type="checkbox" class="filter-checkbox" data-filter-type="country" data-filter-value="Germany"> Germany</label>
         <label><input type="checkbox" class="filter-checkbox" data-filter-type="country" data-filter-value="Switzerland"> Switzerland</label>
     </fieldset>
     
-    <button class="filter-reset" aria-label="{{ lang.translations.reset_filters | default(value="Clear all filters") }}">{{ lang.translations.reset_filters | default(value="Reset All Filters") }}</button>
+    <button class="filter-reset" aria-label="{{ t_reset_filters }}">{{ t_reset_filters }}</button>
     </div>
 </div>
 
 <p class="result-count" role="status" aria-live="polite"
-   data-template-all="{{ lang.translations.result_template_all | default(value='{count} providers available') }}"
-   data-template-filtered="{{ lang.translations.result_template_filtered | default(value='{count} of {total} providers match your filters') }}">
-    {{ section.pages | length }} {{ lang.translations.providers_available | default(value="providers available") }}
+   data-template-all="{{ t_result_template_all }}"
+   data-template-filtered="{{ t_result_template_filtered }}">
+    {{ section.pages | length }} {{ t_providers_available }}
 </p>
 
 {% if section.pages %}
@@ -92,12 +134,12 @@
         
         <div class="provider-meta">
             {% if page.extra.country %}
-            <p><strong>{{ lang.translations.country_label | default(value="Country") }}:</strong> <span>{{ page.extra.country }}</span></p>
+            <p><strong>{{ t_country_label }}:</strong> <span>{{ page.extra.country }}</span></p>
             {% endif %}
             
             {% if page.taxonomies.services %}
             <div class="provider-services">
-                <strong>{{ lang.translations.services_label | default(value="Services") }}:</strong>
+                <strong>{{ t_services_label }}:</strong>
                 <ul aria-label="Services offered">
                 {% for service in page.taxonomies.services %}
                     <li><span class="badge">{{ service }}</span></li>
@@ -108,7 +150,7 @@
             
             {% if page.taxonomies.certifications %}
             <div class="provider-certifications">
-                <strong>{{ lang.translations.certifications_label | default(value="Certifications") }}:</strong>
+                <strong>{{ t_certifications_label }}:</strong>
                 <ul aria-label="Certifications held">
                 {% for cert in page.taxonomies.certifications %}
                     <li><span class="badge cert-badge">{{ cert }}</span></li>
@@ -122,12 +164,12 @@
             <button
                 class="btn btn-compare-add"
                 data-provider="{{ page.slug }}"
-                data-label-add="{{ lang.translations.add_to_comparison | default(value="Add to Comparison") }}"
-                data-label-added="{{ lang.translations.added_to_comparison | default(value="✓ Added to Comparison") }}"
-                data-label-full="{{ lang.translations.comparison_full | default(value="Comparison Full") }}"
-                aria-label="{{ lang.translations.add_to_comparison | default(value="Add to comparison") }} {{ page.title }}"
+                data-label-add="{{ t_add_to_comparison }}"
+                data-label-added="{{ t_added_to_comparison }}"
+                data-label-full="{{ t_comparison_full }}"
+                aria-label="{{ t_add_to_comparison }} {{ page.title }}"
             >
-                {{ lang.translations.add_to_comparison | default(value="Add to Comparison") }}
+                {{ t_add_to_comparison }}
             </button>
         </div>
     </article>

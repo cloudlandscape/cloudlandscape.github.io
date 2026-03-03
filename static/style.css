@@ -100,7 +100,7 @@ h2 {
     margin: 0.5rem 0;
 }
 
-.provider-actions {
+.provider-card .provider-actions {
     margin-top: 1rem;
     padding-top: 1rem;
     border-top: 1px solid #ecf0f1;
