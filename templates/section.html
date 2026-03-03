@@ -29,11 +29,17 @@
             id="search-input" 
             class="search-input" 
             placeholder="{{ lang.translations.search_placeholder | default(value="Search by name or description...") }}" 
-            aria-label="{{ lang.translations.search_label | default(value="Search providers by name or description") }}"
+            aria-label="{{ lang.translations.search_placeholder | default(value="Search by name or description...") }}"
         />
     </div>
     
-    <button class="filters-toggle" aria-expanded="false" aria-controls="filters-content">
+    <button 
+        class="filters-toggle" 
+        aria-expanded="false" 
+        aria-controls="filters-content"
+        data-show-text="{{ lang.translations.show_filters | default(value='Show Filters') }}"
+        data-hide-text="{{ lang.translations.hide_filters | default(value='Hide Filters') }}"
+    >
         <span class="toggle-text">{{ lang.translations.show_filters | default(value="Show Filters") }}</span>
     </button>
     
@@ -71,7 +77,9 @@
     </div>
 </div>
 
-<p class="result-count" role="status" aria-live="polite">
+<p class="result-count" role="status" aria-live="polite"
+   data-template-all="{{ lang.translations.result_template_all | default(value='{count} providers available') }}"
+   data-template-filtered="{{ lang.translations.result_template_filtered | default(value='{count} of {total} providers match your filters') }}">
     {{ section.pages | length }} {{ lang.translations.providers_available | default(value="providers available") }}
 </p>
 
@@ -111,7 +119,14 @@
         </div>
         
         <div class="provider-actions">
-            <button class="btn btn-compare-add" data-provider="{{ page.slug }}" aria-label="{{ lang.translations.add_to_comparison | default(value="Add to comparison") }} {{ page.title }}">
+            <button
+                class="btn btn-compare-add"
+                data-provider="{{ page.slug }}"
+                data-label-add="{{ lang.translations.add_to_comparison | default(value="Add to Comparison") }}"
+                data-label-added="{{ lang.translations.added_to_comparison | default(value="✓ Added to Comparison") }}"
+                data-label-full="{{ lang.translations.comparison_full | default(value="Comparison Full") }}"
+                aria-label="{{ lang.translations.add_to_comparison | default(value="Add to comparison") }} {{ page.title }}"
+            >
                 {{ lang.translations.add_to_comparison | default(value="Add to Comparison") }}
             </button>
         </div>

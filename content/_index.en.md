@@ -13,4 +13,4 @@ Welcome to Cloud Landscape, the reference directory for cloud providers. Our mis
 
 ## Get Started
 
-<a href="/providers/" class="btn btn-primary">Explore Providers →</a>
+<a href="providers/" class="btn btn-primary">Explore Providers →</a>
