@@ -17,31 +17,31 @@
         .filters-container { display: none; }
     </style>
     <div class="noscript-message">
-        <strong>Note:</strong> All providers are visible below. Filtering and search features require JavaScript to be enabled.
+        <strong>Note:</strong> {{ lang.translations.noscript_message | default(value="All providers are visible below. Filtering and search features require JavaScript to be enabled.") }}
     </div>
 </noscript>
 
 <div class="filters-container" role="region" aria-label="Search and filter options">
     <div class="search-container">
-        <label for="search-input">Search providers</label>
+        <label for="search-input">{{ lang.translations.search_label | default(value="Search providers") }}</label>
         <input 
             type="search" 
             id="search-input" 
             class="search-input" 
-            placeholder="Search by name or description..." 
-            aria-label="Search providers by name or description"
+            placeholder="{{ lang.translations.search_placeholder | default(value="Search by name or description...") }}" 
+            aria-label="{{ lang.translations.search_label | default(value="Search providers by name or description") }}"
         />
     </div>
     
     <button class="filters-toggle" aria-expanded="false" aria-controls="filters-content">
-        <span class="toggle-text">Show Filters</span>
+        <span class="toggle-text">{{ lang.translations.show_filters | default(value="Show Filters") }}</span>
     </button>
     
     <div class="filters-content" id="filters-content">
-        <h2 id="filters-heading">Filters</h2>
+        <h2 id="filters-heading">{{ lang.translations.filters_heading | default(value="Filters") }}</h2>
     
     <fieldset class="filter-group">
-        <legend>Services</legend>
+        <legend>{{ lang.translations.services_legend | default(value="Services") }}</legend>
         <label><input type="checkbox" class="filter-checkbox" data-filter-type="service" data-filter-value="compute"> Compute</label>
         <label><input type="checkbox" class="filter-checkbox" data-filter-type="service" data-filter-value="kubernetes"> Kubernetes</label>
         <label><input type="checkbox" class="filter-checkbox" data-filter-type="service" data-filter-value="object-storage"> Object Storage</label>
@@ -53,26 +53,26 @@
     </fieldset>
     
     <fieldset class="filter-group">
-        <legend>Certifications</legend>
+        <legend>{{ lang.translations.certifications_legend | default(value="Certifications") }}</legend>
         <label><input type="checkbox" class="filter-checkbox" data-filter-type="cert" data-filter-value="secnumcloud"> SecNumCloud</label>
         <label><input type="checkbox" class="filter-checkbox" data-filter-type="cert" data-filter-value="hds"> HDS</label>
         <label><input type="checkbox" class="filter-checkbox" data-filter-type="cert" data-filter-value="eucs"> EUCS</label>
     </fieldset>
     
     <fieldset class="filter-group">
-        <legend>Countries</legend>
+        <legend>{{ lang.translations.countries_legend | default(value="Countries") }}</legend>
         <label><input type="checkbox" class="filter-checkbox" data-filter-type="country" data-filter-value="France"> France</label>
         <label><input type="checkbox" class="filter-checkbox" data-filter-type="country" data-filter-value="United States"> United States</label>
         <label><input type="checkbox" class="filter-checkbox" data-filter-type="country" data-filter-value="Germany"> Germany</label>
         <label><input type="checkbox" class="filter-checkbox" data-filter-type="country" data-filter-value="Switzerland"> Switzerland</label>
     </fieldset>
     
-    <button class="filter-reset" aria-label="Clear all filters">Reset All Filters</button>
+    <button class="filter-reset" aria-label="{{ lang.translations.reset_filters | default(value="Clear all filters") }}">{{ lang.translations.reset_filters | default(value="Reset All Filters") }}</button>
     </div>
 </div>
 
 <p class="result-count" role="status" aria-live="polite">
-    {{ section.pages | length }} providers available
+    {{ section.pages | length }} {{ lang.translations.providers_available | default(value="providers available") }}
 </p>
 
 {% if section.pages %}
@@ -84,12 +84,12 @@
         
         <div class="provider-meta">
             {% if page.extra.country %}
-            <p><strong>Country:</strong> <span>{{ page.extra.country }}</span></p>
+            <p><strong>{{ lang.translations.country_label | default(value="Country") }}:</strong> <span>{{ page.extra.country }}</span></p>
             {% endif %}
             
             {% if page.taxonomies.services %}
             <div class="provider-services">
-                <strong>Services:</strong>
+                <strong>{{ lang.translations.services_label | default(value="Services") }}:</strong>
                 <ul aria-label="Services offered">
                 {% for service in page.taxonomies.services %}
                     <li><span class="badge">{{ service }}</span></li>
@@ -100,7 +100,7 @@
             
             {% if page.taxonomies.certifications %}
             <div class="provider-certifications">
-                <strong>Certifications:</strong>
+                <strong>{{ lang.translations.certifications_label | default(value="Certifications") }}:</strong>
                 <ul aria-label="Certifications held">
                 {% for cert in page.taxonomies.certifications %}
                     <li><span class="badge cert-badge">{{ cert }}</span></li>
@@ -111,8 +111,8 @@
         </div>
         
         <div class="provider-actions">
-            <button class="btn btn-compare-add" data-provider="{{ page.slug }}" aria-label="Add {{ page.title }} to comparison">
-                Add to Comparison
+            <button class="btn btn-compare-add" data-provider="{{ page.slug }}" aria-label="{{ lang.translations.add_to_comparison | default(value="Add to comparison") }} {{ page.title }}">
+                {{ lang.translations.add_to_comparison | default(value="Add to Comparison") }}
             </button>
         </div>
     </article>

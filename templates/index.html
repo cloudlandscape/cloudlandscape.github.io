@@ -1,11 +1,16 @@
 {% extends "base.html" %}
 
-{% block title %}{{ config.title }} - Home{% endblock %}
+{% block title %}{{ config.title }} - {{ section.title }}{% endblock %}
 
 {% block content %}
-<h1>{{ config.title }}</h1>
-<p>{{ config.description }}</p>
+<div class="home-content">
+    <h1>{{ config.title }}</h1>
+    <p class="tagline">{{ config.description }}</p>
 
-<h2>Providers</h2>
-<p><a href="/providers/">Browse all cloud providers</a></p>
+    {% if section.content %}
+    <div class="content">
+        {{ section.content | safe }}
+    </div>
+    {% endif %}
+</div>
 {% endblock %}
