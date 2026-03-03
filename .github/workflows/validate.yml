@@ -26,6 +26,9 @@ jobs:
           python-version: "3.14"
           enable-cache: auto
 
+      - name: Install dependencies
+        run: uv pip install -r docs/requirements.txt
+
       - name: Validate provider data
         id: validate
         run: |
