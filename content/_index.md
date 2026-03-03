@@ -2,7 +2,7 @@
 title = "Accueil"
 +++
 
-Bienvenue sur Cloud Landscape, l'annuaire de référence des fournisseurs cloud souverains et européens. Notre mission est de faciliter la découverte et la comparaison des services cloud en proposant une vue unifiée et accessible.
+Bienvenue sur Cloud Landscape, l'annuaire de référence des fournisseurs cloud. Notre mission est de faciliter la découverte et la comparaison des services cloud en proposant une vue unifiée et accessible.
 
 ## Fonctionnalités
 

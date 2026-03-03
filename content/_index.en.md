@@ -2,7 +2,7 @@
 title = "Home"
 +++
 
-Welcome to Cloud Landscape, the reference directory for sovereign and European cloud providers. Our mission is to facilitate cloud service discovery and comparison by providing a unified and accessible view.
+Welcome to Cloud Landscape, the reference directory for cloud providers. Our mission is to facilitate cloud service discovery and comparison by providing a unified and accessible view.
 
 ## Features
 
