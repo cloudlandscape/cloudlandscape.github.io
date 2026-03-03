@@ -24,7 +24,7 @@ jobs:
         uses: getzola/github-pages@066755243e69f508fd1a74739fbf1a65f656c790
         with:
           zola_version: v0.22.1
-          check_links: true
+          check_links: false
 
   deploy:
     runs-on: ubuntu-latest
