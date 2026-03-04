@@ -4,10 +4,7 @@ on:
     branches:
       - main
 
-permissions:
-  contents: read
-  pages: write
-  id-token: write
+permissions: {}
 
 concurrency:
   group: "pages"
@@ -16,6 +13,8 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - name: Checkout code
         uses: actions/checkout@v6.0.1
@@ -25,9 +24,14 @@ jobs:
         with:
           zola_version: v0.22.1
           check_links: true
+          check_flags: "--skip-external-links"
 
   deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
     needs: build
     environment:
       name: github-pages

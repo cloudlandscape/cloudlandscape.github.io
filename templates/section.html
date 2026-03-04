@@ -7,7 +7,7 @@
 
 <noscript>
     <style>
-        .noscript-message {
+        .noscript_message {
             background: #fff3cd;
             border: 2px solid #ffc107;
             padding: 1rem;
@@ -17,31 +17,37 @@
         .filters-container { display: none; }
     </style>
     <div class="noscript-message">
-        <strong>Note:</strong> All providers are visible below. Filtering and search features require JavaScript to be enabled.
+        <strong>Note:</strong> {{ trans(key="noscript_message", lang=section.lang) }}
     </div>
 </noscript>
 
 <div class="filters-container" role="region" aria-label="Search and filter options">
     <div class="search-container">
-        <label for="search-input">Search providers</label>
+        <label for="search-input">{{ trans(key="search_label", lang=section.lang) }}</label>
         <input 
             type="search" 
             id="search-input" 
             class="search-input" 
-            placeholder="Search by name or description..." 
-            aria-label="Search providers by name or description"
+            placeholder="{{ trans(key="search_placeholder", lang=section.lang) }}" 
+            aria-label="{{ trans(key="search_placeholder", lang=section.lang) }}"
         />
     </div>
     
-    <button class="filters-toggle" aria-expanded="false" aria-controls="filters-content">
-        <span class="toggle-text">Show Filters</span>
+    <button 
+        class="filters-toggle" 
+        aria-expanded="false" 
+        aria-controls="filters-content"
+        data-show-text="{{ trans(key="show_filters", lang=section.lang) }}"
+        data-hide-text="{{ trans(key="hide_filters", lang=section.lang) }}"
+    >
+        <span class="toggle-text">{{ trans(key="show_filters", lang=section.lang) }}</span>
     </button>
     
     <div class="filters-content" id="filters-content">
-        <h2 id="filters-heading">Filters</h2>
+        <h2 id="filters-heading">{{ trans(key="filters_heading", lang=section.lang) }}</h2>
     
     <fieldset class="filter-group">
-        <legend>Services</legend>
+        <legend>{{ trans(key="services_legend", lang=section.lang) }}</legend>
         <label><input type="checkbox" class="filter-checkbox" data-filter-type="service" data-filter-value="compute"> Compute</label>
         <label><input type="checkbox" class="filter-checkbox" data-filter-type="service" data-filter-value="kubernetes"> Kubernetes</label>
         <label><input type="checkbox" class="filter-checkbox" data-filter-type="service" data-filter-value="object-storage"> Object Storage</label>
@@ -53,26 +59,28 @@
     </fieldset>
     
     <fieldset class="filter-group">
-        <legend>Certifications</legend>
+        <legend>{{ trans(key="certifications_legend", lang=section.lang) }}</legend>
         <label><input type="checkbox" class="filter-checkbox" data-filter-type="cert" data-filter-value="secnumcloud"> SecNumCloud</label>
         <label><input type="checkbox" class="filter-checkbox" data-filter-type="cert" data-filter-value="hds"> HDS</label>
         <label><input type="checkbox" class="filter-checkbox" data-filter-type="cert" data-filter-value="eucs"> EUCS</label>
     </fieldset>
     
     <fieldset class="filter-group">
-        <legend>Countries</legend>
+        <legend>{{ trans(key="countries_legend", lang=section.lang) }}</legend>
         <label><input type="checkbox" class="filter-checkbox" data-filter-type="country" data-filter-value="France"> France</label>
         <label><input type="checkbox" class="filter-checkbox" data-filter-type="country" data-filter-value="United States"> United States</label>
         <label><input type="checkbox" class="filter-checkbox" data-filter-type="country" data-filter-value="Germany"> Germany</label>
         <label><input type="checkbox" class="filter-checkbox" data-filter-type="country" data-filter-value="Switzerland"> Switzerland</label>
     </fieldset>
     
-    <button class="filter-reset" aria-label="Clear all filters">Reset All Filters</button>
+    <button class="filter-reset" aria-label="{{ trans(key="reset_filters", lang=section.lang) }}">{{ trans(key="reset_filters", lang=section.lang) }}</button>
     </div>
 </div>
 
-<p class="result-count" role="status" aria-live="polite">
-    {{ section.pages | length }} providers available
+<p class="result-count" role="status" aria-live="polite"
+   data-template-all="{{ trans(key="result_template_all", lang=section.lang) }}"
+   data-template-filtered="{{ trans(key="result_template_filtered", lang=section.lang) }}">
+    {{ section.pages | length }} {{ trans(key="providers_available", lang=section.lang) }}
 </p>
 
 {% if section.pages %}
@@ -84,12 +92,12 @@
         
         <div class="provider-meta">
             {% if page.extra.country %}
-            <p><strong>Country:</strong> <span>{{ page.extra.country }}</span></p>
+            <p><strong>{{ trans(key="country_label", lang=section.lang) }}:</strong> <span>{{ page.extra.country }}</span></p>
             {% endif %}
             
             {% if page.taxonomies.services %}
             <div class="provider-services">
-                <strong>Services:</strong>
+                <strong>{{ trans(key="services_label", lang=section.lang) }}:</strong>
                 <ul aria-label="Services offered">
                 {% for service in page.taxonomies.services %}
                     <li><span class="badge">{{ service }}</span></li>
@@ -100,7 +108,7 @@
             
             {% if page.taxonomies.certifications %}
             <div class="provider-certifications">
-                <strong>Certifications:</strong>
+                <strong>{{ trans(key="certifications_label", lang=section.lang) }}:</strong>
                 <ul aria-label="Certifications held">
                 {% for cert in page.taxonomies.certifications %}
                     <li><span class="badge cert-badge">{{ cert }}</span></li>
@@ -108,6 +116,19 @@
                 </ul>
             </div>
             {% endif %}
+        </div>
+        
+        <div class="provider-actions">
+            <button
+                class="btn btn-compare-add"
+                data-provider="{{ page.slug }}"
+                data-label-add="{{ trans(key="add_to_comparison", lang=section.lang) }}"
+                data-label-added="{{ trans(key="added_to_comparison", lang=section.lang) }}"
+                data-label-full="{{ trans(key="comparison_full", lang=section.lang) }}"
+                aria-label="{{ trans(key="add_to_comparison", lang=section.lang) }} {{ page.title }}"
+            >
+                {{ trans(key="add_to_comparison", lang=section.lang) }}
+            </button>
         </div>
     </article>
     {% endfor %}

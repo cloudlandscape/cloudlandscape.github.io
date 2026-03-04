@@ -23,6 +23,28 @@ taxonomies = [
     { name = "countries", render = true },
 ]
 
+[languages.en.translations]
+search_label = "Search providers"
+search_placeholder = "Search by name or description..."
+show_filters = "Show Filters"
+hide_filters = "Hide Filters"
+filters_heading = "Filters"
+services_legend = "Services"
+certifications_legend = "Certifications"
+countries_legend = "Countries"
+reset_filters = "Reset All Filters"
+providers_available = "providers available"
+providers_match = "of {total} providers match your criteria"
+result_template_all = "{count} providers available"
+result_template_filtered = "{count} of {total} providers match your filters"
+country_label = "Country"
+services_label = "Services"
+certifications_label = "Certifications"
+add_to_comparison = "Add to Comparison"
+added_to_comparison = "✓ Added to Comparison"
+comparison_full = "Comparison Full"
+noscript_message = "All providers are visible below. Filtering and search features require JavaScript to be enabled."
+
 [languages.fr]
 title = "Cloud Landscape"
 description = "Annuaire complet des fournisseurs cloud souverains européens"
@@ -31,6 +53,28 @@ taxonomies = [
     { name = "certifications", render = true },
     { name = "countries", render = true },
 ]
+
+[languages.fr.translations]
+search_label = "Rechercher des fournisseurs"
+search_placeholder = "Rechercher par nom ou description..."
+show_filters = "Afficher les filtres"
+hide_filters = "Masquer les filtres"
+filters_heading = "Filtres"
+services_legend = "Services"
+certifications_legend = "Certifications"
+countries_legend = "Pays"
+reset_filters = "Réinitialiser tous les filtres"
+providers_available = "fournisseurs disponibles"
+providers_match = "sur {total} fournisseurs correspondent à vos critères"
+result_template_all = "{count} fournisseurs disponibles"
+result_template_filtered = "{count} sur {total} fournisseurs correspondent à vos filtres"
+country_label = "Pays"
+services_label = "Services"
+certifications_label = "Certifications"
+add_to_comparison = "Ajouter à la comparaison"
+added_to_comparison = "✓ Ajouté à la comparaison"
+comparison_full = "Comparaison complète"
+noscript_message = "Tous les fournisseurs sont visibles ci-dessous. Les fonctionnalités de filtrage et de recherche nécessitent l'activation de JavaScript."
 
 [markdown]
 

@@ -12,9 +12,9 @@
                 .map(badge => badge.textContent.trim());
             const certifications = Array.from(card.querySelectorAll('.provider-certifications .badge'))
                 .map(badge => badge.textContent.trim());
-            const country = card.querySelector('.provider-meta p strong')?.nextSibling?.textContent?.trim() || '';
-            const title = card.querySelector('h3')?.textContent?.trim() || '';
-            const description = card.querySelector('p')?.textContent?.trim() || '';
+            const country = card.querySelector('.provider-meta p strong')?.nextElementSibling?.textContent?.trim() || '';
+            const title = card.querySelector('h2')?.textContent?.trim() || '';
+            const description = card.querySelector('.provider-description')?.textContent?.trim() || '';
             
             providers.push({
                 element: card,
@@ -140,14 +140,19 @@
                 const filterType = this.dataset.filterType;
                 const filterValue = this.dataset.filterValue;
                 
+                // Map filter types to activeFilters keys
+                const filterKey = filterType === 'service' ? 'services' :
+                                 filterType === 'cert' ? 'certifications' :
+                                 filterType === 'country' ? 'countries' : filterType;
+                
                 if (this.checked) {
-                    if (!activeFilters[filterType].includes(filterValue)) {
-                        activeFilters[filterType].push(filterValue);
+                    if (!activeFilters[filterKey].includes(filterValue)) {
+                        activeFilters[filterKey].push(filterValue);
                     }
                 } else {
-                    const index = activeFilters[filterType].indexOf(filterValue);
+                    const index = activeFilters[filterKey].indexOf(filterValue);
                     if (index > -1) {
-                        activeFilters[filterType].splice(index, 1);
+                        activeFilters[filterKey].splice(index, 1);
                     }
                 }
                 
@@ -157,9 +162,12 @@
             });
             
             // Check initial state from URL
-            const filterType = checkbox.dataset.filterType + 's';
+            const filterType = checkbox.dataset.filterType;
             const filterValue = checkbox.dataset.filterValue;
-            if (activeFilters[filterType] && activeFilters[filterType].includes(filterValue)) {
+            const filterKey = filterType === 'service' ? 'services' :
+                             filterType === 'cert' ? 'certifications' :
+                             filterType === 'country' ? 'countries' : filterType;
+            if (activeFilters[filterKey] && activeFilters[filterKey].includes(filterValue)) {
                 checkbox.checked = true;
             }
         });

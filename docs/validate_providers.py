@@ -41,7 +41,7 @@ def validate_url(url):
         return False
 
 def check_duplicate_slugs(provider_files):
-    """Check for duplicate provider slugs"""
+    """Check for duplicate provider slugs across different provider directories"""
     slugs = {}
     duplicates = []
     
@@ -53,8 +53,14 @@ def check_duplicate_slugs(provider_files):
                 data = toml_to_dict(frontmatter)
                 slug = data.get('slug')
                 if slug:
+                    # Get the provider directory (parent of the file)
+                    provider_dir = provider_file.parent
+                    
+                    # Check if this slug exists in a different provider directory
                     if slug in slugs:
-                        duplicates.append((slug, slugs[slug], provider_file))
+                        # Only flag as duplicate if it's in a different directory
+                        if slugs[slug].parent != provider_dir:
+                            duplicates.append((slug, slugs[slug], provider_file))
                     else:
                         slugs[slug] = provider_file
         except:
