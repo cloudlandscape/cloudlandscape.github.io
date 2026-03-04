@@ -10,7 +10,7 @@ on:
       - 'content/providers/**'
       - 'docs/provider-schema.json'
       - 'docs/validate_providers.py'
-
+permissions: {}
 jobs:
   validate:
     runs-on: ubuntu-latest
