@@ -25,13 +25,29 @@
         <link rel="alternate" hreflang="{{ section.lang }}" href="{{ section.permalink }}" />
     {% endif %}
     
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet" />
+
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230B1D2E'/%3E%3Cellipse cx='11' cy='19' rx='7' ry='5' fill='none' stroke='%237EC8C8' stroke-width='1.5'/%3E%3Cellipse cx='17' cy='15' rx='7' ry='6' fill='none' stroke='%237EC8C8' stroke-width='1.5'/%3E%3Cellipse cx='23' cy='18' rx='6' ry='5' fill='none' stroke='%237EC8C8' stroke-width='1.5'/%3E%3Cline x1='4' y1='24' x2='28' y2='24' stroke='%234A7FA5' stroke-width='1.2'/%3E%3Cpolyline points='4,27 9,25 15,26 21,24 27,26 28,27' fill='none' stroke='%234A7FA5' stroke-width='0.9' opacity='0.7'/%3E%3C/svg%3E" />
+
     <link rel="stylesheet" href="/style.css">
 </head>
 <body>
     <a href="#main-content" class="skip-link">Skip to main content</a>
     
     <nav aria-label="Main navigation">
-        <a href="/">Home</a>
+        <a href="/" class="nav-logo" aria-label="Cloudlandscape — Home">
+            <svg width="120" height="36" viewBox="0 0 200 60" role="img" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+                <ellipse cx="32" cy="34" rx="14" ry="9" fill="none" stroke="#7EC8C8" stroke-width="1.2"/>
+                <ellipse cx="44" cy="28" rx="12" ry="10" fill="none" stroke="#7EC8C8" stroke-width="1.2"/>
+                <ellipse cx="56" cy="32" rx="10" ry="8" fill="none" stroke="#7EC8C8" stroke-width="1.2"/>
+                <line x1="18" y1="42" x2="68" y2="42" stroke="#4A7FA5" stroke-width="1"/>
+                <polyline points="18,46 28,43 38,45 50,41 62,44 68,46" fill="none" stroke="#4A7FA5" stroke-width="0.8" opacity="0.6"/>
+                <text x="78" y="31" font-family="'Cormorant Garamond',serif" font-weight="300" font-size="15" fill="#EEF4F9" letter-spacing="1">cloud</text>
+                <text x="78" y="46" font-family="'Cormorant Garamond',serif" font-weight="400" font-size="15" fill="#7EC8C8" letter-spacing="1">landscape</text>
+            </svg>
+        </a>
         <a href="/providers/">Providers</a>
     </nav>
     
