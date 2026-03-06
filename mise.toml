@@ -14,7 +14,7 @@ validate = "uv run docs/validate_providers.py"
 depends = ["build"]
 run = """
 #!/usr/bin/env bash
-if nc -z localhost {{vars.port}} == 0; then
+if nc -z localhost {{vars.port}}; then
   echo "zola is already serving"
 else
   zola serve --port {{vars.port}} &
@@ -24,7 +24,7 @@ fi
 [tasks.stop]
 run = """
 #!/usr/bin/env bash
-if nc -z localhost {{vars.port}} == 0; then
+if nc -z localhost {{vars.port}}; then
   killall zola
 else
   echo "zola is not running"
@@ -35,9 +35,8 @@ fi
 description = "Accessibility tests"
 depends = ["serve"]
 run = """
-bun install axe-core
-bunx browser-driver-manager install chrome
-./node_modules/.bin/axe http://localhost:{{vars.port}}/ \
+bunx browser-driver-manager@2.0.1 install chrome
+bunx @axe-core/cli@4.11.1 http://localhost:{{vars.port}}/ \
   http://localhost:{{vars.port}}/providers/ \
   http://localhost:{{vars.port}}/providers/scaleway/ \
   http://localhost:{{vars.port}}/compare.html?providers=aws,google-cloud,microsoft-azure --exit
