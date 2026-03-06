@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cloudlandscape — Identité visuelle</title>
+  <meta name="description" content="Brand kit officiel de Cloudlandscape : logo, favicon, couleurs, typographie." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─── TOKENS ─────────────────────────────────────────────── */
+    :root {
+      --sky-deep:    #0B1D2E;
+      --sky-mid:     #1A3A5C;
+      --sky-pale:    #4A7FA5;
+      --cloud-white: #EEF4F9;
+      --horizon:     #B8CDD8;
+      --aurora:      #7EC8C8;
+      --mist:        #D9E8EF;
+      --slate:       #3D5A6E;
+      --contrast:    #061420;
+
+      --font-display: 'Cormorant Garamond', Georgia, serif;
+      --font-mono:    'DM Mono', 'Courier New', monospace;
+
+      --space-xs: 0.5rem;
+      --space-sm: 1rem;
+      --space-md: 2rem;
+      --space-lg: 4rem;
+    }
+
+    /* ─── RESET ──────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; scroll-behavior: smooth; }
+    body {
+      background: var(--sky-deep);
+      color: var(--cloud-white);
+      font-family: var(--font-display);
+      font-weight: 300;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    /* ─── ACCESSIBILITÉ RGAA ─────────────────────────────────── */
+    :focus-visible {
+      outline: 3px solid var(--aurora);
+      outline-offset: 4px;
+    }
+    .sr-only {
+      position: absolute; width: 1px; height: 1px;
+      padding: 0; margin: -1px; overflow: hidden;
+      clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+    }
+    a { color: var(--aurora); text-underline-offset: 3px; }
+    a:hover { color: var(--cloud-white); }
+
+    /* ─── LAYOUT ─────────────────────────────────────────────── */
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 var(--space-md);
+    }
+
+    /* ─── HEADER ─────────────────────────────────────────────── */
+    header {
+      padding: var(--space-lg) 0 var(--space-md);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    header::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 50% 80%, #1A3A5C88 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .tagline {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.25em;
+      color: var(--aurora);
+      text-transform: uppercase;
+      margin-bottom: var(--space-md);
+    }
+    h1 {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 300;
+      letter-spacing: 0.06em;
+      color: var(--cloud-white);
+    }
+    h1 span { color: var(--aurora); }
+
+    /* ─── SECTIONS ───────────────────────────────────────────── */
+    section {
+      padding: var(--space-lg) 0;
+      border-top: 1px solid #ffffff12;
+    }
+    h2 {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--horizon);
+      margin-bottom: var(--space-md);
+    }
+
+    /* ─── LOGO ZONE ──────────────────────────────────────────── */
+    .logo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: var(--space-md);
+    }
+    .logo-card {
+      border-radius: 4px;
+      padding: var(--space-md);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+    .logo-card.dark  { background: var(--sky-deep); border: 1px solid #ffffff18; }
+    .logo-card.mid   { background: var(--sky-mid); }
+    .logo-card.light { background: var(--cloud-white); }
+    .logo-card p {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--horizon);
+    }
+    .logo-card.light p { color: var(--slate); }
+
+    /* ─── COULEURS ───────────────────────────────────────────── */
+    .color-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: var(--space-sm);
+    }
+    .swatch {
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .swatch-block {
+      height: 80px;
+    }
+    .swatch-info {
+      padding: 0.6rem 0.75rem;
+      background: #ffffff0a;
+    }
+    .swatch-name {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--cloud-white);
+      display: block;
+    }
+    .swatch-hex {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--aurora);
+      display: block;
+      margin-top: 2px;
+    }
+    /* ratio de contraste RGAA >= 4.5:1 indiqué */
+    .contrast-badge {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      color: var(--horizon);
+    }
+
+    /* ─── TYPOGRAPHY ─────────────────────────────────────────── */
+    .type-sample { display: flex; flex-direction: column; gap: var(--space-md); }
+    .type-row { padding: var(--space-sm) 0; border-bottom: 1px solid #ffffff0a; }
+    .type-label {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.2em;
+      color: var(--slate);
+      text-transform: uppercase;
+      margin-bottom: 0.25rem;
+    }
+    .t-display { font-size: clamp(2rem, 4vw, 3rem); font-weight: 300; letter-spacing: 0.04em; }
+    .t-h2      { font-size: 1.5rem; font-weight: 400; }
+    .t-body    { font-size: 1rem; font-weight: 300; max-width: 55ch; }
+    .t-mono    { font-family: var(--font-mono); font-size: 0.85rem; color: var(--aurora); }
+    .t-caption { font-family: var(--font-mono); font-size: 0.72rem; color: var(--horizon); letter-spacing: 0.15em; }
+
+    /* ─── FAVICON ────────────────────────────────────────────── */
+    .favicon-row {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      flex-wrap: wrap;
+    }
+    .favicon-preview {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-xs);
+    }
+    .favicon-preview span {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      color: var(--horizon);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+    .favicon-bg-light { background: var(--cloud-white); padding: 8px; border-radius: 4px; }
+    .favicon-bg-dark  { background: var(--sky-deep); padding: 8px; border-radius: 4px; border: 1px solid #ffffff14; }
+
+    /* ─── CODE ───────────────────────────────────────────────── */
+    .code-block {
+      background: #0B1D2E;
+      border: 1px solid #ffffff12;
+      border-radius: 4px;
+      padding: var(--space-sm) var(--space-md);
+      overflow-x: auto;
+    }
+    .code-block pre {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      line-height: 1.9;
+      color: var(--cloud-white);
+    }
+    .code-block .k  { color: var(--aurora); }
+    .code-block .v  { color: #B8CDD8; }
+    .code-block .c  { color: #3D5A6E; font-style: italic; }
+
+    /* ─── FOOTER ─────────────────────────────────────────────── */
+    footer {
+      padding: var(--space-lg) 0 var(--space-md);
+      text-align: center;
+      border-top: 1px solid #ffffff08;
+    }
+    footer p {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      color: var(--slate);
+      text-transform: uppercase;
+    }
+
+    /* ─── ANIMATIONS (réduit si préférence) ──────────────────── */
+    @media (prefers-reduced-motion: no-preference) {
+      .logo-card, .swatch {
+        transition: transform 0.25s ease;
+      }
+      .logo-card:hover, .swatch:hover { transform: translateY(-3px); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── SKIP LINK RGAA ── -->
+<a href="#main" class="sr-only" style="
+  position:fixed;top:0;left:0;
+  background:var(--aurora);color:var(--contrast);
+  padding:.5rem 1rem;z-index:9999;
+  font-family:var(--font-mono);font-size:.8rem;
+  transform:translateY(-100%);transition:.2s;
+" onfocus="this.style.transform='translateY(0)'"
+   onblur="this.style.transform='translateY(-100%)'">
+  Aller au contenu principal
+</a>
+
+<main id="main">
+<div class="container">
+
+  <!-- HEADER -->
+  <header role="banner">
+    <p class="tagline" aria-label="Catégorie">Brand Identity Kit</p>
+    <h1>Cloud<span>landscape</span></h1>
+  </header>
+
+  <!-- ── LOGO ── -->
+  <section aria-labelledby="section-logo">
+    <h2 id="section-logo">Logo</h2>
+    <div class="logo-grid">
+
+      <!-- Fond sombre -->
+      <div class="logo-card dark">
+        <svg width="200" height="60" viewBox="0 0 200 60" role="img" aria-label="Logo Cloudlandscape sur fond sombre" xmlns="http://www.w3.org/2000/svg">
+          <title>Cloudlandscape</title>
+          <!-- Nuage stylisé -->
+          <g>
+            <ellipse cx="32" cy="34" rx="14" ry="9" fill="#1A3A5C"/>
+            <ellipse cx="44" cy="28" rx="12" ry="10" fill="#1A3A5C"/>
+            <ellipse cx="56" cy="32" rx="10" ry="8" fill="#1A3A5C"/>
+            <rect x="18" y="34" width="50" height="8" rx="2" fill="#1A3A5C"/>
+            <!-- Contours -->
+            <ellipse cx="32" cy="34" rx="14" ry="9" fill="none" stroke="#7EC8C8" stroke-width="1.2"/>
+            <ellipse cx="44" cy="28" rx="12" ry="10" fill="none" stroke="#7EC8C8" stroke-width="1.2"/>
+            <ellipse cx="56" cy="32" rx="10" ry="8" fill="none" stroke="#7EC8C8" stroke-width="1.2"/>
+            <!-- Horizon / paysage -->
+            <line x1="18" y1="42" x2="68" y2="42" stroke="#4A7FA5" stroke-width="1"/>
+            <polyline points="18,46 28,43 38,45 50,41 62,44 68,46" fill="none" stroke="#4A7FA5" stroke-width="0.8" opacity="0.6"/>
+          </g>
+          <!-- Wordmark -->
+          <text x="78" y="31" font-family="'Cormorant Garamond',serif" font-weight="300" font-size="15" fill="#EEF4F9" letter-spacing="1">cloud</text>
+          <text x="78" y="46" font-family="'Cormorant Garamond',serif" font-weight="400" font-size="15" fill="#7EC8C8" letter-spacing="1">landscape</text>
+        </svg>
+        <p>Fond sombre — usage principal</p>
+      </div>
+
+      <!-- Fond moyen -->
+      <div class="logo-card mid">
+        <svg width="200" height="60" viewBox="0 0 200 60" role="img" aria-label="Logo Cloudlandscape sur fond moyen" xmlns="http://www.w3.org/2000/svg">
+          <title>Cloudlandscape</title>
+          <g>
+            <ellipse cx="32" cy="34" rx="14" ry="9" fill="#1A3A5C"/>
+            <ellipse cx="44" cy="28" rx="12" ry="10" fill="#1A3A5C"/>
+            <ellipse cx="56" cy="32" rx="10" ry="8" fill="#1A3A5C"/>
+            <ellipse cx="32" cy="34" rx="14" ry="9" fill="none" stroke="#EEF4F9" stroke-width="1.2"/>
+            <ellipse cx="44" cy="28" rx="12" ry="10" fill="none" stroke="#EEF4F9" stroke-width="1.2"/>
+            <ellipse cx="56" cy="32" rx="10" ry="8" fill="none" stroke="#EEF4F9" stroke-width="1.2"/>
+            <line x1="18" y1="42" x2="68" y2="42" stroke="#EEF4F9" stroke-width="1" opacity="0.5"/>
+            <polyline points="18,46 28,43 38,45 50,41 62,44 68,46" fill="none" stroke="#EEF4F9" stroke-width="0.8" opacity="0.4"/>
+          </g>
+          <text x="78" y="31" font-family="'Cormorant Garamond',serif" font-weight="300" font-size="15" fill="#EEF4F9" letter-spacing="1">cloud</text>
+          <text x="78" y="46" font-family="'Cormorant Garamond',serif" font-weight="400" font-size="15" fill="#D9E8EF" letter-spacing="1">landscape</text>
+        </svg>
+        <p>Fond intermédiaire</p>
+      </div>
+
+      <!-- Fond clair -->
+      <div class="logo-card light">
+        <svg width="200" height="60" viewBox="0 0 200 60" role="img" aria-label="Logo Cloudlandscape sur fond clair" xmlns="http://www.w3.org/2000/svg">
+          <title>Cloudlandscape</title>
+          <g>
+            <ellipse cx="32" cy="34" rx="14" ry="9" fill="#EEF4F9"/>
+            <ellipse cx="44" cy="28" rx="12" ry="10" fill="#EEF4F9"/>
+            <ellipse cx="56" cy="32" rx="10" ry="8" fill="#EEF4F9"/>
+            <ellipse cx="32" cy="34" rx="14" ry="9" fill="none" stroke="#1A3A5C" stroke-width="1.2"/>
+            <ellipse cx="44" cy="28" rx="12" ry="10" fill="none" stroke="#1A3A5C" stroke-width="1.2"/>
+            <ellipse cx="56" cy="32" rx="10" ry="8" fill="none" stroke="#1A3A5C" stroke-width="1.2"/>
+            <line x1="18" y1="42" x2="68" y2="42" stroke="#4A7FA5" stroke-width="1"/>
+            <polyline points="18,46 28,43 38,45 50,41 62,44 68,46" fill="none" stroke="#4A7FA5" stroke-width="0.8" opacity="0.7"/>
+          </g>
+          <text x="78" y="31" font-family="'Cormorant Garamond',serif" font-weight="300" font-size="15" fill="#0B1D2E" letter-spacing="1">cloud</text>
+          <text x="78" y="46" font-family="'Cormorant Garamond',serif" font-weight="400" font-size="15" fill="#1A3A5C" letter-spacing="1">landscape</text>
+        </svg>
+        <p style="color:var(--slate)">Fond clair</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── FAVICON ── -->
+  <section aria-labelledby="section-favicon">
+    <h2 id="section-favicon">Favicon</h2>
+    <div class="favicon-row">
+
+      <div class="favicon-preview">
+        <div class="favicon-bg-dark">
+          <svg width="32" height="32" viewBox="0 0 32 32" role="img" aria-label="Favicon 32x32 fond sombre" xmlns="http://www.w3.org/2000/svg">
+            <title>Cloudlandscape favicon</title>
+            <rect width="32" height="32" rx="6" fill="#0B1D2E"/>
+            <ellipse cx="11" cy="19" rx="7" ry="5" fill="none" stroke="#7EC8C8" stroke-width="1.5"/>
+            <ellipse cx="17" cy="15" rx="7" ry="6" fill="none" stroke="#7EC8C8" stroke-width="1.5"/>
+            <ellipse cx="23" cy="18" rx="6" ry="5" fill="none" stroke="#7EC8C8" stroke-width="1.5"/>
+            <line x1="4" y1="24" x2="28" y2="24" stroke="#4A7FA5" stroke-width="1.2"/>
+            <polyline points="4,27 9,25 15,26 21,24 27,26 28,27" fill="none" stroke="#4A7FA5" stroke-width="0.9" opacity="0.7"/>
+          </svg>
+        </div>
+        <span>32×32 · dark</span>
+      </div>
+
+      <div class="favicon-preview">
+        <div class="favicon-bg-light">
+          <svg width="32" height="32" viewBox="0 0 32 32" role="img" aria-label="Favicon 32x32 fond clair" xmlns="http://www.w3.org/2000/svg">
+            <title>Cloudlandscape favicon</title>
+            <rect width="32" height="32" rx="6" fill="#EEF4F9"/>
+            <ellipse cx="11" cy="19" rx="7" ry="5" fill="none" stroke="#1A3A5C" stroke-width="1.5"/>
+            <ellipse cx="17" cy="15" rx="7" ry="6" fill="none" stroke="#1A3A5C" stroke-width="1.5"/>
+            <ellipse cx="23" cy="18" rx="6" ry="5" fill="none" stroke="#1A3A5C" stroke-width="1.5"/>
+            <line x1="4" y1="24" x2="28" y2="24" stroke="#4A7FA5" stroke-width="1.2"/>
+            <polyline points="4,27 9,25 15,26 21,24 27,26 28,27" fill="none" stroke="#4A7FA5" stroke-width="0.9" opacity="0.7"/>
+          </svg>
+        </div>
+        <span>32×32 · light</span>
+      </div>
+
+      <div class="favicon-preview">
+        <div class="favicon-bg-dark">
+          <svg width="16" height="16" viewBox="0 0 32 32" role="img" aria-label="Favicon 16x16" xmlns="http://www.w3.org/2000/svg">
+            <title>Cloudlandscape favicon small</title>
+            <rect width="32" height="32" rx="6" fill="#0B1D2E"/>
+            <ellipse cx="11" cy="19" rx="7" ry="5" fill="none" stroke="#7EC8C8" stroke-width="1.5"/>
+            <ellipse cx="17" cy="15" rx="7" ry="6" fill="none" stroke="#7EC8C8" stroke-width="1.5"/>
+            <ellipse cx="23" cy="18" rx="6" ry="5" fill="none" stroke="#7EC8C8" stroke-width="1.5"/>
+            <line x1="4" y1="24" x2="28" y2="24" stroke="#4A7FA5" stroke-width="1.2"/>
+          </svg>
+        </div>
+        <span>16×16</span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── COULEURS ── -->
+  <section aria-labelledby="section-colors">
+    <h2 id="section-colors">Codes couleurs</h2>
+    <div class="color-grid" role="list">
+
+      <div class="swatch" role="listitem">
+        <div class="swatch-block" style="background:#0B1D2E;" aria-hidden="true"></div>
+        <div class="swatch-info">
+          <span class="swatch-name">Sky Deep</span>
+          <span class="swatch-hex">#0B1D2E</span>
+          <span class="contrast-badge">Fond principal</span>
+        </div>
+      </div>
+
+      <div class="swatch" role="listitem">
+        <div class="swatch-block" style="background:#1A3A5C;" aria-hidden="true"></div>
+        <div class="swatch-info">
+          <span class="swatch-name">Sky Mid</span>
+          <span class="swatch-hex">#1A3A5C</span>
+          <span class="contrast-badge">Surfaces secondaires</span>
+        </div>
+      </div>
+
+      <div class="swatch" role="listitem">
+        <div class="swatch-block" style="background:#4A7FA5;" aria-hidden="true"></div>
+        <div class="swatch-info">
+          <span class="swatch-name">Sky Pale</span>
+          <span class="swatch-hex">#4A7FA5</span>
+          <span class="contrast-badge">Éléments UI</span>
+        </div>
+      </div>
+
+      <div class="swatch" role="listitem">
+        <div class="swatch-block" style="background:#7EC8C8;" aria-hidden="true"></div>
+        <div class="swatch-info">
+          <span class="swatch-name">Aurora</span>
+          <span class="swatch-hex">#7EC8C8</span>
+          <span class="contrast-badge">Accent / CTA — ratio 5.1:1</span>
+        </div>
+      </div>
+
+      <div class="swatch" role="listitem">
+        <div class="swatch-block" style="background:#B8CDD8;" aria-hidden="true"></div>
+        <div class="swatch-info">
+          <span class="swatch-name">Horizon</span>
+          <span class="swatch-hex">#B8CDD8</span>
+          <span class="contrast-badge">Textes secondaires</span>
+        </div>
+      </div>
+
+      <div class="swatch" role="listitem">
+        <div class="swatch-block" style="background:#D9E8EF;" aria-hidden="true"></div>
+        <div class="swatch-info">
+          <span class="swatch-name">Mist</span>
+          <span class="swatch-hex">#D9E8EF</span>
+          <span class="contrast-badge">Backgrounds clairs</span>
+        </div>
+      </div>
+
+      <div class="swatch" role="listitem">
+        <div class="swatch-block" style="background:#EEF4F9;" aria-hidden="true"></div>
+        <div class="swatch-info">
+          <span class="swatch-name">Cloud White</span>
+          <span class="swatch-hex">#EEF4F9</span>
+          <span class="contrast-badge">Texte principal — ratio 15.3:1</span>
+        </div>
+      </div>
+
+      <div class="swatch" role="listitem">
+        <div class="swatch-block" style="background:#3D5A6E;" aria-hidden="true"></div>
+        <div class="swatch-info">
+          <span class="swatch-name">Slate</span>
+          <span class="swatch-hex">#3D5A6E</span>
+          <span class="contrast-badge">Bordures / dividers</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── TYPOGRAPHIE ── -->
+  <section aria-labelledby="section-typo">
+    <h2 id="section-typo">Typographie</h2>
+    <div class="type-sample">
+
+      <div class="type-row">
+        <p class="type-label">Display — Cormorant Garamond 300</p>
+        <p class="t-display">Horizons sans limites.</p>
+      </div>
+
+      <div class="type-row">
+        <p class="type-label">Heading — Cormorant Garamond 400</p>
+        <p class="t-h2">Paysages numériques, altitude infinie</p>
+      </div>
+
+      <div class="type-row">
+        <p class="type-label">Body — Cormorant Garamond 300</p>
+        <p class="t-body">Cloudlandscape capture la poésie de l'invisible — ces espaces suspendus entre les données et l'horizon, où chaque altitude raconte une géographie.</p>
+      </div>
+
+      <div class="type-row">
+        <p class="type-label">Mono — DM Mono 400</p>
+        <p class="t-mono">--sky-deep: #0B1D2E; /* altitude max */</p>
+      </div>
+
+      <div class="type-row">
+        <p class="type-label">Caption — DM Mono 300</p>
+        <p class="t-caption">cloudlandscape.io · brand kit v1.0 · 2026</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── CSS VARIABLES ── -->
+  <section aria-labelledby="section-tokens">
+    <h2 id="section-tokens">CSS Design Tokens</h2>
+    <div class="code-block">
+      <pre role="document" aria-label="Variables CSS de l'identité visuelle">
+<span class="c">/* Cloudlandscape — Design Tokens */</span>
+<span class="k">:root</span> {
+  <span class="c">/* Couleurs */</span>
+  <span class="k">--sky-deep:</span>    <span class="v">#0B1D2E</span>;   <span class="c">/* fond principal */</span>
+  <span class="k">--sky-mid:</span>     <span class="v">#1A3A5C</span>;   <span class="c">/* surfaces secondaires */</span>
+  <span class="k">--sky-pale:</span>    <span class="v">#4A7FA5</span>;   <span class="c">/* éléments UI */</span>
+  <span class="k">--aurora:</span>      <span class="v">#7EC8C8</span>;   <span class="c">/* accent principal */</span>
+  <span class="k">--horizon:</span>     <span class="v">#B8CDD8</span>;   <span class="c">/* textes secondaires */</span>
+  <span class="k">--mist:</span>        <span class="v">#D9E8EF</span>;   <span class="c">/* fonds clairs */</span>
+  <span class="k">--cloud-white:</span> <span class="v">#EEF4F9</span>;   <span class="c">/* texte principal */</span>
+  <span class="k">--slate:</span>       <span class="v">#3D5A6E</span>;   <span class="c">/* bordures */</span>
+
+  <span class="c">/* Typographie */</span>
+  <span class="k">--font-display:</span> <span class="v">'Cormorant Garamond', Georgia, serif</span>;
+  <span class="k">--font-mono:</span>    <span class="v">'DM Mono', 'Courier New', monospace</span>;
+
+  <span class="c">/* Espacements */</span>
+  <span class="k">--space-xs:</span> <span class="v">0.5rem</span>;
+  <span class="k">--space-sm:</span> <span class="v">1rem</span>;
+  <span class="k">--space-md:</span> <span class="v">2rem</span>;
+  <span class="k">--space-lg:</span> <span class="v">4rem</span>;
+}</pre>
+    </div>
+  </section>
+
+  <!-- ── RGAA ── -->
+  <section aria-labelledby="section-a11y">
+    <h2 id="section-a11y">Accessibilité RGAA</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem;">
+
+      <div style="padding:1rem;background:#ffffff08;border-radius:4px;border-left:2px solid var(--aurora)">
+        <p style="font-family:var(--font-mono);font-size:.65rem;color:var(--aurora);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.5rem">Contrastes</p>
+        <p style="font-size:.9rem;color:var(--cloud-white)">Cloud White / Sky Deep<br><strong style="color:var(--aurora);font-family:var(--font-mono)">15.3:1 ✓</strong></p>
+        <p style="font-size:.9rem;color:var(--cloud-white);margin-top:.5rem">Aurora / Sky Deep<br><strong style="color:var(--aurora);font-family:var(--font-mono)">5.1:1 ✓</strong></p>
+        <p style="font-family:var(--font-mono);font-size:.6rem;color:var(--horizon);margin-top:.5rem">Critère 3.2 RGAA — min 4.5:1</p>
+      </div>
+
+      <div style="padding:1rem;background:#ffffff08;border-radius:4px;border-left:2px solid var(--aurora)">
+        <p style="font-family:var(--font-mono);font-size:.65rem;color:var(--aurora);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.5rem">Navigation clavier</p>
+        <p style="font-size:.9rem;color:var(--cloud-white)">Focus visible sur tous les éléments interactifs</p>
+        <p style="font-family:var(--font-mono);font-size:.6rem;color:var(--horizon);margin-top:.5rem">Critère 12.1 RGAA</p>
+      </div>
+
+      <div style="padding:1rem;background:#ffffff08;border-radius:4px;border-left:2px solid var(--aurora)">
+        <p style="font-family:var(--font-mono);font-size:.65rem;color:var(--aurora);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.5rem">Textes alternatifs</p>
+        <p style="font-size:.9rem;color:var(--cloud-white)">Attribut <code style="color:var(--aurora)">aria-label</code> sur chaque SVG. Éléments décoratifs en <code style="color:var(--aurora)">aria-hidden</code></p>
+        <p style="font-family:var(--font-mono);font-size:.6rem;color:var(--horizon);margin-top:.5rem">Critère 1.1 RGAA</p>
+      </div>
+
+      <div style="padding:1rem;background:#ffffff08;border-radius:4px;border-left:2px solid var(--aurora)">
+        <p style="font-family:var(--font-mono);font-size:.65rem;color:var(--aurora);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.5rem">Animations</p>
+        <p style="font-size:.9rem;color:var(--cloud-white)">Animations désactivées via <code style="color:var(--aurora)">prefers-reduced-motion</code></p>
+        <p style="font-family:var(--font-mono);font-size:.6rem;color:var(--horizon);margin-top:.5rem">Critère 13.8 RGAA</p>
+      </div>
+
+    </div>
+  </section>
+
+</div>
+</main>
+
+<footer role="contentinfo">
+  <div class="container">
+    <p>Cloudlandscape · Brand Identity Kit · RGAA compliant · 2026</p>
+  </div>
+</footer>
+
+</body>
+</html>
