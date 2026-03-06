@@ -18,59 +18,63 @@
         .comparison-table {
             width: 100%;
             border-collapse: collapse;
-            background: white;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            background: var(--sky-mid);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
         }
         
         .comparison-table th,
         .comparison-table td {
             padding: 1rem;
-            border: 1px solid #ddd;
+            border: 1px solid var(--slate);
             text-align: left;
+            color: var(--cloud-white);
         }
         
         .comparison-table thead th {
-            background: #2c3e50;
-            color: white;
+            background: var(--sky-deep);
+            color: var(--cloud-white);
             font-weight: 600;
             position: sticky;
             top: 0;
         }
         
         .comparison-table tbody th {
-            background: #ecf0f1;
-            font-weight: 600;
+            background: rgba(255,255,255,0.04);
+            color: var(--cloud-white);
+            font-weight: 400;
         }
         
         .comparison-table td {
             text-align: center;
+            color: var(--cloud-white);
         }
         
         .has-feature {
-            color: #27ae60;
+            color: #4ade80;
             font-size: 1.5rem;
         }
         
         .no-feature {
-            color: #e74c3c;
+            color: #f87171;
             font-size: 1.5rem;
         }
         
         .cert-yes {
-            background: #d5f4e6;
+            background: rgba(74,222,128,0.15);
         }
         
         .cert-no {
-            background: #fadbd8;
+            background: rgba(248,113,113,0.15);
         }
         
         .provider-link {
-            color: #3498db;
+            color: var(--aurora);
             text-decoration: none;
-            font-weight: 600;
+            font-weight: 400;
         }
         
         .provider-link:hover {
+            color: var(--cloud-white);
             text-decoration: underline;
         }
         
@@ -86,7 +90,7 @@
         }
         
         .empty-comparison h2 {
-            color: #666;
+            color: var(--horizon);
         }
     </style>
 </head>
@@ -208,7 +212,7 @@
             html += '</tr>';
             
             // Service rows
-            html += '<tr><th colspan="' + (providers.length + 1) + '" style="background: #34495e; color: white;">Services</th></tr>';
+            html += '<tr><th colspan="' + (providers.length + 1) + '" style="background: #0B1D2E; color: #EEF4F9;">Services</th></tr>';
             services.forEach(service => {
                 html += `<tr><th>${service}</th>`;
                 providers.forEach(p => {
@@ -219,7 +223,7 @@
             });
             
             // Certification rows
-            html += '<tr><th colspan="' + (providers.length + 1) + '" style="background: #34495e; color: white;">Certifications</th></tr>';
+            html += '<tr><th colspan="' + (providers.length + 1) + '" style="background: #0B1D2E; color: #EEF4F9;">Certifications</th></tr>';
             certifications.forEach(cert => {
                 html += `<tr><th>${cert}</th>`;
                 providers.forEach(p => {
@@ -231,7 +235,7 @@
             });
             
             // Geographic coverage row
-            html += '<tr><th colspan="' + (providers.length + 1) + '" style="background: #34495e; color: white;">Geographic Coverage</th></tr>';
+            html += '<tr><th colspan="' + (providers.length + 1) + '" style="background: #0B1D2E; color: #EEF4F9;">Geographic Coverage</th></tr>';
             html += '<tr><th>Datacenters</th>';
             providers.forEach(p => {
                 const locations = p.datacenters && p.datacenters.length > 0 

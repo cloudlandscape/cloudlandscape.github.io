@@ -84,9 +84,9 @@
 </p>
 
 {% if section.pages %}
-<div class="provider-grid" role="list">
+<ul class="provider-grid">
     {% for page in section.pages %}
-    <article class="provider-card" role="listitem">
+    <li class="provider-card">
         <h2><a href="{{ page.permalink }}">{{ page.title }}</a></h2>
         <p class="provider-description">{{ page.description }}</p>
         
@@ -130,9 +130,9 @@
                 {{ trans(key="add_to_comparison", lang=section.lang) }}
             </button>
         </div>
-    </article>
+    </li>
     {% endfor %}
-</div>
+</ul>
 {% else %}
 <p>No providers found.</p>
 {% endif %}
