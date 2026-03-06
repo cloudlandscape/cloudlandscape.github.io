@@ -6,7 +6,7 @@ on:
       - 'static/**'
       - 'content/**'
   workflow_dispatch:
-
+permissions: {}
 jobs:
   axe-core:
     runs-on: ubuntu-latest
@@ -16,34 +16,29 @@ jobs:
 
       - name: Install Zola
         run: |
-          wget -q https://github.com/getzola/zola/releases/download/v0.22.1/zola-v0.22.1-x86_64-unknown-linux-gnu.tar.gz
+          curl -LO https://github.com/getzola/zola/releases/download/v0.22.1/zola-v0.22.1-x86_64-unknown-linux-gnu.tar.gz
           tar -xzf zola-v0.22.1-x86_64-unknown-linux-gnu.tar.gz
           sudo mv zola /usr/local/bin/
 
       - name: Build site
         run: zola build
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
+      - name: Set up bun
+        uses: oven-sh/setup-bun@v2
         with:
-          node-version: '20'
-
-      - name: Install axe-core CLI
-        run: npm install -g @axe-core/cli
+          bun-version: "latest"
 
       - name: Install chrome with browser-driver-manager
-        run: npx browser-driver-manager install chrome
+        run: bunx browser-driver-manager@2.0.1 install chrome
 
       - name: Serve site and run axe-core
         run: |
-          cd public
-          python3 -m http.server 8000 &
-          sleep 3
-          
+          zola serve --port 8000 &
           # Test key pages
-          axe http://localhost:8000/ --exit
-          axe http://localhost:8000/providers/ --exit
-          axe http://localhost:8000/providers/scaleway/ --exit
+          bunx @axe-core/cli@4.11.1 http://localhost:8000/ \
+            http://localhost:8000/providers/ \
+            http://localhost:8000/providers/scaleway/ \
+            http://localhost:8000/compare.html?providers=aws,google-cloud,microsoft-azure --exit
 
       - name: Report results
         if: always()

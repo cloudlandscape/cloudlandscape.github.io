@@ -59,11 +59,11 @@
         <p class="section-intro">Services are mapped to unified taxonomy categories for easy comparison across providers.</p>
         <ul class="services-grid" role="list">
             {% for service in page.taxonomies.services %}
-            <div class="service-card">
+            <li class="service-card">
                 <span class="service-name">{{ service | replace(from="-", to=" ") | title }}</span>
-            </div>
+            </li>
             {% endfor %}
-        </div>
+        </ul>
     </section>
     {% endif %}
 

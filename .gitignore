@@ -3,8 +3,13 @@ _bmad/*
 # Generated static pages
 public
 
-
 # Build artifacts
 artifacts/
 *.tar.gz
 zola
+
+# Nodes artifacts
+node_modules/
+package.json
+bun.lock
+
