@@ -30,7 +30,23 @@
         toggle.addEventListener('click', function() {
             const isOpen = content.classList.toggle('open');
             toggle.setAttribute('aria-expanded', isOpen);
-            toggleText.textContent = isOpen ? 'Hide Filters' : 'Show Filters';
+            toggleText.textContent = isOpen
+                ? (toggle.dataset.hideText || 'Hide Filters')
+                : (toggle.dataset.showText || 'Show Filters');
+            if (isOpen && isMobile()) {
+                const firstCheckbox = content.querySelector('.filter-checkbox');
+                if (firstCheckbox) firstCheckbox.focus();
+            }
+        });
+
+        // Escape key closes filter panel and returns focus to toggle
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && content.classList.contains('open') && isMobile()) {
+                content.classList.remove('open');
+                toggle.setAttribute('aria-expanded', 'false');
+                toggleText.textContent = toggle.dataset.showText || 'Show Filters';
+                toggle.focus();
+            }
         });
         
         // Initial state

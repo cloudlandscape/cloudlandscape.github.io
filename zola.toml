@@ -44,6 +44,9 @@ add_to_comparison = "Add to Comparison"
 added_to_comparison = "✓ Added to Comparison"
 comparison_full = "Comparison Full"
 noscript_message = "All providers are visible below. Filtering and search features require JavaScript to be enabled."
+lang_nav_label = "Language selection"
+lang_switch_fr = "Switch to French"
+lang_switch_en = "Switch to English"
 
 [languages.fr]
 title = "Cloud Landscape"
@@ -75,6 +78,9 @@ add_to_comparison = "Ajouter à la comparaison"
 added_to_comparison = "✓ Ajouté à la comparaison"
 comparison_full = "Comparaison complète"
 noscript_message = "Tous les fournisseurs sont visibles ci-dessous. Les fonctionnalités de filtrage et de recherche nécessitent l'activation de JavaScript."
+lang_nav_label = "Sélection de la langue"
+lang_switch_fr = "Passer en français"
+lang_switch_en = "Passer en anglais"
 
 [markdown]
 

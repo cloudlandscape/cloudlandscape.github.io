@@ -1,0 +1,141 @@
+# generated: 2026-03-11
+# project: cloudlandscape
+# project_key: cloudlandscape
+# tracking_system: file-system
+# story_location: _bmad-output/implementation-artifacts
+
+# STATUS DEFINITIONS:
+# ==================
+# Epic Status:
+#   - backlog: Epic not yet started
+#   - in-progress: Epic actively being worked on
+#   - done: All stories in epic completed
+#
+# Epic Status Transitions:
+#   - backlog → in-progress: Automatically when first story is created (via create-story)
+#   - in-progress → done: Manually when all stories reach 'done' status
+#
+# Story Status:
+#   - backlog: Story only exists in epic file
+#   - ready-for-dev: Story file created in stories folder
+#   - in-progress: Developer actively working on implementation
+#   - review: Ready for code review (via Dev's code-review workflow)
+#   - done: Story completed
+#
+# Retrospective Status:
+#   - optional: Can be completed but not required
+#   - done: Retrospective has been completed
+#
+# WORKFLOW NOTES:
+# ===============
+# - Epic transitions to 'in-progress' automatically when first story is created
+# - Stories can be worked in parallel if team capacity allows
+# - SM typically creates next story after previous one is 'done' to incorporate learnings
+# - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
+
+generated: 2026-03-11
+project: cloudlandscape
+project_key: cloudlandscape
+tracking_system: file-system
+story_location: _bmad-output/implementation-artifacts
+
+development_status:
+  # ─── Epic 0: Foundation & Setup ─── COMPLETE ✅ (Sprint 1: 2026-02-28 to 2026-03-03)
+  epic-0: done
+  0-1-initialize-zola-project: done
+  0-2-configure-zola-for-taxonomies-i18n: done
+  0-3-set-up-github-actions-ci-cd-pipeline: done
+  0-4-seed-initial-provider-dataset: done
+  epic-0-retrospective: optional
+
+  # ─── Epic 1: Provider Discovery Foundation ─── COMPLETE ✅ (Sprint 2)
+  epic-1: done
+  1-1-display-complete-provider-list: done
+  1-2-filter-providers-by-service-type: done
+  1-3-filter-providers-by-certification: done
+  1-4-filter-providers-by-geographic-location: done
+  1-5-combine-multiple-filters: done
+  1-6-reset-filters-to-show-all-providers: done
+  1-7-search-providers-by-keyword: done
+  1-8-see-result-count-and-filter-state: done
+  epic-1-retrospective: optional
+
+  # ─── Epic 2: Provider Intelligence & Comparison ─── COMPLETE ✅
+  epic-2: done
+  2-1-display-provider-detail-page: done
+  2-2-view-unified-service-taxonomy: done
+  2-3-view-certifications-and-verify-attestations: done
+  2-4-view-provider-datacenters-and-geographic-coverage: done
+  2-5-access-direct-links-to-provider-websites-and-attestations: done
+  2-6-select-providers-for-comparison: done
+  2-7-view-comparison-table-with-service-alignment: done
+  2-8-view-certification-coverage-matrix: done
+  2-9-view-geographic-coverage-comparison: done
+  2-10-share-comparison-url: done
+  epic-2-retrospective: optional
+
+  # ─── Epic 3: Multilingual & Accessible Platform ─── IN PROGRESS 🔄
+  epic-3: in-progress
+  3-1-switch-language-between-french-and-english: done
+  3-2-display-all-provider-listings-in-both-languages: done
+  3-3-display-ui-navigation-and-elements-in-both-languages: done
+  3-4-persist-user-language-preference: done
+  3-5-keyboard-navigation-for-all-features: review
+  3-6-screen-reader-support-for-all-content: backlog
+  3-7-sufficient-color-contrast-wcag-2-1-aa: done  # Merged via PR #7 (brand identity)
+  3-8-provide-skip-navigation-links: backlog
+  3-9-use-semantic-html-structure: backlog
+  3-10-provide-clear-focus-indicators: backlog
+  epic-3-retrospective: optional
+
+  # ─── Epic 4: Content Generation & Static Site Architecture ─── IN PROGRESS 🔄
+  epic-4: in-progress
+  4-1-generate-provider-listing-page-from-yaml-data: done
+  4-2-generate-individual-provider-detail-pages: done
+  4-3-generate-comparison-pages-with-dynamic-urls: done
+  4-4-generate-certification-explainer-pages: backlog
+  4-5-generate-xml-sitemap-for-search-engines: done
+  4-6-generate-multilingual-links-with-hreflang-tags: done
+  4-7-optimize-build-performance-for-incremental-changes: backlog
+  epic-4-retrospective: optional
+
+  # ─── Epic 5: Responsive & Progressive Design ───
+  epic-5: backlog
+  5-1-display-responsive-provider-listing-on-mobile: backlog
+  5-2-display-responsive-provider-listing-on-tablet: backlog
+  5-3-display-responsive-provider-listing-on-desktop: backlog
+  5-4-responsive-provider-comparison-table: backlog
+  5-5-progressive-enhancement-filter-works-without-javascript: backlog
+  5-6-images-optimized-for-different-viewports: backlog
+  5-7-no-layout-shift-during-page-load: backlog
+  5-8-progressive-content-loading-and-skeleton-states: backlog
+  epic-5-retrospective: optional
+
+  # ─── Epic 6: Data Quality & Community Contribution Workflow ───
+  epic-6: backlog
+  6-1-provide-contribution-guidelines: backlog
+  6-2-provide-yaml-template-for-provider-submissions: backlog
+  6-3-validate-provider-yaml-against-schema: backlog
+  6-4-detect-broken-external-links-in-provider-data: backlog
+  6-5-validate-certification-attestation-urls: backlog
+  6-6-prevent-duplicate-provider-entries: backlog
+  6-7-show-validation-feedback-in-pr: backlog
+  6-8-provide-clear-error-messages-for-contributions: backlog
+  6-9-show-contributor-their-published-contribution: backlog
+  6-10-validate-provider-schema-in-ci: backlog
+  epic-6-retrospective: optional
+
+  # ─── Epic 7: Maintainer Operations & Reliability ───
+  epic-7: backlog
+  7-1-review-pull-requests-with-validation-status: backlog
+  7-2-approve-provider-submissions-and-request-changes: backlog
+  7-3-merge-approved-pull-requests: backlog
+  7-4-trigger-site-regeneration-after-updates: backlog
+  7-5-monitor-ci-cd-pipeline-status: backlog
+  7-6-rollback-failed-deployments: backlog
+  7-7-monitor-uptime-and-performance-metrics: backlog
+  7-8-ensure-security-headers-are-configured: backlog
+  7-9-validate-supply-chain-security: backlog
+  7-10-maintain-high-lighthouse-scores: backlog
+  7-11-integrate-axe-core-accessibility-testing: backlog
+  epic-7-retrospective: optional

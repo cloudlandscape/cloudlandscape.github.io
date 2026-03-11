@@ -49,6 +49,16 @@
             </svg>
         </a>
         <a href="/providers/">Providers</a>
+        <nav class="language-switcher" aria-label="{{ trans(key="lang_nav_label", lang=lang) }}">
+            <button class="lang-btn{% if lang == 'fr' %} active{% endif %}"
+                    onclick="switchLanguage('fr')"
+                    aria-label="{{ trans(key="lang_switch_fr", lang=lang) }}"
+                    {% if lang == 'fr' %}aria-current="true"{% endif %}>FR</button>
+            <button class="lang-btn{% if lang == 'en' %} active{% endif %}"
+                    onclick="switchLanguage('en')"
+                    aria-label="{{ trans(key="lang_switch_en", lang=lang) }}"
+                    {% if lang == 'en' %}aria-current="true"{% endif %}>EN</button>
+        </nav>
     </nav>
     
     <main id="main-content" tabindex="-1" role="main">
