@@ -80,7 +80,7 @@ development_status:
   3-2-display-all-provider-listings-in-both-languages: done
   3-3-display-ui-navigation-and-elements-in-both-languages: done
   3-4-persist-user-language-preference: done
-  3-5-keyboard-navigation-for-all-features: review
+  3-5-keyboard-navigation-for-all-features: done
   3-6-screen-reader-support-for-all-content: backlog
   3-7-sufficient-color-contrast-wcag-2-1-aa: done  # Merged via PR #7 (brand identity)
   3-8-provide-skip-navigation-links: backlog
