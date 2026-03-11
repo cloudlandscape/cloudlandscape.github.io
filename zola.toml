@@ -47,6 +47,8 @@ noscript_message = "All providers are visible below. Filtering and search featur
 lang_nav_label = "Language selection"
 lang_switch_fr = "Switch to French"
 lang_switch_en = "Switch to English"
+lang_fr_label = "Français"
+lang_en_label = "English"
 
 [languages.fr]
 title = "Cloud Landscape"
@@ -81,6 +83,8 @@ noscript_message = "Tous les fournisseurs sont visibles ci-dessous. Les fonction
 lang_nav_label = "Sélection de la langue"
 lang_switch_fr = "Passer en français"
 lang_switch_en = "Passer en anglais"
+lang_fr_label = "Français"
+lang_en_label = "English"
 
 [markdown]
 

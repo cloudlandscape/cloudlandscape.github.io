@@ -117,11 +117,12 @@
             
             <div class="comparison-actions">
                 <a href="/providers/" class="btn btn-secondary">← Back to Providers</a>
-                <button class="btn btn-primary" onclick="shareComparison()">Share Comparison</button>
+                <button id="share-btn" class="btn btn-primary">Share Comparison</button>
             </div>
         </div>
     </main>
     
+    <script src="/lang.js"></script>
     <script>
         // Get provider data from URL
         function getProvidersFromUrl() {
@@ -294,6 +295,8 @@
         }
         
         init();
+
+        document.getElementById('share-btn').addEventListener('click', shareComparison);
     </script>
 </body>
 </html>
