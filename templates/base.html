@@ -65,6 +65,10 @@
         {% block content %}{% endblock %}
     </main>
     
+    <footer class="site-footer">
+        <p>&copy; {{ now() | date(format="%Y") }} <a href="/">Cloudlandscape</a> — {{ trans(key="footer_copyright", lang=lang) }}</p>
+    </footer>
+
     <script src="/lang.js"></script>
     <script src="/compare.js"></script>
     <script src="/mobile.js"></script>

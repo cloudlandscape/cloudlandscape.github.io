@@ -111,7 +111,7 @@
         <div class="comparison-page">
             <h1>Provider Comparison</h1>
             
-            <div id="comparison-content">
+            <div id="comparison-content" aria-live="polite" aria-busy="false">
                 <p>Loading comparison...</p>
             </div>
             
@@ -203,48 +203,48 @@
             const services = getAllServices(providers);
             const certifications = getAllCertifications();
             
-            let html = '<div class="comparison-table-wrapper"><table class="comparison-table">';
+            let html = '<div class="comparison-table-wrapper"><table class="comparison-table"><caption>Provider feature comparison</caption>';
             
             // Header row with provider names
-            html += '<thead><tr><th>Feature</th>';
+            html += '<thead><tr><th scope="col">Feature</th>';
             providers.forEach(p => {
-                html += `<th><a href="/providers/${p.slug}/" class="provider-link">${p.title}</a></th>`;
+                html += `<th scope="col"><a href="/providers/${p.slug}/" class="provider-link">${p.title}</a></th>`;
             });
             html += '</tr></thead><tbody>';
             
             // Country row
-            html += '<tr><th>Country</th>';
+            html += '<tr><th scope="row">Country</th>';
             providers.forEach(p => {
                 html += `<td>${p.country}</td>`;
             });
             html += '</tr>';
             
             // Service rows
-            html += '<tr><th colspan="' + (providers.length + 1) + '" style="background: #0B1D2E; color: #EEF4F9;">Services</th></tr>';
+            html += '<tr><th scope="colgroup" colspan="' + (providers.length + 1) + '" style="background: #0B1D2E; color: #EEF4F9;">Services</th></tr>';
             services.forEach(service => {
-                html += `<tr><th>${service}</th>`;
+                html += `<tr><th scope="row">${service}</th>`;
                 providers.forEach(p => {
                     const has = p.services.some(s => s.toLowerCase() === service.toLowerCase());
-                    html += `<td>${has ? '<span class="has-feature">✓</span>' : '<span class="no-feature">✗</span>'}</td>`;
+                    html += `<td>${has ? '<span aria-hidden="true" class="has-feature">✓</span><span class="sr-only">Yes</span>' : '<span aria-hidden="true" class="no-feature">✗</span><span class="sr-only">No</span>'}</td>`;
                 });
                 html += '</tr>';
             });
             
             // Certification rows
-            html += '<tr><th colspan="' + (providers.length + 1) + '" style="background: #0B1D2E; color: #EEF4F9;">Certifications</th></tr>';
+            html += '<tr><th scope="colgroup" colspan="' + (providers.length + 1) + '" style="background: #0B1D2E; color: #EEF4F9;">Certifications</th></tr>';
             certifications.forEach(cert => {
-                html += `<tr><th>${cert}</th>`;
+                html += `<tr><th scope="row">${cert}</th>`;
                 providers.forEach(p => {
                     const has = p.certifications.some(c => c.toUpperCase() === cert);
                     const className = has ? 'cert-yes' : 'cert-no';
-                    html += `<td class="${className}">${has ? '<span class="has-feature">✓</span>' : '<span class="no-feature">✗</span>'}</td>`;
+                    html += `<td class="${className}">${has ? '<span aria-hidden="true" class="has-feature">✓</span><span class="sr-only">Yes</span>' : '<span aria-hidden="true" class="no-feature">✗</span><span class="sr-only">No</span>'}</td>`;
                 });
                 html += '</tr>';
             });
             
             // Geographic coverage row
-            html += '<tr><th colspan="' + (providers.length + 1) + '" style="background: #0B1D2E; color: #EEF4F9;">Geographic Coverage</th></tr>';
-            html += '<tr><th>Datacenters</th>';
+            html += '<tr><th scope="colgroup" colspan="' + (providers.length + 1) + '" style="background: #0B1D2E; color: #EEF4F9;">Geographic Coverage</th></tr>';
+            html += '<tr><th scope="row">Datacenters</th>';
             providers.forEach(p => {
                 const locations = p.datacenters && p.datacenters.length > 0 
                     ? p.datacenters.join(', ') 
@@ -283,6 +283,7 @@
                 return;
             }
             
+            container.setAttribute('aria-busy', 'true');
             container.innerHTML = '<p>Loading provider data...</p>';
             
             try {
@@ -291,6 +292,8 @@
             } catch (e) {
                 container.innerHTML = '<p style="color: red;">Error loading comparison. Please try again.</p>';
                 console.error(e);
+            } finally {
+                container.setAttribute('aria-busy', 'false');
             }
         }
         

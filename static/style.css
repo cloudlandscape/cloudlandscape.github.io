@@ -980,3 +980,37 @@ a:hover {
     color: var(--cloud-white);
 }
 
+/* Screen reader only — visually hidden but accessible to assistive technologies */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+/* Footer landmark */
+.site-footer {
+    margin-top: auto;
+    padding: 1.5rem 2rem;
+    border-top: 1px solid var(--horizon);
+    text-align: center;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--mist);
+    letter-spacing: 0.05em;
+}
+
+.site-footer a {
+    color: var(--aurora);
+    text-decoration: underline;
+}
+
+.site-footer a:hover {
+    text-decoration: underline;
+}
+

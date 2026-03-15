@@ -11,34 +11,34 @@
         {% endif %}
     </header>
 
-    <section class="provider-meta-grid" aria-label="Provider information">
+    <section class="provider-meta-grid" aria-label="{{ trans(key="provider_info_label", lang=page.lang) }}">
         {% if page.extra.country %}
         <div class="meta-item">
-            <strong>Country of Origin:</strong>
+            <strong>{{ trans(key="country_of_origin", lang=page.lang) }}:</strong>
             <span>{{ page.extra.country }}</span>
         </div>
         {% endif %}
 
         {% if page.extra.headquarters %}
         <div class="meta-item">
-            <strong>Headquarters:</strong>
+            <strong>{{ trans(key="headquarters_label", lang=page.lang) }}:</strong>
             <span>{{ page.extra.headquarters }}</span>
         </div>
         {% endif %}
 
         {% if page.extra.founded %}
         <div class="meta-item">
-            <strong>Founded:</strong>
+            <strong>{{ trans(key="founded_label", lang=page.lang) }}:</strong>
             <span>{{ page.extra.founded }}</span>
         </div>
         {% endif %}
 
         {% if page.extra.website %}
         <div class="meta-item">
-            <strong>Website:</strong>
+            <strong>{{ trans(key="website_label", lang=page.lang) }}:</strong>
             <a href="{{ page.extra.website }}" target="_blank" rel="noopener noreferrer" class="external-link">
                 {{ page.extra.website }}
-                <span class="external-icon" aria-label="(opens in new tab)">↗</span>
+                <span class="external-icon" aria-label="{{ trans(key="opens_in_new_tab", lang=page.lang) }}">↗</span>
             </a>
         </div>
         {% endif %}
@@ -46,7 +46,7 @@
 
     {% if page.content %}
     <section class="provider-description" aria-labelledby="about-heading">
-        <h2 id="about-heading">About</h2>
+        <h2 id="about-heading">{{ trans(key="about_heading", lang=page.lang) }}</h2>
         <div class="content">
             {{ page.content | safe }}
         </div>
@@ -55,8 +55,8 @@
 
     {% if page.taxonomies.services %}
     <section class="provider-services" aria-labelledby="services-heading">
-        <h2 id="services-heading">Services Offered</h2>
-        <p class="section-intro">Services are mapped to unified taxonomy categories for easy comparison across providers.</p>
+        <h2 id="services-heading">{{ trans(key="services_heading", lang=page.lang) }}</h2>
+        <p class="section-intro">{{ trans(key="services_intro", lang=page.lang) }}</p>
         <ul class="services-grid" role="list">
             {% for service in page.taxonomies.services %}
             <li class="service-card">
@@ -68,18 +68,18 @@
     {% endif %}
 
     {% if page.taxonomies.certifications %}
-    <section class="provider-certifications">
-        <h2>Certifications & Compliance</h2>
-        <p class="section-intro">Verified certifications and compliance attestations.</p>
+    <section class="provider-certifications" aria-labelledby="certifications-heading">
+        <h2 id="certifications-heading">{{ trans(key="certifications_heading", lang=page.lang) }}</h2>
+        <p class="section-intro">{{ trans(key="certifications_intro", lang=page.lang) }}</p>
         <div class="certifications-list">
             {% for cert in page.taxonomies.certifications %}
             <div class="certification-badge">
-                <span class="cert-icon">✓</span>
+                <span class="cert-icon" aria-hidden="true">✓</span>
                 <div class="cert-info">
                     <strong class="cert-name">{{ cert | upper }}</strong>
                     {% if page.extra.certification_links and page.extra.certification_links[cert] %}
                     <a href="{{ page.extra.certification_links[cert] }}" target="_blank" rel="noopener noreferrer" class="cert-link">
-                        View Attestation <span class="external-icon">↗</span>
+                        {{ trans(key="view_attestation", lang=page.lang) }} <span class="external-icon" aria-label="{{ trans(key="opens_in_new_tab", lang=page.lang) }}">↗</span>
                     </a>
                     {% endif %}
                 </div>
@@ -91,8 +91,8 @@
 
     {% if page.extra.datacenter_locations %}
     <section class="provider-datacenters" aria-labelledby="datacenter-heading">
-        <h2 id="datacenter-heading">Geographic Coverage</h2>
-        <p class="section-intro">Datacenter locations for data residency and latency considerations.</p>
+        <h2 id="datacenter-heading">{{ trans(key="datacenter_heading", lang=page.lang) }}</h2>
+        <p class="section-intro">{{ trans(key="datacenter_intro", lang=page.lang) }}</p>
         <ul class="datacenters-list" role="list">
             {% for location in page.extra.datacenter_locations %}
             <li class="datacenter-item">
@@ -105,8 +105,8 @@
     {% endif %}
 
     <div class="provider-actions">
-        <a href="/providers/" class="btn btn-secondary">← Back to All Providers</a>
-        <button class="btn btn-primary" data-provider="{{ page.slug }}" aria-label="Add {{ page.title }} to comparison">Add to Comparison</button>
+        <a href="/providers/" class="btn btn-secondary">{{ trans(key="back_to_providers", lang=page.lang) }}</a>
+        <button class="btn btn-primary" data-provider="{{ page.slug }}" aria-label="{{ trans(key="add_to_comparison", lang=page.lang) }} {{ page.title }}">{{ trans(key="add_to_comparison", lang=page.lang) }}</button>
     </div>
 </article>
 {% endblock %}
