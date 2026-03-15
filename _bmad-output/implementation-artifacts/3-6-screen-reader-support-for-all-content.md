@@ -1,6 +1,6 @@
 # Story 3.6: Screen Reader Support for All Content
 
-Status: in-progress
+Status: review
 
 ## Story
 
@@ -23,26 +23,26 @@ So that I can independently navigate and use the site.
 
 ## Tasks / Subtasks
 
-- [ ] Task 1 — Add `<footer>` landmark to `base.html` (AC: #2)
-  - [ ] 1.1 Add `<footer>` element with role="contentinfo" (implicit on footer) after `<main>` in `base.html`
-  - [ ] 1.2 Footer content: minimal — copyright + link to home, wrapped in `<p>` inside `<footer>`
+- [x] Task 1 — Add `<footer>` landmark to `base.html` (AC: #2)
+  - [x] 1.1 Add `<footer>` element with role="contentinfo" (implicit on footer) after `<main>` in `base.html`
+  - [x] 1.2 Footer content: minimal — copyright + link to home, wrapped in `<p>` inside `<footer>`
 
-- [ ] Task 2 — Fix comparison table accessibility in `compare.html` (AC: #8, #9)
-  - [ ] 2.1 Add `aria-live="polite"` and `aria-busy="false"` to `<div id="comparison-content">`; set `aria-busy="true"` while loading, revert to `"false"` after render
-  - [ ] 2.2 Add `<caption>` to the comparison table in the `renderComparison()` function in compare.html
-  - [ ] 2.3 Add `scope="col"` to all column header `<th>` in the thead row
-  - [ ] 2.4 Add `scope="row"` to all row header `<th>` (Feature, Country, service names, cert names, Datacenters)
-  - [ ] 2.5 Add `scope="colgroup"` to section header rows (Services, Certifications, Geographic Coverage colspan rows)
-  - [ ] 2.6 Replace `✓`/`✗` symbols with `<span aria-hidden="true">✓</span><span class="sr-only">Yes</span>` and equivalent for No
+- [x] Task 2 — Fix comparison table accessibility in `compare.html` (AC: #8, #9)
+  - [x] 2.1 Add `aria-live="polite"` and `aria-busy="false"` to `<div id="comparison-content">`; set `aria-busy="true"` while loading, revert to `"false"` after render
+  - [x] 2.2 Add `<caption>` to the comparison table in the `renderComparison()` function in compare.html
+  - [x] 2.3 Add `scope="col"` to all column header `<th>` in the thead row
+  - [x] 2.4 Add `scope="row"` to all row header `<th>` (Feature, Country, service names, cert names, Datacenters)
+  - [x] 2.5 Add `scope="colgroup"` to section header rows (Services, Certifications, Geographic Coverage colspan rows)
+  - [x] 2.6 Replace `✓`/`✗` symbols with `<span aria-hidden="true">✓</span><span class="sr-only">Yes</span>` and equivalent for No
 
-- [ ] Task 3 — Fix certifications section in `page.html` (AC: #10)
-  - [ ] 3.1 Add `id="certifications-heading"` to `<h2>Certifications & Compliance</h2>`
-  - [ ] 3.2 Add `aria-labelledby="certifications-heading"` to the certifications `<section>` element
+- [x] Task 3 — Fix certifications section in `page.html` (AC: #10)
+  - [x] 3.1 Add `id="certifications-heading"` to `<h2>Certifications & Compliance</h2>`
+  - [x] 3.2 Add `aria-labelledby="certifications-heading"` to the certifications `<section>` element
 
-- [ ] Task 4 — Verify and validate (AC: all)
-  - [ ] 4.1 Run `mise run build` — must pass with 0 errors
-  - [ ] 4.2 Run `mise run check` (zola check) — must pass with 0 errors
-  - [ ] 4.3 Run `mise run a11y` (axe-core) — must report 0 violations on all 4 pages
+- [x] Task 4 — Verify and validate (AC: all)
+  - [x] 4.1 Run `mise run build` — ✅ 26 pages, 0 errors
+  - [x] 4.2 Run `mise run check` (zola check) — ✅ 26 pages, 0 errors
+  - [x] 4.3 Run `mise run a11y` (axe-core) — ✅ 0 violations on all 4 pages
 
 ## Dev Notes
 
