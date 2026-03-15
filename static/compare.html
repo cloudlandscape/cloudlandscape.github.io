@@ -4,6 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Compare Providers - Cloud Landscape</title>
+    <script>
+        (function() {
+            var lang = localStorage.getItem('cloudlandscape_lang') || 'fr';
+            document.documentElement.lang = lang;
+        })();
+    </script>
     <link rel="stylesheet" href="/style.css">
     <style>
         .comparison-page {
@@ -95,12 +101,13 @@
     </style>
 </head>
 <body>
-    <nav>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <nav aria-label="Main navigation">
         <a href="/">Home</a>
         <a href="/providers/">Providers</a>
     </nav>
     
-    <main>
+    <main id="main-content" tabindex="-1">
         <div class="comparison-page">
             <h1>Provider Comparison</h1>
             
@@ -110,11 +117,12 @@
             
             <div class="comparison-actions">
                 <a href="/providers/" class="btn btn-secondary">← Back to Providers</a>
-                <button class="btn btn-primary" onclick="shareComparison()">Share Comparison</button>
+                <button id="share-btn" class="btn btn-primary">Share Comparison</button>
             </div>
         </div>
     </main>
     
+    <script src="/lang.js"></script>
     <script>
         // Get provider data from URL
         function getProvidersFromUrl() {
@@ -287,6 +295,8 @@
         }
         
         init();
+
+        document.getElementById('share-btn').addEventListener('click', shareComparison);
     </script>
 </body>
 </html>

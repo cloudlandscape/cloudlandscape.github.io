@@ -72,21 +72,21 @@
         
         const switcher = document.createElement('div');
         switcher.className = 'language-switcher';
-        switcher.setAttribute('role', 'navigation');
-        switcher.setAttribute('aria-label', 'Language switcher');
+        switcher.setAttribute('role', 'group');
+        switcher.setAttribute('aria-label', 'Language selection');
         
         switcher.innerHTML = `
             <button class="lang-btn ${currentLang === 'fr' ? 'active' : ''}" 
                     data-lang="fr" 
-                    aria-label="Switch to French"
-                    ${currentLang === 'fr' ? 'aria-current="true"' : ''}>
+                    aria-label="Français"
+                    aria-pressed="${currentLang === 'fr' ? 'true' : 'false'}">
                 FR
             </button>
-            <span class="lang-separator">|</span>
+            <span class="lang-separator" aria-hidden="true">|</span>
             <button class="lang-btn ${currentLang === 'en' ? 'active' : ''}" 
                     data-lang="en" 
-                    aria-label="Switch to English"
-                    ${currentLang === 'en' ? 'aria-current="true"' : ''}>
+                    aria-label="English"
+                    aria-pressed="${currentLang === 'en' ? 'true' : 'false'}">
                 EN
             </button>
         `;
