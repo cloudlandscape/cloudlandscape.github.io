@@ -123,11 +123,17 @@
     </main>
     
     <footer class="site-footer">
-        <p>&copy; <script>document.write(new Date().getFullYear())</script> <a href="/">Cloudlandscape</a></p>
+        <p>&copy; <span id="current-year"></span> <a href="/">Cloudlandscape</a></p>
     </footer>
 
     <script src="/lang.js"></script>
     <script>
+        (function() {
+            var yearEl = document.getElementById('current-year');
+            if (yearEl) {
+                yearEl.textContent = new Date().getFullYear();
+            }
+        })();
         // Get provider data from URL
         function getProvidersFromUrl() {
             const params = new URLSearchParams(window.location.search);
