@@ -5,6 +5,14 @@ jobs:
   lighthouseci:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - run: bunx @lhci/cli@0.15.x autorun
+      - name: Checkout code
+        uses: actions/checkout@v6.0.1
+
+      - name: Set up bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: "latest"
+
+      - name: Lighthouse analysis
+        run: bunx @lhci/cli@0.15.x autorun
 
