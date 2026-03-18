@@ -1019,3 +1019,19 @@ a:hover {
     padding: 1rem 0;
 }
 
+.not-found {
+    text-align: center;
+    padding: 4rem 2rem;
+}
+
+.not-found h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: var(--cloud-white);
+}
+
+.not-found p {
+    color: var(--mist);
+    margin-bottom: 2rem;
+}
+

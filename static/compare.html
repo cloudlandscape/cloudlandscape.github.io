@@ -4,12 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Compare Providers - Cloud Landscape</title>
+    <meta name="description" content="Compare European sovereign cloud providers side by side — services, certifications, and geographic coverage.">
     <script>
         (function() {
             var lang = localStorage.getItem('cloudlandscape_lang') || 'fr';
             document.documentElement.lang = lang;
         })();
     </script>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230B1D2E'/%3E%3Cellipse cx='11' cy='19' rx='7' ry='5' fill='none' stroke='%237EC8C8' stroke-width='1.5'/%3E%3Cellipse cx='17' cy='15' rx='7' ry='6' fill='none' stroke='%237EC8C8' stroke-width='1.5'/%3E%3Cellipse cx='23' cy='18' rx='6' ry='5' fill='none' stroke='%237EC8C8' stroke-width='1.5'/%3E%3Cline x1='4' y1='24' x2='28' y2='24' stroke='%234A7FA5' stroke-width='1.2'/%3E%3Cpolyline points='4,27 9,25 15,26 21,24 27,26 28,27' fill='none' stroke='%234A7FA5' stroke-width='0.9' opacity='0.7'/%3E%3C/svg%3E" />
     <link rel="stylesheet" href="/style.css">
     <style>
         .comparison-page {
@@ -126,7 +128,7 @@
         <p>&copy; <span id="current-year"></span> <a href="/">Cloudlandscape</a></p>
     </footer>
 
-    <script src="/lang.js"></script>
+    <script src="/lang.js" defer></script>
     <script>
         (function() {
             var yearEl = document.getElementById('current-year');

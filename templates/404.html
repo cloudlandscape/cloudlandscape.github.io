@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block title %}{{ trans(key="not_found_title", lang=lang) }} - {{ config.title }}{% endblock %}
+
+{% block content %}
+<div class="not-found">
+    <h1>{{ trans(key="not_found_heading", lang=lang) }}</h1>
+    <p>{{ trans(key="not_found_message", lang=lang) }}</p>
+    <a href="/" class="btn btn-primary">{{ trans(key="back_home", lang=lang) }}</a>
+</div>
+{% endblock %}

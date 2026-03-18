@@ -104,9 +104,11 @@
     </section>
     {% endif %}
 
+    {% if page.extra.country %}
     <div class="provider-actions">
         <a href="/providers/" class="btn btn-secondary">{{ trans(key="back_to_providers", lang=page.lang) }}</a>
         <button class="btn btn-primary" data-provider="{{ page.slug }}" aria-label="{{ trans(key="add_to_comparison", lang=page.lang) }} {{ page.title }}">{{ trans(key="add_to_comparison", lang=page.lang) }}</button>
     </div>
+    {% endif %}
 </article>
 {% endblock %}
