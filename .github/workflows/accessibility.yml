@@ -14,14 +14,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v6.0.1
 
-      - name: Install Zola
-        run: |
-          curl -LO https://github.com/getzola/zola/releases/download/v0.22.1/zola-v0.22.1-x86_64-unknown-linux-gnu.tar.gz
-          tar -xzf zola-v0.22.1-x86_64-unknown-linux-gnu.tar.gz
-          sudo mv zola /usr/local/bin/
-
-      - name: Build site
-        run: zola build
+      - name: Build Zola
+        uses: getzola/github-pages@066755243e69f508fd1a74739fbf1a65f656c790
+        with:
+          zola_version: v0.22.1
+          check_links: false
+          check_flags: "--skip-external-links"
 
       - name: Set up bun
         uses: oven-sh/setup-bun@v2
