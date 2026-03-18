@@ -1,14 +1,17 @@
-name: Accessibility Testing
+name: CI
+
 on:
   pull_request:
     paths:
       - 'templates/**'
       - 'static/**'
       - 'content/**'
-  workflow_dispatch:
+  push:
+
 permissions: {}
+
 jobs:
-  axe-core:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -21,6 +24,23 @@ jobs:
           check_links: false
           check_flags: "--skip-external-links"
 
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: public
+          path: public/
+          retention-days: 1
+
+  axe-core:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: public
+          path: public/
+
       - name: Set up bun
         uses: oven-sh/setup-bun@v2
         with:
@@ -31,8 +51,8 @@ jobs:
 
       - name: Serve site and run axe-core
         run: |
-          zola serve --port 8000 &
-          # Test key pages
+          python3 -m http.server 8000 --directory public &
+          sleep 2
           bunx @axe-core/cli@4.11.1 http://localhost:8000/ \
             http://localhost:8000/providers/ \
             http://localhost:8000/providers/scaleway/ \
@@ -41,3 +61,26 @@ jobs:
       - name: Report results
         if: always()
         run: echo "Accessibility testing completed. Check logs above for any violations."
+
+  lighthouse:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6.0.1
+
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: public
+          path: public/
+
+      - name: Set up bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: "latest"
+
+      - name: Lighthouse analysis
+        run: bunx @lhci/cli@0.15.x autorun
+        env:
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
