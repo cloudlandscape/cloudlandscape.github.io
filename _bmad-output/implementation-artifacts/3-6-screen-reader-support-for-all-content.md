@@ -1,6 +1,6 @@
 # Story 3.6: Screen Reader Support for All Content
 
-Status: review
+Status: done
 
 ## Story
 
@@ -144,6 +144,7 @@ claude-sonnet-4.6
 ### File List
 
 - `templates/base.html` — Add `<footer>` landmark
-- `static/compare.html` — Add `aria-live` to content div; fix table semantics (caption, scope, sr-only for ✓/✗)
-- `templates/page.html` — Add `aria-labelledby` to certifications section
-- `static/style.css` — Add `.sr-only` utility class if not present
+- `static/compare.html` — Add `aria-live` to content div; fix table semantics (caption, scope, sr-only for ✓/✗); add `<footer>` landmark; fix `scope="colgroup"` on section divider rows; replace inline error style with CSS class
+- `templates/page.html` — Add `aria-labelledby` to certifications section; full i18n pass
+- `static/style.css` — Add `.sr-only` utility class, `.site-footer` styles, `.comparison-error` class
+- `zola.toml` — Add 14 i18n keys EN+FR (footer_copyright, provider_info_label, country_of_origin, headquarters_label, founded_label, website_label, opens_in_new_tab, about_heading, services_heading, services_intro, certifications_heading, certifications_intro, view_attestation, datacenter_heading, datacenter_intro, back_to_providers)

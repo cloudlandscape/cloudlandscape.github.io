@@ -1014,3 +1014,8 @@ a:hover {
     text-decoration: underline;
 }
 
+.comparison-error {
+    color: var(--terra, #c0392b);
+    padding: 1rem 0;
+}
+

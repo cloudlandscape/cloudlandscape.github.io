@@ -122,6 +122,10 @@
         </div>
     </main>
     
+    <footer class="site-footer">
+        <p>&copy; <script>document.write(new Date().getFullYear())</script> <a href="/">Cloudlandscape</a></p>
+    </footer>
+
     <script src="/lang.js"></script>
     <script>
         // Get provider data from URL
@@ -220,7 +224,7 @@
             html += '</tr>';
             
             // Service rows
-            html += '<tr><th scope="colgroup" colspan="' + (providers.length + 1) + '" style="background: #0B1D2E; color: #EEF4F9;">Services</th></tr>';
+            html += '<tr><th colspan="' + (providers.length + 1) + '" style="background: #0B1D2E; color: #EEF4F9;">Services</th></tr>';
             services.forEach(service => {
                 html += `<tr><th scope="row">${service}</th>`;
                 providers.forEach(p => {
@@ -231,7 +235,7 @@
             });
             
             // Certification rows
-            html += '<tr><th scope="colgroup" colspan="' + (providers.length + 1) + '" style="background: #0B1D2E; color: #EEF4F9;">Certifications</th></tr>';
+            html += '<tr><th colspan="' + (providers.length + 1) + '" style="background: #0B1D2E; color: #EEF4F9;">Certifications</th></tr>';
             certifications.forEach(cert => {
                 html += `<tr><th scope="row">${cert}</th>`;
                 providers.forEach(p => {
@@ -243,7 +247,7 @@
             });
             
             // Geographic coverage row
-            html += '<tr><th scope="colgroup" colspan="' + (providers.length + 1) + '" style="background: #0B1D2E; color: #EEF4F9;">Geographic Coverage</th></tr>';
+            html += '<tr><th colspan="' + (providers.length + 1) + '" style="background: #0B1D2E; color: #EEF4F9;">Geographic Coverage</th></tr>';
             html += '<tr><th scope="row">Datacenters</th>';
             providers.forEach(p => {
                 const locations = p.datacenters && p.datacenters.length > 0 
@@ -290,7 +294,7 @@
                 const providers = await Promise.all(slugs.map(slug => fetchProviderData(slug)));
                 container.innerHTML = renderComparison(providers);
             } catch (e) {
-                container.innerHTML = '<p style="color: red;">Error loading comparison. Please try again.</p>';
+                container.innerHTML = '<p class="comparison-error">Error loading comparison. Please try again.</p>';
                 console.error(e);
             } finally {
                 container.setAttribute('aria-busy', 'false');

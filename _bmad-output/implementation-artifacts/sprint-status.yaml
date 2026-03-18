@@ -81,7 +81,7 @@ development_status:
   3-3-display-ui-navigation-and-elements-in-both-languages: done
   3-4-persist-user-language-preference: done
   3-5-keyboard-navigation-for-all-features: done
-  3-6-screen-reader-support-for-all-content: review
+  3-6-screen-reader-support-for-all-content: done
   3-7-sufficient-color-contrast-wcag-2-1-aa: done  # Merged via PR #7 (brand identity)
   3-8-provide-skip-navigation-links: backlog
   3-9-use-semantic-html-structure: backlog
