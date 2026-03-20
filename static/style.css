@@ -266,11 +266,12 @@ h2 {
     font-family: var(--font-display);
     font-size: 1rem;
     font-weight: 300;
-    outline: none;
     transition: border-color 0.2s;
 }
 
-.search-input:focus {
+.search-input:focus-visible {
+    outline: 3px solid var(--aurora);
+    outline-offset: 2px;
     border-color: var(--aurora);
 }
 
@@ -333,7 +334,7 @@ h2 {
     color: var(--contrast);
 }
 
-.filter-reset:focus {
+.filter-reset:focus-visible {
     outline: 3px solid var(--aurora);
     outline-offset: 2px;
 }
@@ -858,7 +859,7 @@ h2 {
     color: var(--aurora);
 }
 
-.lang-btn:focus {
+.lang-btn:focus-visible {
     outline: 2px solid var(--aurora);
     outline-offset: 2px;
 }
@@ -900,6 +901,16 @@ h2 {
 :focus-visible {
     outline: 3px solid var(--aurora);
     outline-offset: 4px;
+}
+
+@media (forced-colors: active) {
+    :focus-visible {
+        outline: 3px solid Highlight;
+        outline-offset: 4px;
+    }
+    .skip-link:focus {
+        outline: 3px solid Highlight;
+    }
 }
 
 a {
