@@ -9,10 +9,12 @@
         (function() {
             var lang = localStorage.getItem('cloudlandscape_lang') || 'fr';
             document.documentElement.lang = lang;
-            var skipLink = document.querySelector('.skip-link');
-            if (skipLink) {
-                skipLink.textContent = lang === 'fr' ? 'Passer au contenu principal' : 'Skip to main content';
-            }
+            document.addEventListener('DOMContentLoaded', function() {
+                var skipLink = document.querySelector('.skip-link');
+                if (skipLink) {
+                    skipLink.textContent = lang === 'fr' ? 'Passer au contenu principal' : 'Skip to main content';
+                }
+            });
         })();
     </script>
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230B1D2E'/%3E%3Cellipse cx='11' cy='19' rx='7' ry='5' fill='none' stroke='%237EC8C8' stroke-width='1.5'/%3E%3Cellipse cx='17' cy='15' rx='7' ry='6' fill='none' stroke='%237EC8C8' stroke-width='1.5'/%3E%3Cellipse cx='23' cy='18' rx='6' ry='5' fill='none' stroke='%237EC8C8' stroke-width='1.5'/%3E%3Cline x1='4' y1='24' x2='28' y2='24' stroke='%234A7FA5' stroke-width='1.2'/%3E%3Cpolyline points='4,27 9,25 15,26 21,24 27,26 28,27' fill='none' stroke='%234A7FA5' stroke-width='0.9' opacity='0.7'/%3E%3C/svg%3E" />
