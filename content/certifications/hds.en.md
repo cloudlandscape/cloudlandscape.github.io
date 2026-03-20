@@ -39,10 +39,6 @@ HDS certification covers several activities:
 
 HDS certification is valid for 3 years and is subject to regular surveillance audits.
 
-## HDS certified providers
-
-Check our [provider list](/en/providers/) and filter by "HDS" certification to identify qualified hosts for your health data.
-
 ## Official resources
 
 - [Digital Health Agency](https://esante.gouv.fr/produits-services/hds)

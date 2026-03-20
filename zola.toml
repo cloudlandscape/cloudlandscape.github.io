@@ -71,6 +71,10 @@ not_found_message = "The page you're looking for doesn't exist or has been moved
 back_home = "← Back to Home"
 skip_to_main = "Skip to main content"
 search_filter_label = "Search and filter options"
+certified_providers_heading = "Certified Providers"
+certified_providers_intro = "These providers hold this certification according to the directory data."
+back_to_providers_from_cert = "← Back to all providers"
+cert_learn_more = "Learn more about"
 
 [languages.fr]
 title = "Cloud Landscape"
@@ -129,6 +133,10 @@ not_found_message = "La page que vous recherchez n'existe pas ou a été déplac
 back_home = "← Retour à l'accueil"
 skip_to_main = "Passer au contenu principal"
 search_filter_label = "Options de recherche et de filtrage"
+certified_providers_heading = "Fournisseurs certifiés"
+certified_providers_intro = "Ces fournisseurs détiennent cette certification selon les données de l'annuaire."
+back_to_providers_from_cert = "← Retour aux fournisseurs"
+cert_learn_more = "En savoir plus sur"
 
 [markdown]
 

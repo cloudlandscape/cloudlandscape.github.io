@@ -39,10 +39,6 @@ La certification HDS couvre plusieurs activités :
 
 La certification HDS est valable 3 ans et fait l'objet d'audits de surveillance réguliers.
 
-## Providers certifiés HDS
-
-Consultez notre [liste de providers](/providers/) et filtrez par certification "HDS" pour identifier les hébergeurs qualifiés pour vos données de santé.
-
 ## Ressources officielles
 
 - [Agence du Numérique en Santé](https://esante.gouv.fr/produits-services/hds)

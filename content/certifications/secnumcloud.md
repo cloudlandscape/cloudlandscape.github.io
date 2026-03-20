@@ -32,10 +32,6 @@ SecNumCloud propose différents niveaux selon la sensibilité des données :
 - **Standard** : Pour les données sensibles non classifiées
 - **Renforcé** : Pour les données à protection renforcée
 
-## Providers certifiés
-
-Les fournisseurs cloud certifiés SecNumCloud figurent dans notre annuaire avec le badge correspondant. Consultez la [liste des providers](/providers/) et filtrez par certification "SecNumCloud" pour trouver les offres qualifiées.
-
 ## Ressources officielles
 
 - [ANSSI - SecNumCloud](https://cyber.gouv.fr/documents/388/secnumcloud-referentiel-exigences-v3.2.pdf)

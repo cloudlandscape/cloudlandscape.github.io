@@ -47,10 +47,6 @@ EUCS is part of the European regulatory ecosystem:
 
 Some providers are anticipating certification and preparing compliance with EUCS Substantial level requirements.
 
-## Providers preparing for EUCS
-
-Check our [provider list](/en/providers/) to identify suppliers actively preparing for EUCS certification.
-
 ## Official resources
 
 - [ENISA - EUCS](https://www.enisa.europa.eu/publications/eucs-cloud-service-scheme)
