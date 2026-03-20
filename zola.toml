@@ -69,6 +69,7 @@ not_found_title = "Page Not Found"
 not_found_heading = "404 — Page Not Found"
 not_found_message = "The page you're looking for doesn't exist or has been moved."
 back_home = "← Back to Home"
+skip_to_main = "Skip to main content"
 
 [languages.fr]
 title = "Cloud Landscape"
@@ -125,6 +126,7 @@ not_found_title = "Page introuvable"
 not_found_heading = "404 — Page introuvable"
 not_found_message = "La page que vous recherchez n'existe pas ou a été déplacée."
 back_home = "← Retour à l'accueil"
+skip_to_main = "Passer au contenu principal"
 
 [markdown]
 
