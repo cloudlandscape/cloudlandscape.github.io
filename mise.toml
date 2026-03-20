@@ -44,7 +44,12 @@ EXIT_CODE=$?
 exit $EXIT_CODE
 """
 
+[tasks.lighthouse]
+description = "Run Lighthouse analysis"
+depends = ["build"]
+run = "bunx @lhci/cli@0.15.x autorun"
+
 [tasks.test]
 description = "Run full tests"
-depends = ["validate", "check", "a11y"]
+depends = ["validate", "check", "a11y", "lighthouse"]
 

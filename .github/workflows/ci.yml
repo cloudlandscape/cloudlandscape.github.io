@@ -1,0 +1,86 @@
+name: CI
+
+on:
+  pull_request:
+    paths:
+      - 'templates/**'
+      - 'static/**'
+      - 'content/**'
+  push:
+
+permissions: {}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6.0.1
+
+      - name: Build Zola
+        uses: getzola/github-pages@066755243e69f508fd1a74739fbf1a65f656c790
+        with:
+          zola_version: v0.22.1
+          check_links: false
+          check_flags: "--skip-external-links"
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: public
+          path: public/
+          retention-days: 1
+
+  axe-core:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: public
+          path: public/
+
+      - name: Set up bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: "latest"
+
+      - name: Install chrome with browser-driver-manager
+        run: bunx browser-driver-manager@2.0.1 install chrome
+
+      - name: Serve site and run axe-core
+        run: |
+          python3 -m http.server 8000 --directory public &
+          sleep 2
+          bunx @axe-core/cli@4.11.1 http://localhost:8000/ \
+            http://localhost:8000/providers/ \
+            http://localhost:8000/providers/scaleway/ \
+            http://localhost:8000/compare.html?providers=aws,google-cloud,microsoft-azure --exit
+
+      - name: Report results
+        if: always()
+        run: echo "Accessibility testing completed. Check logs above for any violations."
+
+  lighthouse:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6.0.1
+
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: public
+          path: public/
+
+      - name: Set up bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: "latest"
+
+      - name: Lighthouse analysis
+        run: bunx @lhci/cli@0.15.x autorun
+        env:
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}

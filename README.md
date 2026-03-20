@@ -1,7 +1,8 @@
-[![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/cloudlandscape/cloudlandscape.github.io/badge)](https://scorecard.dev/viewer/?uri=github.com/cloudlandscape/cloudlandscape.github.io)
-[![OpenSSF Best Practices](https://www.bestpractices.dev/projects/12157/badge)](https://www.bestpractices.dev/projects/12157)
-[![CodeQL Advanced](https://github.com/cloudlandscape/cloudlandscape.github.io/actions/workflows/codeql.yml/badge.svg)](https://github.com/cloudlandscape/cloudlandscape.github.io/actions/workflows/codeql.yml)
-[![Accessibility Testing](https://github.com/cloudlandscape/cloudlandscape.github.io/actions/workflows/accessibility.yml/badge.svg)](https://github.com/cloudlandscape/cloudlandscape.github.io/actions/workflows/accessibility.yml)
+[![OpenSSF Scorecard](https://img.shields.io/ossf-scorecard/github.com/cloudlandscape/cloudlandscape.github.io?style=for-the-badge&label=OpenSSF%20Scorecard)](https://scorecard.dev/viewer/?uri=github.com/cloudlandscape/cloudlandscape.github.io)
+[![OpenSSF Best Practices](https://img.shields.io/cii/percentage/12157?style=for-the-badge&label=OpenSSF%20Best%20Practices)](https://www.bestpractices.dev/en/projects/12157/passing)
+[![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/cloudlandscape/cloudlandscape.github.io/codeql.yml?style=for-the-badge&label=CodeQL)](https://github.com/cloudlandscape/cloudlandscape.github.io/actions/workflows/codeql.yml)
+[![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/cloudlandscape/cloudlandscape.github.io/accessibility.yml?style=for-the-badge&label=Web%20tests)](https://github.com/cloudlandscape/cloudlandscape.github.io/actions/workflows/ci.yml)
+[![GitHub License](https://img.shields.io/github/license/cloudlandscape/cloudlandscape.github.io?style=for-the-badge&color=blue)](https://eupl.eu/)
 
 # Cloud landscape
 

@@ -78,14 +78,14 @@
         switcher.innerHTML = `
             <button class="lang-btn ${currentLang === 'fr' ? 'active' : ''}" 
                     data-lang="fr" 
-                    aria-label="Français"
+                    aria-label="FR — Français"
                     aria-pressed="${currentLang === 'fr' ? 'true' : 'false'}">
                 FR
             </button>
             <span class="lang-separator" aria-hidden="true">|</span>
             <button class="lang-btn ${currentLang === 'en' ? 'active' : ''}" 
                     data-lang="en" 
-                    aria-label="English"
+                    aria-label="EN — English"
                     aria-pressed="${currentLang === 'en' ? 'true' : 'false'}">
                 EN
             </button>
