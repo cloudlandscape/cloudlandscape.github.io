@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block title %}
+{% if lang == "en" %}
+  {% set cert_page = get_page(path="certifications/" ~ term.slug ~ ".en.md") %}
+{% else %}
+  {% set cert_page = get_page(path="certifications/" ~ term.slug ~ ".md") %}
+{% endif %}
+{% if cert_page %}{{ cert_page.title }}{% else %}{{ term.name }}{% endif %} - {{ config.title }}
+{% endblock %}
+
+{% block content %}
+{# Load the certification content page for the current language #}
+{% if lang == "en" %}
+  {% set cert_page = get_page(path="certifications/" ~ term.slug ~ ".en.md") %}
+{% else %}
+  {% set cert_page = get_page(path="certifications/" ~ term.slug ~ ".md") %}
+{% endif %}
+<article class="cert-explainer">
+    <header class="cert-header">
+        <h1>{% if cert_page %}{{ cert_page.title }}{% else %}{{ term.name }}{% endif %}</h1>
+        {% if cert_page and cert_page.description %}
+        <p class="cert-tagline">{{ cert_page.description }}</p>
+        {% endif %}
+    </header>
+
+    {% if cert_page %}
+    <div class="cert-body">
+        {{ cert_page.content | safe }}
+    </div>
+    {% endif %}
+
+    {# Dynamic provider list from taxonomy data #}
+    {% if term.pages %}
+    <section class="cert-providers-section" aria-labelledby="certified-providers-heading">
+        <h2 id="certified-providers-heading">
+            {{ trans(key="certified_providers_heading", lang=lang) }}
+        </h2>
+        <p class="section-intro">{{ trans(key="certified_providers_intro", lang=lang) }}</p>
+        <ul class="cert-providers-grid" role="list">
+            {% for provider in term.pages %}
+            <li class="cert-provider-item">
+                <a href="{{ provider.permalink }}" class="cert-provider-link">
+                    <strong class="provider-name">{{ provider.title }}</strong>
+                    {% if provider.extra.country %}
+                    <span class="provider-country">{{ provider.extra.country }}</span>
+                    {% endif %}
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    </section>
+    {% endif %}
+
+    <nav class="cert-nav" aria-label="{{ trans(key="back_to_providers_from_cert", lang=lang) }}">
+        {% if lang == "en" %}
+        <a href="/en/providers/" class="btn btn-secondary">
+        {% else %}
+        <a href="/providers/" class="btn btn-secondary">
+        {% endif %}
+            {{ trans(key="back_to_providers_from_cert", lang=lang) }}
+        </a>
+    </nav>
+</article>
+{% endblock %}

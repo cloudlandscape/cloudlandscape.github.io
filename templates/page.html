@@ -76,7 +76,11 @@
             <div class="certification-badge">
                 <span class="cert-icon" aria-hidden="true">✓</span>
                 <div class="cert-info">
-                    <strong class="cert-name">{{ cert | upper }}</strong>
+                    {% if page.lang == "en" %}
+                    <a href="/en/certifications/{{ cert }}/" class="cert-name-link">{{ cert | upper }}</a>
+                    {% else %}
+                    <a href="/certifications/{{ cert }}/" class="cert-name-link">{{ cert | upper }}</a>
+                    {% endif %}
                     {% if page.extra.certification_links and page.extra.certification_links[cert] %}
                     <a href="{{ page.extra.certification_links[cert] }}" target="_blank" rel="noopener noreferrer" class="cert-link">
                         {{ trans(key="view_attestation", lang=page.lang) }} <span class="external-icon" aria-label="{{ trans(key="opens_in_new_tab", lang=page.lang) }}">↗</span>

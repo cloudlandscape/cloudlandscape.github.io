@@ -75,7 +75,7 @@ development_status:
   epic-2-retrospective: optional
 
   # ─── Epic 3: Multilingual & Accessible Platform ─── IN PROGRESS 🔄
-  epic-3: in-progress
+  epic-3: done
   3-1-switch-language-between-french-and-english: done
   3-2-display-all-provider-listings-in-both-languages: done
   3-3-display-ui-navigation-and-elements-in-both-languages: done
@@ -83,20 +83,20 @@ development_status:
   3-5-keyboard-navigation-for-all-features: done
   3-6-screen-reader-support-for-all-content: done
   3-7-sufficient-color-contrast-wcag-2-1-aa: done  # Merged via PR #7 (brand identity)
-  3-8-provide-skip-navigation-links: backlog
-  3-9-use-semantic-html-structure: backlog
-  3-10-provide-clear-focus-indicators: backlog
+  3-8-provide-skip-navigation-links: done
+  3-9-use-semantic-html-structure: done
+  3-10-provide-clear-focus-indicators: done
   epic-3-retrospective: optional
 
-  # ─── Epic 4: Content Generation & Static Site Architecture ─── IN PROGRESS 🔄
-  epic-4: in-progress
+  # ─── Epic 4: Content Generation & Static Site Architecture ─── COMPLETE ✅
+  epic-4: done
   4-1-generate-provider-listing-page-from-yaml-data: done
   4-2-generate-individual-provider-detail-pages: done
   4-3-generate-comparison-pages-with-dynamic-urls: done
-  4-4-generate-certification-explainer-pages: backlog
+  4-4-generate-certification-explainer-pages: done
   4-5-generate-xml-sitemap-for-search-engines: done
   4-6-generate-multilingual-links-with-hreflang-tags: done
-  4-7-optimize-build-performance-for-incremental-changes: backlog
+  4-7-optimize-build-performance-for-incremental-changes: done
   epic-4-retrospective: optional
 
   # ─── Epic 5: Responsive & Progressive Design ───

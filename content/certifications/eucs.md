@@ -47,10 +47,6 @@ EUCS s'inscrit dans l'écosystème réglementaire européen :
 
 Certains providers anticipent la certification et préparent leur conformité avec les exigences d'EUCS niveau Substantial.
 
-## Providers en préparation EUCS
-
-Consultez notre [liste de providers](/providers/) pour identifier les fournisseurs qui préparent activement leur certification EUCS.
-
 ## Ressources officielles
 
 - [ENISA - EUCS](https://www.enisa.europa.eu/publications/eucs-cloud-service-scheme)

@@ -21,7 +21,7 @@
     </div>
 </noscript>
 
-<div class="filters-container" role="region" aria-label="Search and filter options">
+<section class="filters-container" aria-label="{{ trans(key="search_filter_label", lang=section.lang) }}">
     <div class="search-container">
         <label for="search-input">{{ trans(key="search_label", lang=section.lang) }}</label>
         <input 
@@ -75,7 +75,7 @@
     
     <button class="filter-reset" aria-label="{{ trans(key="reset_filters", lang=section.lang) }}">{{ trans(key="reset_filters", lang=section.lang) }}</button>
     </div>
-</div>
+</section>
 
 <p class="result-count" role="status" aria-live="polite"
    data-template-all="{{ trans(key="result_template_all", lang=section.lang) }}"

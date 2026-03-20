@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %}{{ page.title }} - {{ config.title }}{% endblock %}
+
+{% block content %}
+<article class="cert-explainer">
+    <header class="cert-header">
+        <h1>{{ page.title }}</h1>
+        {% if page.description %}
+        <p class="cert-tagline">{{ page.description }}</p>
+        {% endif %}
+    </header>
+
+    <div class="cert-body">
+        {{ page.content | safe }}
+    </div>
+
+    {# Dynamic provider list from taxonomy data #}
+    {% set cert_term = get_taxonomy_term(taxonomy="certifications", term=page.slug, lang=lang) %}
+    {% if cert_term and cert_term.pages %}
+    <section class="cert-providers-section" aria-labelledby="certified-providers-heading">
+        <h2 id="certified-providers-heading">
+            {{ trans(key="certified_providers_heading", lang=lang) }}
+        </h2>
+        <p class="section-intro">{{ trans(key="certified_providers_intro", lang=lang) }}</p>
+        <ul class="cert-providers-grid" role="list">
+            {% for provider in cert_term.pages %}
+            <li class="cert-provider-item">
+                <a href="{{ provider.permalink }}" class="cert-provider-link">
+                    <strong class="provider-name">{{ provider.title }}</strong>
+                    {% if provider.extra.country %}
+                    <span class="provider-country">{{ provider.extra.country }}</span>
+                    {% endif %}
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    </section>
+    {% endif %}
+
+    <nav class="cert-nav" aria-label="{{ trans(key="back_to_providers_from_cert", lang=lang) }}">
+        {% if lang == "en" %}
+        <a href="/en/providers/" class="btn btn-secondary">
+        {% else %}
+        <a href="/providers/" class="btn btn-secondary">
+        {% endif %}
+            {{ trans(key="back_to_providers_from_cert", lang=lang) }}
+        </a>
+    </nav>
+</article>
+{% endblock %}
