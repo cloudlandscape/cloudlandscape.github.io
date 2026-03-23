@@ -66,65 +66,15 @@
         window.location.href = newPath;
     }
     
-    // Create language switcher UI
-    function createLanguageSwitcher() {
-        const currentLang = getCurrentLanguage();
-        
-        const switcher = document.createElement('div');
-        switcher.className = 'language-switcher';
-        switcher.setAttribute('role', 'group');
-        switcher.setAttribute('aria-label', 'Language selection');
-        
-        switcher.innerHTML = `
-            <button class="lang-btn ${currentLang === 'fr' ? 'active' : ''}" 
-                    data-lang="fr" 
-                    aria-label="FR — Français"
-                    aria-pressed="${currentLang === 'fr' ? 'true' : 'false'}">
-                FR
-            </button>
-            <span class="lang-separator" aria-hidden="true">|</span>
-            <button class="lang-btn ${currentLang === 'en' ? 'active' : ''}" 
-                    data-lang="en" 
-                    aria-label="EN — English"
-                    aria-pressed="${currentLang === 'en' ? 'true' : 'false'}">
-                EN
-            </button>
-        `;
-        
-        // Add to navigation
-        const nav = document.querySelector('nav');
-        if (nav) {
-            nav.appendChild(switcher);
-        }
-        
-        // Add event listeners
-        switcher.querySelectorAll('.lang-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                const lang = this.dataset.lang;
-                switchLanguage(lang);
-            });
-        });
-    }
-    
-    // Detect and apply language on page load
-    function applyLanguageOnLoad() {
-        const currentLang = getCurrentLanguage();
-        const path = window.location.pathname;
-        
-        // Check if we're on the wrong language version
-        const isEnPath = path.startsWith('/en/');
-        const shouldBeEn = currentLang === 'en';
-        
-        if (isEnPath !== shouldBeEn) {
-            // Redirect to correct language version
-            switchLanguage(currentLang);
-        }
-    }
-    
     // Initialize
     function init() {
-        // Don't auto-redirect on first load, just create switcher
-        createLanguageSwitcher();
+        // Attach click handlers to the server-rendered .lang-btn elements (data-lang attribute)
+        // This replaces the need for inline onclick attributes (CSP: no unsafe-inline for scripts)
+        document.querySelectorAll('.lang-btn[data-lang]').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                switchLanguage(this.dataset.lang);
+            });
+        });
     }
     
     // Initialize when DOM is ready

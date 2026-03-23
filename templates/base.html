@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {# Security headers — GitHub Pages cannot set HTTP headers; use meta equivalents where possible #}
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'none'; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
     <title>{% block title %}{{ config.title }}{% endblock %}</title>
     {% if page.description %}
     <meta name="description" content="{{ page.description }}">
@@ -27,8 +30,11 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=DM+Mono:wght@300;400&display=swap" onload="this.onload=null;this.rel='stylesheet'" />
+    {# Font loading: preload link is activated by font-loader.js (avoids inline onload = CSP unsafe-inline) #}
+    <link rel="preload" as="style" id="google-fonts-preload"
+          href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=DM+Mono:wght@300;400&display=swap" />
     <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=DM+Mono:wght@300;400&display=swap" /></noscript>
+    <script src="/font-loader.js"></script>
 
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230B1D2E'/%3E%3Cellipse cx='11' cy='19' rx='7' ry='5' fill='none' stroke='%237EC8C8' stroke-width='1.5'/%3E%3Cellipse cx='17' cy='15' rx='7' ry='6' fill='none' stroke='%237EC8C8' stroke-width='1.5'/%3E%3Cellipse cx='23' cy='18' rx='6' ry='5' fill='none' stroke='%237EC8C8' stroke-width='1.5'/%3E%3Cline x1='4' y1='24' x2='28' y2='24' stroke='%234A7FA5' stroke-width='1.2'/%3E%3Cpolyline points='4,27 9,25 15,26 21,24 27,26 28,27' fill='none' stroke='%234A7FA5' stroke-width='0.9' opacity='0.7'/%3E%3C/svg%3E" />
 
@@ -52,11 +58,11 @@
         <a href="/providers/">Providers</a>
         <div role="group" class="language-switcher" aria-label="{{ trans(key="lang_nav_label", lang=lang) }}">
             <button class="lang-btn{% if lang == 'fr' %} active{% endif %}"
-                    onclick="switchLanguage('fr')"
+                    data-lang="fr"
                     aria-label="{{ trans(key="lang_fr_label", lang=lang) }}"
                     aria-pressed="{% if lang == 'fr' %}true{% else %}false{% endif %}">FR</button>
             <button class="lang-btn{% if lang == 'en' %} active{% endif %}"
-                    onclick="switchLanguage('en')"
+                    data-lang="en"
                     aria-label="{{ trans(key="lang_en_label", lang=lang) }}"
                     aria-pressed="{% if lang == 'en' %}true{% else %}false{% endif %}">EN</button>
         </div>

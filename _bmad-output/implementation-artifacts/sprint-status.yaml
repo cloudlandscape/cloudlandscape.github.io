@@ -134,7 +134,7 @@ development_status:
   7-5-monitor-ci-cd-pipeline-status: done
   7-6-rollback-failed-deployments: done
   7-7-monitor-uptime-and-performance-metrics: in-progress
-  7-8-ensure-security-headers-are-configured: in-progress
+  7-8-ensure-security-headers-are-configured: done
   7-9-validate-supply-chain-security: done
   7-10-maintain-high-lighthouse-scores: done
   7-11-integrate-axe-core-accessibility-testing: done

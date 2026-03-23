@@ -129,13 +129,15 @@
                     <button class="btn-clear-comparison">Clear All</button>
                 </div>
                 <div class="comparison-list"></div>
-                <button class="btn btn-compare" style="display: none;">
+                <button class="btn btn-compare">
                     Compare Now →
                 </button>
             </div>
         `;
         
         document.body.appendChild(bar);
+        // Hide compare button until MIN_COMPARE providers are selected (avoids inline style= in HTML)
+        bar.querySelector('.btn-compare').style.display = 'none';
         
         // Add event listeners
         bar.querySelector('.btn-clear-comparison').addEventListener('click', clearComparison);
