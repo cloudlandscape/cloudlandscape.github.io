@@ -100,7 +100,7 @@ development_status:
   epic-4-retrospective: optional
 
   # ─── Epic 5: Responsive & Progressive Design ───
-  epic-5: in-progress
+  epic-5: done
   5-1-display-responsive-provider-listing-on-mobile: done
   5-2-display-responsive-provider-listing-on-tablet: done
   5-3-display-responsive-provider-listing-on-desktop: done
