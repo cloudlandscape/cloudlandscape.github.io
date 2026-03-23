@@ -349,21 +349,71 @@ h2 {
     margin: 1rem 0;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
+/* ─── PROVIDERS SIDEBAR LAYOUT ───────────────────────────────── */
+
+/* Mobile-first: stacked layout */
+.providers-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+/* Hide the filter toggle by default — mobile.js shows it on ≤768px */
+.filters-toggle {
+    display: none;
+}
+
+/* ─── TABLET (768px+): sidebar layout ────────────────────────── */
+@media (min-width: 768px) {
+    .providers-layout {
+        grid-template-columns: 240px 1fr;
+        gap: 2rem;
+        align-items: start;
+        margin-top: 1rem;
+    }
+
+    .providers-sidebar {
+        /* Stick sidebar to top while scrolling the grid */
+        position: sticky;
+        top: 1rem;
+    }
+
+    .filters-container {
+        margin: 0; /* layout handles spacing, no extra margin needed */
+    }
+
+    /* 2-column provider grid on tablet */
+    .provider-grid {
+        grid-template-columns: repeat(2, 1fr);
+        margin-top: 0;
+    }
+}
+
+/* ─── DESKTOP (1024px+): wider sidebar + 3-column grid ───────── */
+@media (min-width: 1024px) {
+    .providers-layout {
+        grid-template-columns: 260px 1fr;
+    }
+
+    .provider-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* ─── MOBILE (<768px): collapsible filters ───────────────────── */
+@media (max-width: 767px) {
     .provider-grid {
         grid-template-columns: 1fr;
     }
-    
+
     body {
         padding: 0.5rem;
     }
-    
+
     /* Collapsible filters on mobile */
     .filters-container {
         position: relative;
     }
-    
+
     .filters-toggle {
         display: block;
         width: 100%;
@@ -385,45 +435,45 @@ h2 {
         background: var(--aurora);
         color: var(--contrast);
     }
-    
+
     .filters-content {
         display: none;
     }
-    
+
     .filters-content.open {
         display: block;
     }
-    
-    /* Touch-friendly buttons */
+
+    /* Touch-friendly buttons (≥44px) */
     .btn,
     .filter-checkbox,
     .lang-btn {
         min-height: 44px;
         min-width: 44px;
     }
-    
+
     .filter-group label {
         padding: 0.5rem 0;
         min-height: 44px;
         display: flex;
         align-items: center;
     }
-    
+
     /* Mobile navigation */
     nav {
         flex-wrap: wrap;
         gap: 0.5rem;
     }
-    
+
     nav a {
         margin-right: 0.5rem;
     }
-    
+
     /* Comparison bar on mobile */
     .comparison-bar {
         padding: 0.5rem;
     }
-    
+
     .comparison-item {
         font-size: 0.9rem;
     }
@@ -658,7 +708,7 @@ h2 {
     color: var(--cloud-white);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
     .provider-actions {
         flex-direction: column;
     }
@@ -825,7 +875,7 @@ h2 {
     background: var(--sky-pale) !important;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
     .comparison-content {
         flex-direction: column;
         align-items: stretch;

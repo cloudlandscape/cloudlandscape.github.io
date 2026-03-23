@@ -21,6 +21,8 @@
     </div>
 </noscript>
 
+<div class="providers-layout">
+<div class="providers-sidebar">
 <section class="filters-container" aria-label="{{ trans(key="search_filter_label", lang=section.lang) }}">
     <div class="search-container">
         <label for="search-input">{{ trans(key="search_label", lang=section.lang) }}</label>
@@ -76,7 +78,9 @@
     <button class="filter-reset" aria-label="{{ trans(key="reset_filters", lang=section.lang) }}">{{ trans(key="reset_filters", lang=section.lang) }}</button>
     </div>
 </section>
+</div>{# /providers-sidebar #}
 
+<div class="providers-main">
 <p class="result-count" role="status" aria-live="polite"
    data-template-all="{{ trans(key="result_template_all", lang=section.lang) }}"
    data-template-filtered="{{ trans(key="result_template_filtered", lang=section.lang) }}">
@@ -136,6 +140,8 @@
 {% else %}
 <p>No providers found.</p>
 {% endif %}
+</div>{# /providers-main #}
+</div>{# /providers-layout #}
 
 <script src="/filter.js"></script>
 {% endblock %}
