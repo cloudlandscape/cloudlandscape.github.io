@@ -7,20 +7,59 @@
 
 <noscript>
     <style>
-        .noscript_message {
-            background: #fff3cd;
-            border: 2px solid #ffc107;
-            padding: 1rem;
-            margin: 1rem 0;
-            border-radius: 4px;
-        }
         .filters-container { display: none; }
+        .noscript-filter-nav {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid var(--slate);
+            padding: 1.5rem;
+            border-radius: 4px;
+            margin: 1rem 0;
+        }
+        .noscript-filter-nav > p { margin-bottom: 1rem; font-size: 0.9rem; color: var(--horizon); }
+        .noscript-filter-group { margin-bottom: 1rem; }
+        .noscript-filter-group h2 { font-family: monospace; font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--horizon); margin-bottom: 0.5rem; }
+        .noscript-filter-nav ul { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 0.4rem; }
+        .noscript-filter-nav a { color: var(--aurora); text-decoration: underline; font-size: 0.9rem; }
     </style>
-    <div class="noscript-message">
-        <strong>Note:</strong> {{ trans(key="noscript_message", lang=section.lang) }}
-    </div>
+    {# Build language-aware base path for taxonomy URLs #}
+    {% if section.lang == "en" %}{% set base = "/en" %}{% else %}{% set base = "" %}{% endif %}
+    <nav class="noscript-filter-nav" aria-label="{{ trans(key="noscript_filter_title", lang=section.lang) }}">
+        <p>{{ trans(key="noscript_message", lang=section.lang) }}</p>
+        <div class="noscript-filter-group">
+            <h2>{{ trans(key="services_legend", lang=section.lang) }}</h2>
+            <ul>
+                <li><a href="{{ base }}/services/compute/">Compute</a></li>
+                <li><a href="{{ base }}/services/kubernetes/">Kubernetes</a></li>
+                <li><a href="{{ base }}/services/object-storage/">Object Storage</a></li>
+                <li><a href="{{ base }}/services/database/">Database</a></li>
+                <li><a href="{{ base }}/services/paas/">PaaS</a></li>
+                <li><a href="{{ base }}/services/caas/">CaaS</a></li>
+                <li><a href="{{ base }}/services/iam/">IAM</a></li>
+                <li><a href="{{ base }}/services/api-gateway/">API Gateway</a></li>
+            </ul>
+        </div>
+        <div class="noscript-filter-group">
+            <h2>{{ trans(key="certifications_legend", lang=section.lang) }}</h2>
+            <ul>
+                <li><a href="{{ base }}/certifications/secnumcloud/">SecNumCloud</a></li>
+                <li><a href="{{ base }}/certifications/hds/">HDS</a></li>
+                <li><a href="{{ base }}/certifications/eucs/">EUCS</a></li>
+            </ul>
+        </div>
+        <div class="noscript-filter-group">
+            <h2>{{ trans(key="countries_legend", lang=section.lang) }}</h2>
+            <ul>
+                <li><a href="{{ base }}/countries/france/">France</a></li>
+                <li><a href="{{ base }}/countries/germany/">Germany</a></li>
+                <li><a href="{{ base }}/countries/switzerland/">Switzerland</a></li>
+                <li><a href="{{ base }}/countries/usa/">United States</a></li>
+            </ul>
+        </div>
+    </nav>
 </noscript>
 
+<div class="providers-layout">
+<div class="providers-sidebar">
 <section class="filters-container" aria-label="{{ trans(key="search_filter_label", lang=section.lang) }}">
     <div class="search-container">
         <label for="search-input">{{ trans(key="search_label", lang=section.lang) }}</label>
@@ -76,7 +115,9 @@
     <button class="filter-reset" aria-label="{{ trans(key="reset_filters", lang=section.lang) }}">{{ trans(key="reset_filters", lang=section.lang) }}</button>
     </div>
 </section>
+</div>{# /providers-sidebar #}
 
+<div class="providers-main">
 <p class="result-count" role="status" aria-live="polite"
    data-template-all="{{ trans(key="result_template_all", lang=section.lang) }}"
    data-template-filtered="{{ trans(key="result_template_filtered", lang=section.lang) }}">
@@ -136,6 +177,8 @@
 {% else %}
 <p>No providers found.</p>
 {% endif %}
+</div>{# /providers-main #}
+</div>{# /providers-layout #}
 
 <script src="/filter.js"></script>
 {% endblock %}

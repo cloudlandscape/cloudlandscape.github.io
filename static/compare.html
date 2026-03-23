@@ -42,6 +42,12 @@
             border: 1px solid var(--slate);
             text-align: left;
             color: var(--cloud-white);
+            /* Minimum column width prevents text from collapsing on small screens */
+            min-width: 120px;
+        }
+        
+        .comparison-table tbody th {
+            min-width: 140px; /* row labels get a little more room */
         }
         
         .comparison-table thead th {

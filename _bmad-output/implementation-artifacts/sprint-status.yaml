@@ -100,15 +100,15 @@ development_status:
   epic-4-retrospective: optional
 
   # ─── Epic 5: Responsive & Progressive Design ───
-  epic-5: backlog
-  5-1-display-responsive-provider-listing-on-mobile: backlog
-  5-2-display-responsive-provider-listing-on-tablet: backlog
-  5-3-display-responsive-provider-listing-on-desktop: backlog
-  5-4-responsive-provider-comparison-table: backlog
-  5-5-progressive-enhancement-filter-works-without-javascript: backlog
-  5-6-images-optimized-for-different-viewports: backlog
-  5-7-no-layout-shift-during-page-load: backlog
-  5-8-progressive-content-loading-and-skeleton-states: backlog
+  epic-5: done
+  5-1-display-responsive-provider-listing-on-mobile: done
+  5-2-display-responsive-provider-listing-on-tablet: done
+  5-3-display-responsive-provider-listing-on-desktop: done
+  5-4-responsive-provider-comparison-table: done
+  5-5-progressive-enhancement-filter-works-without-javascript: done
+  5-6-images-optimized-for-different-viewports: done
+  5-7-no-layout-shift-during-page-load: done
+  5-8-progressive-content-loading-and-skeleton-states: done
   epic-5-retrospective: optional
 
   # ─── Epic 6: Data Quality & Community Contribution Workflow ───

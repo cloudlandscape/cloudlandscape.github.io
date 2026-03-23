@@ -1,12 +1,10 @@
 name: CI
 
 on:
-  pull_request:
-    paths:
-      - 'templates/**'
-      - 'static/**'
-      - 'content/**'
   push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
 
 permissions: {}
 
@@ -15,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v6.0.1
+        uses: actions/checkout@v6
 
       - name: Build Zola
         uses: getzola/github-pages@066755243e69f508fd1a74739fbf1a65f656c790
@@ -25,7 +23,7 @@ jobs:
           check_flags: "--skip-external-links"
 
       - name: Upload build artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: public
           path: public/
@@ -36,7 +34,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Download build artifact
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: public
           path: public/
@@ -67,10 +65,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v6.0.1
+        uses: actions/checkout@v6
 
       - name: Download build artifact
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: public
           path: public/

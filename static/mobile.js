@@ -10,9 +10,9 @@
         
         if (!toggle || !content) return;
         
-        // Check screen size
+        // Check screen size — mirrors CSS breakpoint max-width: 767px
         function isMobile() {
-            return window.innerWidth <= 768;
+            return window.innerWidth < 768;
         }
         
         // Show/hide filters based on screen size

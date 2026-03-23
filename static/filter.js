@@ -118,7 +118,9 @@
             search: urlParams.search
         };
         
-        // Apply initial filters from URL
+        const grid = document.querySelector('.provider-grid');
+        
+        // Apply initial filters from URL (no shimmer on first load — content already visible)
         const visibleCount = filterProviders(providers, activeFilters);
         updateResultCount(visibleCount, providers.length);
         
@@ -128,9 +130,19 @@
             searchInput.value = activeFilters.search;
             searchInput.addEventListener('input', function() {
                 activeFilters.search = this.value;
-                const visible = filterProviders(providers, activeFilters);
-                updateResultCount(visible, providers.length);
-                updateUrl(activeFilters);
+                if (grid) {
+                    grid.classList.add('is-filtering');
+                    requestAnimationFrame(function() {
+                        const visible = filterProviders(providers, activeFilters);
+                        updateResultCount(visible, providers.length);
+                        grid.classList.remove('is-filtering');
+                        updateUrl(activeFilters);
+                    });
+                } else {
+                    const visible = filterProviders(providers, activeFilters);
+                    updateResultCount(visible, providers.length);
+                    updateUrl(activeFilters);
+                }
             });
         }
         
@@ -156,9 +168,19 @@
                     }
                 }
                 
-                const visible = filterProviders(providers, activeFilters);
-                updateResultCount(visible, providers.length);
-                updateUrl(activeFilters);
+                if (grid) {
+                    grid.classList.add('is-filtering');
+                    requestAnimationFrame(function() {
+                        const visible = filterProviders(providers, activeFilters);
+                        updateResultCount(visible, providers.length);
+                        grid.classList.remove('is-filtering');
+                        updateUrl(activeFilters);
+                    });
+                } else {
+                    const visible = filterProviders(providers, activeFilters);
+                    updateResultCount(visible, providers.length);
+                    updateUrl(activeFilters);
+                }
             });
             
             // Check initial state from URL
@@ -183,9 +205,19 @@
                 
                 document.querySelectorAll('.filter-checkbox').forEach(cb => cb.checked = false);
                 if (searchInput) searchInput.value = '';
-                const visible = filterProviders(providers, activeFilters);
-                updateResultCount(visible, providers.length);
-                updateUrl(activeFilters);
+                if (grid) {
+                    grid.classList.add('is-filtering');
+                    requestAnimationFrame(function() {
+                        const visible = filterProviders(providers, activeFilters);
+                        updateResultCount(visible, providers.length);
+                        grid.classList.remove('is-filtering');
+                        updateUrl(activeFilters);
+                    });
+                } else {
+                    const visible = filterProviders(providers, activeFilters);
+                    updateResultCount(visible, providers.length);
+                    updateUrl(activeFilters);
+                }
             });
         }
     }
