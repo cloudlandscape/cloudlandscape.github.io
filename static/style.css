@@ -720,12 +720,15 @@ h2 {
     .provider-meta-grid {
         grid-template-columns: 1fr;
     }
-    
+}
+
+/* Sticky first column + scrollable comparison table on mobile and tablet */
+@media (max-width: 1023px) {
     .comparison-table-wrapper {
         position: relative;
     }
     
-    /* Sticky first column in comparison table */
+    /* Sticky first column (row labels) */
     .comparison-table thead th:first-child,
     .comparison-table tbody th:first-child {
         position: sticky;
@@ -735,12 +738,14 @@ h2 {
         box-shadow: 2px 0 4px rgba(0,0,0,0.3);
     }
     
+    /* Sticky header row */
     .comparison-table thead th {
         position: sticky;
         top: 0;
         z-index: 11;
     }
     
+    /* Corner cell: sticky on both axes */
     .comparison-table thead th:first-child {
         z-index: 12;
     }
