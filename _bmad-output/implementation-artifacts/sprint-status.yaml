@@ -126,14 +126,14 @@ development_status:
   epic-6-retrospective: optional
 
   # ─── Epic 7: Maintainer Operations & Reliability ───
-  epic-7: in-progress
+  epic-7: done
   7-1-review-pull-requests-with-validation-status: done
   7-2-approve-provider-submissions-and-request-changes: done
   7-3-merge-approved-pull-requests: done
   7-4-trigger-site-regeneration-after-updates: done
   7-5-monitor-ci-cd-pipeline-status: done
   7-6-rollback-failed-deployments: done
-  7-7-monitor-uptime-and-performance-metrics: in-progress
+  7-7-monitor-uptime-and-performance-metrics: done
   7-8-ensure-security-headers-are-configured: done
   7-9-validate-supply-chain-security: done
   7-10-maintain-high-lighthouse-scores: done
