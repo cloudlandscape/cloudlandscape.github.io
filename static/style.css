@@ -36,13 +36,19 @@ body {
     max-width: 1200px;
     margin: 0 auto;
     padding: 1rem;
+    /* Reduce CLS during font swap: adjusts fallback (Georgia) x-height to match Cormorant Garamond */
+    font-size-adjust: 0.42;
+    /* Prevent iOS from auto-adjusting font size (would cause text reflow = CLS) */
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
 }
 
-/* Prevent CLS for images */
+/* Prevent CLS for images — always set explicit width/height in HTML too */
 img {
     max-width: 100%;
     height: auto;
     display: block;
+    /* Use loading="lazy" and explicit width/height attributes on all <img> elements */
 }
 
 /* Navigation */
@@ -1264,3 +1270,40 @@ a:hover {
     border-radius: 2px;
 }
 
+
+/* ─── SKELETON LOADING STATE ─────────────────────────────────── */
+
+@keyframes skeleton-shimmer {
+    0%   { background-position: -200% center; }
+    100% { background-position:  200% center; }
+}
+
+/* Applied to .provider-grid while a filter operation is in flight */
+.provider-grid.is-filtering .provider-card {
+    position: relative;
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+/* Shimmer overlay on each card during filtering */
+.provider-grid.is-filtering .provider-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 4px;
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(126, 200, 200, 0.08) 50%,
+        transparent 100%
+    );
+    background-size: 200% 100%;
+    animation: skeleton-shimmer 0.8s ease-in-out;
+    pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .provider-grid.is-filtering .provider-card::after {
+        animation: none;
+    }
+}
