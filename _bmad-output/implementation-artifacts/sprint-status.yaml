@@ -112,30 +112,30 @@ development_status:
   epic-5-retrospective: optional
 
   # ─── Epic 6: Data Quality & Community Contribution Workflow ───
-  epic-6: backlog
-  6-1-provide-contribution-guidelines: backlog
-  6-2-provide-yaml-template-for-provider-submissions: backlog
-  6-3-validate-provider-yaml-against-schema: backlog
-  6-4-detect-broken-external-links-in-provider-data: backlog
-  6-5-validate-certification-attestation-urls: backlog
-  6-6-prevent-duplicate-provider-entries: backlog
-  6-7-show-validation-feedback-in-pr: backlog
-  6-8-provide-clear-error-messages-for-contributions: backlog
-  6-9-show-contributor-their-published-contribution: backlog
-  6-10-validate-provider-schema-in-ci: backlog
+  epic-6: done
+  6-1-provide-contribution-guidelines: done
+  6-2-provide-yaml-template-for-provider-submissions: done
+  6-3-validate-provider-yaml-against-schema: done
+  6-4-detect-broken-external-links-in-provider-data: done
+  6-5-validate-certification-attestation-urls: done
+  6-6-prevent-duplicate-provider-entries: done
+  6-7-show-validation-feedback-in-pr: done
+  6-8-provide-clear-error-messages-for-contributions: done
+  6-9-show-contributor-their-published-contribution: done
+  6-10-validate-provider-schema-in-ci: done
   epic-6-retrospective: optional
 
   # ─── Epic 7: Maintainer Operations & Reliability ───
-  epic-7: backlog
-  7-1-review-pull-requests-with-validation-status: backlog
-  7-2-approve-provider-submissions-and-request-changes: backlog
-  7-3-merge-approved-pull-requests: backlog
-  7-4-trigger-site-regeneration-after-updates: backlog
-  7-5-monitor-ci-cd-pipeline-status: backlog
-  7-6-rollback-failed-deployments: backlog
-  7-7-monitor-uptime-and-performance-metrics: backlog
-  7-8-ensure-security-headers-are-configured: backlog
-  7-9-validate-supply-chain-security: backlog
-  7-10-maintain-high-lighthouse-scores: backlog
-  7-11-integrate-axe-core-accessibility-testing: backlog
+  epic-7: in-progress
+  7-1-review-pull-requests-with-validation-status: done
+  7-2-approve-provider-submissions-and-request-changes: done
+  7-3-merge-approved-pull-requests: done
+  7-4-trigger-site-regeneration-after-updates: done
+  7-5-monitor-ci-cd-pipeline-status: done
+  7-6-rollback-failed-deployments: done
+  7-7-monitor-uptime-and-performance-metrics: in-progress
+  7-8-ensure-security-headers-are-configured: in-progress
+  7-9-validate-supply-chain-security: done
+  7-10-maintain-high-lighthouse-scores: done
+  7-11-integrate-axe-core-accessibility-testing: done
   epic-7-retrospective: optional
