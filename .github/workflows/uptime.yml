@@ -1,0 +1,34 @@
+name: Uptime Check
+
+on:
+  schedule:
+    # Run every 6 hours
+    - cron: '0 */6 * * *'
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  ping:
+    name: Ping site
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Check homepage (FR)
+        run: |
+          STATUS=$(curl -o /dev/null -s -w "%{http_code}" --max-time 15 https://cloudlandscape.github.io/)
+          echo "Homepage status: $STATUS"
+          [ "$STATUS" = "200" ] || exit 1
+
+      - name: Check homepage (EN)
+        run: |
+          STATUS=$(curl -o /dev/null -s -w "%{http_code}" --max-time 15 https://cloudlandscape.github.io/en/)
+          echo "EN homepage status: $STATUS"
+          [ "$STATUS" = "200" ] || exit 1
+
+      - name: Check providers listing
+        run: |
+          STATUS=$(curl -o /dev/null -s -w "%{http_code}" --max-time 15 https://cloudlandscape.github.io/providers/)
+          echo "Providers listing status: $STATUS"
+          [ "$STATUS" = "200" ] || exit 1

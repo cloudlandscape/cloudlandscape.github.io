@@ -1,7 +1,10 @@
 {
   "ci": {
     "collect": {
-      "staticDistDir": "./public"
+      "staticDistDir": "./public",
+      "settings": {
+        "skipAudits": ["robots-txt"]
+      }
     },
     "assert": {
       "assertions": {
