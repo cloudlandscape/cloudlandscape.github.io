@@ -6,6 +6,16 @@
     var yearEl = document.getElementById('current-year');
     if (yearEl) { yearEl.textContent = new Date().getFullYear(); }
 
+    // Escape HTML special characters to prevent XSS when inserting untrusted text into innerHTML
+    function escapeHtml(str) {
+        return String(str)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#39;');
+    }
+
     // Get provider slugs from URL query string
     function getProvidersFromUrl() {
         const params = new URLSearchParams(window.location.search);
@@ -38,7 +48,7 @@
 
             return { slug, title, country, services, certifications, datacenters };
         } catch (e) {
-            console.error(`Failed to fetch data for ${slug}`, e);
+            console.error('Failed to fetch data for provider:', slug, e);
             return { slug, title: slug, country: 'Unknown', services: [], certifications: [], datacenters: [] };
         }
     }
@@ -68,19 +78,19 @@
 
         html += '<thead><tr><th scope="col">Feature</th>';
         providers.forEach(p => {
-            html += `<th scope="col"><a href="/providers/${p.slug}/" class="provider-link">${p.title}</a></th>`;
+            html += `<th scope="col"><a href="/providers/${escapeHtml(p.slug)}/" class="provider-link">${escapeHtml(p.title)}</a></th>`;
         });
         html += '</tr></thead><tbody>';
 
         // Country row
         html += '<tr><th scope="row">Country</th>';
-        providers.forEach(p => { html += `<td>${p.country}</td>`; });
+        providers.forEach(p => { html += `<td>${escapeHtml(p.country)}</td>`; });
         html += '</tr>';
 
         // Service rows
         html += `<tr><th colspan="${providers.length + 1}" class="section-divider">Services</th></tr>`;
         services.forEach(service => {
-            html += `<tr><th scope="row">${service}</th>`;
+            html += `<tr><th scope="row">${escapeHtml(service)}</th>`;
             providers.forEach(p => {
                 const has = p.services.some(s => s.toLowerCase() === service.toLowerCase());
                 html += `<td>${has
@@ -93,7 +103,7 @@
         // Certification rows
         html += `<tr><th colspan="${providers.length + 1}" class="section-divider">Certifications</th></tr>`;
         certifications.forEach(cert => {
-            html += `<tr><th scope="row">${cert}</th>`;
+            html += `<tr><th scope="row">${escapeHtml(cert)}</th>`;
             providers.forEach(p => {
                 const has = p.certifications.some(c => c.toUpperCase() === cert);
                 const className = has ? 'cert-yes' : 'cert-no';
@@ -109,7 +119,7 @@
         html += '<tr><th scope="row">Datacenters</th>';
         providers.forEach(p => {
             const locations = p.datacenters && p.datacenters.length > 0
-                ? p.datacenters.join(', ')
+                ? p.datacenters.map(escapeHtml).join(', ')
                 : 'Not specified';
             html += `<td>${locations}</td>`;
         });

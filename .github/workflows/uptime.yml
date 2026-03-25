@@ -6,10 +6,14 @@ on:
     - cron: '0 */6 * * *'
   workflow_dispatch:
 
+permissions: {}
+
 jobs:
   ping:
     name: Ping site
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - name: Check homepage (FR)
         run: |
