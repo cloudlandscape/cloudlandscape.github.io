@@ -14,3 +14,13 @@ package.json
 bun.lock
 
 .lighthouseci/
+
+# AI stuff
+.mcp.json
+# Claude and co
+.claude*
+.swarm/
+ruvector.db
+# Mempalace
+entities.json
+mempalace.yaml
