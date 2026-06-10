@@ -19,7 +19,7 @@ datacenter_locations = ["Paris", "Amsterdam", "Warsaw", "Milan"]
 hds = "https://security.scaleway.com"
 +++
 
-Scaleway is a **100% European cloud provider** — founded in 1999 in Paris and a subsidiary of the **Iliad group** (Xavier Niel). The company offers over **100 cloud, AI, and quantum products** from its multi-availability-zone regions in France, the Netherlands, Poland, and Italy (opening March 2026). Scaleway has pioneered many firsts: first to offer native IAM, managed Kubernetes, and a European Quantum-as-a-Service.
+Scaleway is a **100% European cloud provider** — founded in 1999 in Paris and a subsidiary of the **Iliad group**. The company offers over **100 cloud, AI, and quantum products** from its multi-availability-zone regions in France, the Netherlands, Poland, and Italy (opening March 2026). Scaleway has pioneered many firsts: first to offer native IAM, managed Kubernetes, and a European Quantum-as-a-Service.
 
 ## Geography
 
