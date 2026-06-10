@@ -1,5 +1,5 @@
 +++
-title = "Thales Trusted Cloud (S3NS)"
+title = "S3NS (Thales Trusted Cloud)"
 slug = "thales-trusted-cloud"
 description = "French SecNumCloud 3.2 qualified trusted cloud: S3NS, a Thales and Google Cloud joint-venture, for critical infrastructure, public sector, and sensitive data."
 
