@@ -19,7 +19,7 @@ datacenter_locations = ["Paris", "Amsterdam", "Varsovie", "Milan"]
 hds = "https://security.scaleway.com"
 +++
 
-Scaleway est un fournisseur de cloud européen **100 % européen** — fondé en 1999 à Paris, filiale du **groupe Iliad** (Xavier Niel). La société propose plus de **100 produits cloud, IA et quantiques** depuis ses régions multi-zones en France, aux Pays-Bas, en Pologne et en Italie (ouverture mars 2026). Scaleway est pionnière sur de nombreux points : première à proposer un IAM natif, un Kubernetes managé et un Quantum-as-a-Service européen.
+Scaleway est un fournisseur de cloud européen **100 % européen** — fondé en 1999 à Paris, filiale du **groupe Iliad**. La société propose plus de **100 produits cloud, IA et quantiques** depuis ses régions multi-zones en France, aux Pays-Bas, en Pologne et en Italie (ouverture mars 2026). Scaleway est pionnière sur de nombreux points : première à proposer un IAM natif, un Kubernetes managé et un Quantum-as-a-Service européen.
 
 ## Géographie
 
