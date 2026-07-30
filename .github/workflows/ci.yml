@@ -6,7 +6,8 @@ on:
   pull_request:
     branches: [ "main" ]
 
-permissions: {}
+permissions:
+  pull-requests: write
 
 jobs:
   build:
@@ -46,6 +47,7 @@ jobs:
         uses: green-coding-solutions/eco-ci-energy-estimation@782dd4a31bc426a6ae26a7b08d89af454b10ffc0
         with:
           task: display-results
+          pr-comment: true
         continue-on-error: true
 
   axe-core:
@@ -96,6 +98,7 @@ jobs:
         uses: green-coding-solutions/eco-ci-energy-estimation@782dd4a31bc426a6ae26a7b08d89af454b10ffc0
         with:
           task: display-results
+          pr-comment: true
         continue-on-error: true
 
   lighthouse:
@@ -138,13 +141,5 @@ jobs:
         uses: green-coding-solutions/eco-ci-energy-estimation@782dd4a31bc426a6ae26a7b08d89af454b10ffc0
         with:
           task: display-results
-        continue-on-error: true
-
-  eco-ci:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Show Energy Results
-        uses: green-coding-solutions/eco-ci-energy-estimation@782dd4a31bc426a6ae26a7b08d89af454b10ffc0
-        with:
-          task: display-results
+          pr-comment: true
         continue-on-error: true
