@@ -12,6 +12,12 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Start Measurement
+        uses: green-coding-solutions/eco-ci-energy-estimation@782dd4a31bc426a6ae26a7b08d89af454b10ffc0
+        with:
+          task: start-measurement
+        continue-on-error: true
+      
       - name: Checkout code
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
 
@@ -29,10 +35,23 @@ jobs:
           path: public/
           retention-days: 1
 
+      - name: Get measurement
+        uses: green-coding-solutions/eco-ci-energy-estimation@782dd4a31bc426a6ae26a7b08d89af454b10ffc0
+        with:
+          task: get-measurement
+          label: 'build'
+        continue-on-error: true
+
   axe-core:
     needs: build
     runs-on: ubuntu-latest
     steps:
+      - name: Start Measurement
+        uses: green-coding-solutions/eco-ci-energy-estimation@782dd4a31bc426a6ae26a7b08d89af454b10ffc0
+        with:
+          task: start-measurement
+        continue-on-error: true
+      
       - name: Download build artifact
         uses: actions/download-artifact@v8
         with:
@@ -60,10 +79,23 @@ jobs:
         if: always()
         run: echo "Accessibility testing completed. Check logs above for any violations."
 
+      - name: Get measurement
+        uses: green-coding-solutions/eco-ci-energy-estimation@782dd4a31bc426a6ae26a7b08d89af454b10ffc0
+        with:
+          task: get-measurement
+          label: 'axe-core'
+        continue-on-error: true
+
   lighthouse:
     needs: build
     runs-on: ubuntu-latest
     steps:
+      - name: Start Measurement
+        uses: green-coding-solutions/eco-ci-energy-estimation@782dd4a31bc426a6ae26a7b08d89af454b10ffc0
+        with:
+          task: start-measurement
+        continue-on-error: true
+      
       - name: Checkout code
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
 
@@ -82,3 +114,19 @@ jobs:
         run: bunx @lhci/cli@0.15.x autorun
         env:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+
+      - name: Get measurement
+        uses: green-coding-solutions/eco-ci-energy-estimation@782dd4a31bc426a6ae26a7b08d89af454b10ffc0
+        with:
+          task: get-measurement
+          label: 'lighthouse'
+        continue-on-error: true
+
+  eco-ci:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Show Energy Results
+        uses: green-coding-solutions/eco-ci-energy-estimation@782dd4a31bc426a6ae26a7b08d89af454b10ffc0
+        with:
+          task: display-results
+        continue-on-error: true
