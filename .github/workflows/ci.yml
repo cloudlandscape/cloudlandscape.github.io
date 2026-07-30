@@ -86,6 +86,12 @@ jobs:
           label: 'axe-core'
         continue-on-error: true
 
+      - name: Show Energy Results
+        uses: green-coding-solutions/eco-ci-energy-estimation@782dd4a31bc426a6ae26a7b08d89af454b10ffc0
+        with:
+          task: display-results
+        continue-on-error: true
+
   lighthouse:
     needs: build
     runs-on: ubuntu-latest
@@ -120,6 +126,12 @@ jobs:
         with:
           task: get-measurement
           label: 'lighthouse'
+        continue-on-error: true
+
+      - name: Show Energy Results
+        uses: green-coding-solutions/eco-ci-energy-estimation@782dd4a31bc426a6ae26a7b08d89af454b10ffc0
+        with:
+          task: display-results
         continue-on-error: true
 
   eco-ci:
