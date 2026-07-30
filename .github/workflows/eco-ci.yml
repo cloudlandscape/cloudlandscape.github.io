@@ -6,7 +6,7 @@ on:
     - cron: '0 0 * * *'
 
 permissions:
-  read-all
+  contents: read
 
 jobs:
   run-tests:
